@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.42;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  13px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 21px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/1421.jpg);">
+	<h2>토네이도의 특징</h2>
+</div>
+<p class="text">
+토네이도는 태풍의 최대 강풍 280 km/h 보다 훨씬 강력한 평균 480 km/h 속력의 회오리 바람으로, 이동 경로 내의 거의 모든 물체를 회전시키며 들어올려 엄청난 피해를 입힙니다. 
+<br>
+한국에서 토네이도가 흔히 일어나지는 않지만 2014년 6월 파주에서 이같은 회오리 바람이 발생해 비닐하우스 파이프가 하늘로 치솟고 전선이 끊어지는 피해가 나기도 했습니다. 
+</p>
+<img class="image" src="img/1422.jpg">
+<p class="text">
+토네이도는 주로 내륙에서 발생하지만, 온도 차이가 나는 대기가 충돌해 뇌우가 생성되고, 뇌우에서 깔때기 모양의 소용돌이 바람이 파생되는 기상 현상은 해상에서도 일어납니다. 
+<br>
+한국에서는 해상 토네이도가 울릉도 부근에서 2~5년에 한번씩 목격되며 ‘용오름’이라고 부릅니다. 
+</p>
+</body>
+</html>

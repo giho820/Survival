@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.43;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  11px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 21px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/2221.jpg);">
+	<h2>탈출 대비</h2>
+</div>
+<p class="text">
+여객선은 승객 탑승 후 제일 먼저 비상시 탈출 방법을 안내하도록 되어 있습니다. 이 때 가장 중요하게 다루어지는 것이 구명조끼와 구명보트, 즉 물에 떠 있을 수 있는 장비들의 위치와 사용 방법입니다. 
+<br>
+탑승한 배에서 별도의 안전 교육을 하지 않는다면 구명보트, 구명조끼, 소화전과 비상용 도끼가 어디에 있는지 미리 눈여겨봐두도록 합니다. 
+</p>
+<img class="image" src="img/2222.png">
+<p class="text">
+구명조끼를 입습니다. 수영을 잘 하는 사람도 깊은 물에서 가라앉지 않고 오래 버티기는 어렵고, 갑자기 찬 물에 빠지면 의식을 잃기도 합니다. 
+<br>
+침몰 속도가 빠르면 바다로 직접 뛰어내려야 할 수도 있고, 구명보트 탑승 후에도 보트가 흔들려 물에 빠질 수도 있습니다.
+<br>
+구명조끼가 부족한 최악의 상황에서는 구명환, 나무판자, 플라스틱 바스켓 등 무엇이든 뜰 수 있는 물체를 안고 탈출합니다.
+</p>
+<img class="image" src="img/2223.png">
+<p class="text">
+잠수복이 있다면 미리 입습니다. 찬 물에 빠졌을 때 체온 유지에 효과적입니다. 
+<br>
+그러나 대피 안내 방송이 나오고 있을 때, 침몰이 임박했을 때 소지품을 가지러 아래층 선실로 내려가는 일은 없어야 합니다. 
+</p>
+<p class="text warn">
+잠수복은 저체온증에 걸리지 않게 할 뿐, 물에 뜨는 데는 도움이 되지 않습니다. <i>구명조끼를 반드시 입어야 합니다.</i>
+</p>
+</body>
+</html>

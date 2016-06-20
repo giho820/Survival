@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 30px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.43;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 20px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -14px;
+}
+
+img.image{
+	width: 100%;
+	margin:  12px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 11px 5%;
+}	
+
+img.vertical{
+	width: 45%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/3411.jpg);">
+	<h2>열사병</h2>
+</div>
+<p class="text">
+사람의 체온은 (겨드랑이나 귀를 쟀을 때) 36.5℃ 입니다. 개인별로 차이가 있으며, 신체 활동량에 따라서도 수시로 변해, 36~37.5℃ 범위를 정상 체온으로 봅니다. 
+<br>
+정상 체온에서 2℃만 오르거나 내려도 뇌와 장기에 손상을 입게 됩니다. 체온이 40℃ 이상으로 오르는 것을 ‘열사병’, 35℃ 이하로 떨어지는 것을 ‘저체온증’이라고 합니다. 
+</p>
+<img class="image" src="img/3412.png">
+<p class="text">
+땀은 인체의 자동적인 체온 조절 기능으로, 수분 증발과 함께 열을 배출해서 몸 안에 열이 고이지 않도록 합니다. 
+<br>
+그러나 한꺼번에 과도한 열이 발생하면 땀만으로는 충분히 발산되지 못하고 체온이 비정상적으로 높아지게 됩니다. 
+<br>
+염증이나 감기 같은 질환으로도 열이 나는데 (특히 아동의 경우) 고열이 열사병이 되지 않도록 주의해야 합니다. 
+<br>
+더울 때 의식을 잃거나 메스꺼움, 구토, 두통, 경련을 일으키면 체온이 오르고 있는 징후이므로, 환자를 그늘로 옮기고 열을 식혀 줍니다.  
+</p>
+<img class="image textwidth" src="img/3413.png">
+<div class="checklist">
+	<h6>냉각요법</h6>
+	<ul>
+		<li>- 환자를 시원한 곳으로 옮긴다.</li>
+		<li>- 찬 물을 끼얹거나 젖은 수건으로 감싼다.</li>
+		<li>- 콜드팩 (차가운 음료수 캔, 물에 적신 수건도 가능)을 겨드랑이, 사타구니에 끼워 넣고 머리에 얹는다. </li>
+	</ul>
+</div>
+<p class="text">
+이미 땀을 많이 흘려 수분과 염분이 함께 부족한 경우가 많습니다. 의식이 있다면 이온 음료를 조금씩 양을 늘려가며 마시게 합니다. 
+<br>
+체온은 높은데 (39℃) 피부가 차고 축축하다면 열사병 직전의 상태입니다. 즉시 냉각요법 응급처치를 하고, 수액 냉각치료가 필요하므로 119 에 연락합니다. 
+</p>
+<div class="checklist">
+	<h6>열사병의 증상</h6>
+	<ul>
+		<li>- 체온 40℃ 이상</li>
+		<li>- 땀이 나지 않고 입과 피부가 말라 있다.</li>
+		<li>- 균형감각 상실, 의식 이상</li>
+	</ul>
+</div>
+<p class="text">
+몸은 뜨거운데 더 이상 땀이 나지 않고 피부가 건조해지면 열사병입니다. 체온을 조절하는 신경계에 이상이 생긴 것입니다. 냉각요법 응급처치를 하는 한편, 뇌와 장기, 혈관, 근육에 손상이 시작되었으므로 즉시 병원으로 옮겨야 합니다. 
+</p>
+<h5 class="title">열사병의 예방</h5>
+<p class="text">
+한낮에는 움직임을 삼가고 실내, 그늘에 머무릅니다. 실외에서는 모자나 양산을 써서 머리에 햇빛을 직접 쪼이지 않도록 하고, 복사열을 반사하는 흰색, 땀을 잘 흡수해 배출하는 면직 옷을 입는 것이 좋습니다. 
+</p>
+<img class="image textwidth" src="img/3414.png">
+<p class="text">
+땀을 흘린 만큼 꼭 수분을 보충해야 한다는 점을 기억하세요. 목이 마르지 않더라도 자주 물을 마시도록 합니다. 
+<br>
+열사병은 더운 계절에 야외에서만 걸리는 것이 아니라, 실내에서의 과도한 운동이나 사우나로도 발생할 수 있습니다. 
+<br>
+특히, 문과 창문이 닫힌 차량 내부의 온도는 순식간에 오릅니다. 봄, 가을에도 주차된 차량 안에서 열사병으로 사망하는 사고가 종종 일어납니다. 
+<br>
+휴게소 등에서 차를 멈추고 쉴 때는 창문을 조금 열어두고, 차 안에 아동이나 애완동물을 잠시라도 혼자 남겨두는 일은 없어야 합니다. 
+</p>
+</body>
+</html>

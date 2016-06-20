@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.43;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  11px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 8px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/3231.jpg);">
+	<h2>이슬 · 빗물</h2>
+</div>
+<p class="text">
+새벽에 깨끗한 면직 천(티셔츠, 수건 등)을 다리에 두르고 풀밭을 걷습니다. 풀잎을 하나씩 털어 이슬을 모으기보다는 이슬로 흠뻑 젖은 천을 짜서 마시는 편이 수월합니다. 
+<br>
+일교차가 클 때, 저녁에 움푹 패인 땅에 비닐을 펼치고 가운데 깨끗한 돌을 놓아 지면에 밀착시켜두면 아침에 이슬이 고이게 됩니다. 
+</p>
+<img class="image textwidth" src="img/3232.gif">
+<img class="image textwidth" src="img/3233.png">
+<p class="text">
+흙먼지, 나뭇잎 등 불순물이 섞였다면 천에 한 번 걸러 마시도록 합니다. 
+<br>
+자연 환경의 빗물은 받아서 그대로 마셔도 됩니다. 도시의 산성비, 중금속 및 먼지가 포함된 빗물은 증류해 마시는 것이 안전합니다. 
+<br>
+빗물을 받아서 하루 이상 실온에 놔 두었다면 끓이거나 식수소독정제 또는 요오드용액을 넣어 소독해 마셔야 합니다. 
+
+</p>
+</body>
+</html>

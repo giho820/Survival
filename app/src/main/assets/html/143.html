@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.42;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  13px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 21px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/1431.jpg);">
+	<h2>토네이도 발생시의 대처</h2>
+</div>
+<p class="text">
+토네이도는 거의 경보 없이 순식간에 발생하며 이동 경로를 예측하기 어려우므로 목격하는 즉시 대피해야 합니다.
+<br>
+최선의 대피 장소는 견고한 콘크리트 건물의 지하실입니다. 지하실이 없다면 건물 제일 아래층으로 대피합니다. 
+</p>
+<img class="image" src="img/1432.png">
+<p class="text">
+컨테이너 가건물은 고정되어 있더라도 쉽게 뜯겨 날아가며 토네이도로부터 보호 기능을 거의 제공하지 못합니다. 가장 가까운 견고한 건물로 이동해야 합니다. 
+</p>
+<img class="image" src="img/1433.png">
+<p class="text">
+출입구와 창문, 외벽으로부터 먼 실내의 중심에 머무릅니다. 벽장이나 복도처럼 외부로부터 벽이 여려 겹 쳐질수록 더 안전합니다. 
+<br>
+토네이도는 물론 태풍의 강풍도, 대부분의 인명 피해는 날아다니는 파편으로 인한 부상입니다. 두꺼운 옷, 담요를 덮어 몸을 보호하고, 쿠션 같은 것으로 특히 머리를 잘 가려야 합니다.  
+</p>
+<img class="image" src="img/1434.jpg">
+<p class="text">
+토네이도가 지나간 후 밖에 나갈 때는 밑창이 두껍고 발 전체를 덮는 견고한 신발을 신어 유리조각 및 잔해에 찔리지 않도록 합니다. 
+</p>
+</body>
+</html>

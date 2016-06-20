@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.42;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  14px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 5px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/1541.jpg);">
+	<h2>폭설로 차가 도로에 갇혔다면</h2>
+</div>
+<p class="text">
+운행이 가능하다면 가까운 휴게소로 대피합니다. 운행이 불가능하며 눈이 계속 내리고 있고, 대피소가 1km 이상 떨어져 있다면 걸어가지 말고 차 안에 머무릅니다. 
+<br>
+1시간마다 10분씩 엔진과 히터를 가동시켜 실내를 따뜻하게 유지합니다. 야간에는 전조등과 실내등을 주기적으로 켜서 제설 작업자나 구조대가 알아볼 수 있게 합니다.
+</p>
+<img class="image textwidth" src="img/1542.png">
+<p class="text">
+배기구 주변의 눈을 자주 치워줍니다. 배기구가 막히면 시동을 걸었을 때 차 안으로 일산화탄소가 들어오게 됩니다. 
+<br>
+잠은 교대로 잡니다. 구조대가 지나간다면 알 수 있도록 누군가는 깨어 있어야 합니다. 차 안에서 되도록 몸을 움직여 체온을 유지하고 물을 자주 마셔서 탈수를 방지합니다. 
+</p>
+<p class="text warn">
+눈을 퍼서 바로 입에 넣으면 체온이 크게 떨어집니다. <i>컵에 담아 실내에서 녹여서 마셔야 합니다.</i>
+</p>
+<p class="text">
+눈보라가 그치면 차를 버리고 가까운 휴게소나 대피소로 이동합니다. 단, 1.5km 이상 떨어져 있다면 계속 차 안에 머물며 구조를 대기합니다. 보통의 여성과 아동은 눈이 쌓인 길을 1.5km 못 가서 탈진하게 됩니다. 
+</p>
+<img class="image" src="img/1543.png">
+<p class="text">
+근처에 원색 천을 걸어 구조대가 쉽게 찾을 수 있게 합니다. 차량이 멈춰 선 곳이 상공에서 눈에 잘 띄지 않는다면 개방된 구역에 조난 표시를 해 두세요. 
+<br>
+연료의 양이 곧 히터를 틀 수 있는 양입니다. 겨울철에는 차량에 연료가 중간 정도 남으면 가득 채워두고 스노우체인, 휴대전화 충전케이블, 빗자루, 배터리 점퍼케이블, 로프, 손전등, 담요, 식수와 스낵을 구비해 두도록 합니다. 
+</p>
+<img class="image textwidth" src="img/1544.png">
+</body>
+</html>

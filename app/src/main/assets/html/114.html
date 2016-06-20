@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.43;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  12px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 21px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/1141.jpg);">
+	<h2>무너진 건물에 갇혔을 때</h2>
+</div>
+<p class="text">손으로 팔, 다리, 몸을 차근차근 짚어 다친 데가 없는지 확인합니다. 출혈이나 골절이 있다면 함부로 움직이지 않도록 합니다. 
+<br>
+휴대전화가 온전하면 119에 연락해 구조를 요청하고, 가족과 지인에게도 문자로 사고를 알립니다. 
+</p>
+<p class="text warn">
+<i>가능한 정확한 위치를 알립니다.</i> 층수, 호수는 물론 ‘회의실’, ‘창가 두 번째 테이블’과 같이, 자신이 있었던 위치를 상세하게 알리는 것이 중요합니다.  
+</p>
+<img class="image" src="img/1142.jpg">
+<p class="text">신호가 잡히지 않으면 주기적으로 전원을 껐다 켜면서 연락을 시도합니다. 사고 지점 주변으로 응급 기지국을 추가 설치하므로 처음에는 신호가 닿지 않더라도 나중에는 통화가 될 수 있습니다. 
+<br>
+움직일 수 있는 범위 안에서 마실 물을 찾아 둡니다. 옷으로 입을 가려 수분 증발을 막고, 입이 마르면 물을 조금씩 마십니다. 
+<br>
+계속 소리를 지르면 금방 지치게 됩니다. 사람 소리가 들리면 소리를 지르고, 주기적으로 수도관 같은 파이프를 두드려 자신의 위치를 알립니다. 단, 가스관을 두드리지는 마세요. 
+<br>
+손전등이 있다면 사용하되, 라이터나 성냥으로는 불을 켜면 안됩니다. 좁고 막힌 공간에서 부족한 산소를 빨리 소모하게 되고, 감지하지 못한 가스 누출이 있다면 폭발할 수 있습니다.</p>
+</body>
+</html>

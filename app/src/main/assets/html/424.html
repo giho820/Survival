@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.42;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  11px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 15px 5% 2px;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/4241.jpg);">
+	<h2>보온 · 의복</h2>
+</div>
+<p class="text">
+<b>담요</b><br>
+부피가 작고 가벼우며 보온성이 좋은 담요를 갖춥니다. 은박 서바이벌 담요(이머전시 블랭킷)은 접으면 손바닥만하지만 방수, 방풍, 보온성이 탁월하며 간이 침낭을 만들 수도 있습니다. 
+<br>
+<b>핫팩</b><br>
+야간, 기온이 낮을 때 담요를 두르고 몸을 따뜻하게 할 수 있는 것들로 체온이 떨어지지 않도록 합니다. 
+</p>
+<img class="image textwidth" src="img/4242.png">
+<p class="text">
+<b>바람막이 자켓</b><br>
+면이나 모직 의류는 방풍, 방수성이 떨어집니다. 얇은 옷을 겹쳐 입고 바람막이 자켓을 덧입는 것이 보온에 효과적입니다. 
+<br>
+<b>양말</b><br>
+체온유지에는 젖지 않는 것이 중요합니다. 젖으면 바로 갈아 신을 수 있는 여벌의 양말, 속옷, 셔츠를 준비해 두세요. 
+</p>
+<img class="image textwidth" src="img/4243.png">
+<p class="text">
+<b>실 / 바늘</b><br>
+재난 비상시에는 옷, 신발, 가방이 손상되는 일이 잦습니다. 체온유지와 활동에 방해가 되지 않도록 찢어진 곳은 바로 꿰맬 수 있어야 합니다. 
+<br>
+<b>옷핀</b><br>
+옷핀은 임시 봉합용으로, 가림막을 걸거나 그 외 여러 가지를 연결할 때 고리 대용으로 쓸 수 있으므로 넉넉하게 구비합니다. 
+</p>
+</body>
+</html>

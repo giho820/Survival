@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.42;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  15px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 5px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/1221.jpg);">
+	<h2>쓰나미 대피 방법</h2>
+</div>
+<p class="text">
+쓰나미 대피의 핵심은 미리 높은 지대로 이동하는 것입니다. 해안으로부터 최소 3km 떨어진 내륙 또는 해발 고도 30m 이상이 안전합니다. 
+<br>
+해안가에서 쓰나미 경보가 울리면 사진을 찍거나 짐을 챙기거나 할 겨를이 없습니다. 서둘러 내륙의 고지대로 이동해야 합니다. 
+</p>
+<img class="image textwidth" src="img/1222.png">
+<p class="text">여행지에서 투숙 중에 쓰나미 경보가 울리면 여권, 휴대전화, 방 안에 구비된 생수와 초콜릿 같은 가벼운 식료품, 겉옷과 가벼운 담요 정도만 챙겨 건물에서 나와 내륙의 고지대로 대피하도록 합니다. 
+<br>
+먼 해저에서 지진이 발생하면 뉴스와 공식 경보가 방송되므로 TV를 주시합니다. 
+<br>
+쓰나미는 반복해서 덮칠 수 있으므로, 일단 높은 곳으로 대피했다면 물이 빠지고 경보가 해제될 때까지 기다리는 수밖에 없습니다.</p>
+<img class="image" src="img/1223.jpg">
+<p class="text">내륙으로 미처 대피하지 못한 채 해변에 쓰나미가 덮치면 가까운 건물 옥상 또는 가장 높은 층으로 대피하십시오. 
+<br>
+2004년 12월 인도양 수마트라 섬 근해 해저 지진으로 푸껫에 닥친 쓰나미는 해안가 건물 1층 높이까지 덮쳤지만, 3층 이상에 있었던 사람들은 무사했습니다.  
+</p>
+</body>
+</html>

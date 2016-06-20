@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" /><!--항상 최신 브라우저로-->
+	<meta charset="UTF-8"><!--charset-->
+	<meta name="viewport" content="width=device-width">
+	<style>@import url("http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css");
+*{
+	box-sizing: border-box;
+}
+html, body{
+	margin: 0;
+	padding: 0;
+	color: rgb(76, 76, 76);
+}
+
+body{
+	display: block;
+	margin: 0 auto;
+	font-family: "Nanum Barun Gothic", sans-serif;
+	font-size: 16px;
+}
+
+.center{
+	text-align: center;
+}
+
+#title{
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+#title:before{
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 87%;
+}
+
+#title h2{
+	margin: 0 auto;
+	padding: 20px 5%; 
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	font-size: 16px;
+}
+
+#title + img.image {
+    margin-top: 0;
+}
+
+#title + p.text {
+    margin-top: 22px;
+}
+
+h5.title{
+	margin: 33px 5% 0;
+	color: rgb(0, 168, 195);
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.text{
+	width: 90%;
+	list-style: none;
+	margin: 11px 5%;
+	padding: 0;
+	line-height: 1.42;
+	display: inline-block;
+}
+
+.text br{
+   content: " ";
+   display: block;
+   margin-top: 22px;
+}
+
+.text.center br {
+    margin: 0;
+}
+
+.text b {
+    margin: 20px 0 0;
+    display: inline-block;
+}
+
+.text b ~ br {
+    margin-top: 9px !important;
+}
+
+/*.text.warn{
+	padding-top: 15px;
+}*/
+
+.text.warn:before{
+    content: '';
+    display: block;
+    width: 45px;
+    height: 8px;
+    margin-bottom: 7px;
+    background-color: rgb(225, 27, 34);
+}
+
+.text.margin0{
+	margin-bottom: 0;
+}
+
+.text.margin0 +img{
+	margin-top: 5px;
+}
+
+i{
+	color: rgb(225, 27, 34);
+	font-style: normal;
+}
+
+.checklist{
+	color: #888;
+	border-width: 0;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	border-color: #d6d6d6;
+	padding: 10px 0;
+	margin: 44px 5% 20px;
+	border-style: solid;
+}
+
+.checklist h6{
+	font-size: 16px;
+	font-weight: 800;
+	margin: 0;
+	padding: 0 10px;
+}
+.checklist ul{
+	margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+}
+
+.checklist ul li{
+	padding: 2px 10px 2px 25px;
+	text-indent: -15px;
+}
+
+img.image{
+	width: 100%;
+	margin:  15px 0;
+	display: block;
+}
+
+img.image.textwidth {
+	padding: 21px 5%;
+}	
+
+img.vertical{
+	width: 50%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.circleimage{
+	width: 60%;
+	margin: 11px auto;
+	display: block;
+}
+
+img.small{
+	width: 40px;
+	margin: 11px auto;
+	display: block;
+}
+
+img.boximg{
+	margin-bottom: 0;
+}
+
+#myAudio{
+	display: none;
+}
+
+.box1{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(229,232,238);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.box2{
+	width: 100%;
+	padding: 20px 5%;
+	background-color: rgb(76,76,76);
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/*iphone6+*/
+@media screen and (min-width: 414px){
+	html, body, h2{
+		font-size: 18px;
+	}
+}</style>
+</head>
+<body>
+<div id="title" style="background-image: url(img/1311.jpg);">
+	<h2>뇌우와 번개</h2>
+</div>
+<p class="text">
+번개는 구름 알갱이(물방울, 얼음)들의 마찰로 발생하는 전기입니다. 덥고 습한 공기가 위로 올라가 찬 공기와 부딪치면 빠른 속도로 비구름이 만들어지는데, 이 때 구름 알갱이들의 마찰이 큰 만큼 다량의 전하가 발생하게 됩니다. 
+<br>
+이렇게 번개가 치고 비가 내리는 것을 ‘뇌우’라고 하고, 지면 부근에서 갑자기 더워진 공기가 상승해 뇌우가 되는 현상은 여름철에 자주 일어납니다. 
+<br>
+뇌우는 대부분 집중호우(한 지역에 단시간에 내리는 많은 비, 국지성 폭우)를 뿌린 후 1~2시간 이내에 소멸하게 됩니다. 
+<br>
+천둥은 번개가 칠 때 나는 소리인데, 소리의 전달 속도가 빛보다 느리기 때문에 더 나중에 들리는 것입니다. 번개가 치고 바로 천둥 소리가 난다면 근처에 번개가 떨어질 수 있습니다.</p>
+<img class="image" src="img/1312.gif">
+<p class="text">번개가 칠 때는 건물 안으로 대피하는 것이 가장 좋고, 자동차 내부도 안전합니다. 차가 번개에 맞아도 전류는 차 표면을 따라 흘러 타이어를 통해 지면에 접지됩니다. 
+<br>
+운전 중에 번개가 치는 것이 보이면 차를 세우고, 시동을 끄고 <i>차 안에 머무릅니다.</i> 창문을 꼭 닫고, 번개가 치는 동안에는 창문 유리에 손을 대면 안됩니다. 
+<br>
+</p>
+<p class="text warn">번개를 맞은 사람의 몸에는 더 이상 전류가 흐르지 않습니다. 번개를 맞은 사람은 만져도 되며, 바로 응급처치를 해야 합니다.</p>
+</body>
+</html>
