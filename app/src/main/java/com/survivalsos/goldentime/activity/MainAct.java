@@ -97,7 +97,7 @@ public class MainAct extends AppCompatActivity {
 
     private void initMainUi() {
         mainImageListRecyclerView = (RecyclerView) findViewById(R.id.main_listview_recycler);
-        //Todo 아래 두 줄은 왜 한거지..;
+        //Todo 아래 두 줄은 왜 한거지..;혹시 이걸 바꾸면 그리드뷰도 될 수 있고 그런 건가 <- 알아보도록 하자
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         mainImageListRecyclerView.setLayoutManager(linearLayoutManager);
@@ -107,14 +107,13 @@ public class MainAct extends AppCompatActivity {
             @Override
             public void onAdapterItemClick(View view, int position) {
                 DebugUtil.showDebug("mainImage :: " + mainImages.get(position).toString() + " 클릭 됨..." );
-                //Todo Article로 이동하도록 해야하는 부분
+                //Todo (완료)Article로 이동하는 부분
                 Intent intent = new Intent(MainAct.this, ArticleListAct.class);
                 intent.putExtra("mainImagesPosition", mainImages.get(position));
                 MoveActUtil.moveActivity(MainAct.this, intent, -1, -1, false, false);
             }
         });
         mainImageListRecyclerView.setAdapter(mainImageRecyclerAdapter);
-
     }
 
     public void copyDatabaseOnIntroAct() {
