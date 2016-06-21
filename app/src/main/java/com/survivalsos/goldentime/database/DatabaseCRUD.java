@@ -3,6 +3,7 @@ package com.survivalsos.goldentime.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.survivalsos.goldentime.model.Article;
 import com.survivalsos.goldentime.util.DebugUtil;
 
 import java.util.ArrayList;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 public class DatabaseCRUD {
 
     private static SQLiteDatabase sqLiteDatabase;
-    private static Cursor cursor;
     private static String keyword;
 
     public static boolean checkTable(DatabaseHelper databaseHelper, SQLiteDatabase sqLiteDatabase, String tableName) {
@@ -60,22 +60,54 @@ public class DatabaseCRUD {
     }
 
     //메인화면 그림가져오기, asset의 적절한 파일 이름 리턴
-    public static ArrayList<Integer> getMainImageFileNameFromAssetFolder(int Section) {
+    public static ArrayList<Integer> getMainImageFileNameFromAssetFolder(int section) {
         ArrayList<Integer> result = new ArrayList<>();
 
-        String sqlQueryForMainPage = "SELECT CODE FROM CATEGORY WHERE CODE like '" + Section + "%'";
+        String sqlQueryForMainPage = "SELECT CODE FROM CATEGORY WHERE CODE like '" + section + "%'";
         DebugUtil.showDebug("query :: " + sqlQueryForMainPage);
 
         Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForMainPage, null);
-        if(cursor == null)
+
+        if (cursor == null)
             return null;
 
         while (cursor.moveToNext()) {
             result.add(cursor.getInt(0));
         }
 
-        for(Integer i : result){
-            DebugUtil.showDebug("result :: " + i );
+        for (Integer i : result) {
+            DebugUtil.showDebug("result :: " + i);
+        }
+        cursor.close();
+        return result;
+    }
+
+    //메인화면에서 클릭한 카테고리에 해당하는 ArticleList 가져오기
+    public static ArrayList<Article> getArticleList(int section) {
+        ArrayList<Article> result = new ArrayList<>();
+
+        String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE HIGH_RANK_CODE = " + section + "";
+        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+        if (cursor == null)
+            return null;
+
+        while (cursor.moveToNext()) {
+            Article article = new Article();
+            article.articleId = cursor.getInt(0);
+            article.title = cursor.getString(1);
+            article.highRankCode = cursor.getInt(2);
+            article.nextArticleId = cursor.getInt(3);
+            article.relatedArticleId = cursor.getInt(4);
+            article.isSoundFile = cursor.getString(5);
+            article.articleText = cursor.getString(6);
+
+            result.add(article);
+        }
+
+        for (Article article : result) {
+            DebugUtil.showDebug("result :: " + article.articleId);
         }
         cursor.close();
         return result;
