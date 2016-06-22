@@ -1,9 +1,15 @@
 package com.survivalsos.goldentime;
 
+import android.graphics.Typeface;
+
 /**
  * Created by kiho on 2016. 6. 20..
  */
 public class Definitions {
+
+    public static Typeface NanumGothic;
+    public static Typeface LatoBlack;
+
     public interface SECTION_TYPE {
         int NATURE_DISASTER = 1;
         int ACCIDENT_FIRE = 2;

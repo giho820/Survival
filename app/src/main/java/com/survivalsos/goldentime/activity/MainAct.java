@@ -2,13 +2,18 @@ package com.survivalsos.goldentime.activity;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.ParentAct;
+import com.astuetz.PagerSlidingTabStrip;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.MainFragmentPagerAdapter;
@@ -17,8 +22,6 @@ import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.database.DatabaseHelper;
 import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
 import com.survivalsos.goldentime.database.util.DatabaseUtil;
-import com.survivalsos.goldentime.fragment.MainFirstFrag;
-import com.survivalsos.goldentime.fragment.MainSecondFrag;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.MoveActUtil;
@@ -26,8 +29,9 @@ import com.survivalsos.goldentime.util.MoveActUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainAct extends AppCompatActivity {
+public class MainAct extends ParentAct {
 
+    private Toolbar toolbar;
     //Todo introAct로 옮겨야함
     private DatabaseHelper databaseHelper;
 
@@ -37,8 +41,6 @@ public class MainAct extends AppCompatActivity {
     private RecyclerView mainImageListRecyclerView;
     private MainImageRecyclerAdapter mainImageRecyclerAdapter;
 
-    private MainFirstFrag mainFirstFrag;
-    private MainSecondFrag mainSecondFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +48,12 @@ public class MainAct extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DebugUtil.showDebug("MainAct :: onCreate()");
 
+
         initMainUi();
+
         mainImages = new ArrayList<>();
 
-    //Todo introAct로 옮겨야함2
+        //Todo introAct로 옮겨야함2
         copyDatabaseOnIntroAct();
 
         mainImages = DatabaseCRUD.getMainImageFileNameFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER);
@@ -57,25 +61,45 @@ public class MainAct extends AppCompatActivity {
 
         DebugUtil.showDebug("mainImages size :: " + mainImages.size());
 //        testImage.setImageDrawable(ImageUtil.loadDrawableFromAssets(this, "image/11.png"));
-        if(mainImages != null) {
+        if (mainImages != null) {
             mainImageRecyclerAdapter.setAdapterArrayList(mainImages);
             mainImageRecyclerAdapter.notifyDataSetChanged();
             DebugUtil.showDebug("mainImageRecyclerAdapter.setAdapterArrayList 진행함");
         }
 
-//        // about ViewPager
-//        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        mainFragmentPagerAdapter = new MainFragmentPagerAdapter(this.getSupportFragmentManager());
-//        viewPager.setAdapter(mainFragmentPagerAdapter);
-//        viewPager.setOffscreenPageLimit(2);
-//
-//        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-//        tabStrip.setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3));
-//        tabStrip.setIndicatorColor(getResources().getColor(R.color.c_ffffffff));
-//        tabStrip.setTextColorResource(R.color.c_ffffffff);
-//        tabStrip.setShouldExpand(true);
-//        tabStrip.setDividerColor(getResources().getColor(android.R.color.transparent));
-//        tabStrip.setViewPager(viewPager);
+
+    }
+
+
+    private void initMainUi() {
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.inflateMenu(R.menu.menu_main);
+//        toolbar.setTitleTextColor(getResources().getColor(R.color.c_fff92e14));
+//        toolbar.setTitle("");
+//        toolbar.setSubtitle("");
+////        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.main_icon_guide));
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //페이져 어댑터
+        mainFragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
+
+        // about ViewPager
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(mainFragmentPagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
+
+        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabStrip.setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3));
+        tabStrip.setIndicatorColor(getResources().getColor(R.color.c_fff92e14));
+        tabStrip.setTextColorResource(R.color.text_color);
+        tabStrip.setShouldExpand(true);
+        tabStrip.setDividerColor(getResources().getColor(android.R.color.transparent));
+//        tabStrip.setLdimen.dp_12);
+
+
+        if(Definitions.LatoBlack != null) tabStrip.setTypeface(Definitions.LatoBlack, Typeface.NORMAL);
+        tabStrip.setViewPager(viewPager);
 //        tabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 //            @Override
 //            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -84,7 +108,12 @@ public class MainAct extends AppCompatActivity {
 //
 //            @Override
 //            public void onPageSelected(int position) {
-//                DebugUtil.showDebug("선택된 탭은 :: " + position);
+//                switch (position) {
+//                    case 1:
+//                        break;
+//                    default:
+//                        break;
+//                }
 //            }
 //
 //            @Override
@@ -92,10 +121,7 @@ public class MainAct extends AppCompatActivity {
 //
 //            }
 //        });
-    }
 
-
-    private void initMainUi() {
         mainImageListRecyclerView = (RecyclerView) findViewById(R.id.main_listview_recycler);
         //Todo 아래 두 줄은 왜 한거지..;혹시 이걸 바꾸면 그리드뷰도 될 수 있고 그런 건가 <- 알아보도록 하자
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -106,7 +132,7 @@ public class MainAct extends AppCompatActivity {
         mainImageRecyclerAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(View view, int position) {
-                DebugUtil.showDebug("mainImage :: " + mainImages.get(position).toString() + " 클릭 됨..." );
+                DebugUtil.showDebug("mainImage :: " + mainImages.get(position).toString() + " 클릭 됨...");
                 //Todo (완료)Article로 이동하는 부분
                 Intent intent = new Intent(MainAct.this, ArticleListAct.class);
                 intent.putExtra("mainImagesPosition", mainImages.get(position));
@@ -114,6 +140,12 @@ public class MainAct extends AppCompatActivity {
             }
         });
         mainImageListRecyclerView.setAdapter(mainImageRecyclerAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     public void copyDatabaseOnIntroAct() {
@@ -140,4 +172,8 @@ public class MainAct extends AppCompatActivity {
             DebugUtil.showDebug("CATEGORY table is existed");
         }
     }
+
+
+
+
 }

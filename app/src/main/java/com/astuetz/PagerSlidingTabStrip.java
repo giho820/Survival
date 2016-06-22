@@ -21,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.survivalsos.goldentime.util.DebugUtil;
+import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 
 import java.util.ArrayList;
@@ -75,9 +75,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int dividerWidth = 1;
 
     private int tabTextSize = 12;
-    private int tabTextColor = 0xFF666666;
-    private Typeface tabTypeface = null;
-    private int tabTypefaceStyle = Typeface.BOLD;
+    private int tabTextColor = 0xFF808080;
+    private Typeface tabTypeface = Definitions.LatoBlack;
+    private int tabTypefaceStyle = Typeface.NORMAL;
 
     private int lastScrollX = 0;
 
@@ -392,6 +392,30 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                 tabImageButtonArrayList.get(position).setSelected(true);
             }
 
+            for (int i = 0; i < tabCount; i++) {
+
+                View v = tabsContainer.getChildAt(i);
+
+                v.setBackgroundResource(tabBackgroundResId);
+
+                if (v instanceof TextView) {
+
+                    TextView tab = (TextView) v;
+                    tab.setSelected(true);
+
+                }
+            }
+
+            View v = tabsContainer.getChildAt(position);
+
+            v.setBackgroundResource(tabBackgroundResId);
+
+            if (v instanceof TextView) {
+
+                TextView tab = (TextView) v;
+                tab.setSelected(true);
+
+            }
         }
 
     }

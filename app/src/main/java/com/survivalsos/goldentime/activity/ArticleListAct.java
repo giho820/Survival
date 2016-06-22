@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.ParentAct;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.ArticleListRecyclerAdapter;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
@@ -20,7 +21,7 @@ import com.survivalsos.goldentime.util.MoveActUtil;
 
 import java.util.ArrayList;
 
-public class ArticleListAct extends AppCompatActivity {
+public class ArticleListAct extends ParentAct {
 
     private ArrayList<Article> articles;
     private RecyclerView articleListRecyclerView;

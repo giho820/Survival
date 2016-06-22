@@ -126,5 +126,14 @@
     <color name="c_ff000000">#ff000000</color>
     <color name="c_bb000000">#bb000000</color>
     <color name="c_ff393939">#ff393939</color>
+
+
+    <color name="c_ff171717">#ff171717</color>
+    <color name="c_ff272727">#ff272727</color>
+    <color name="c_fff92e14">#fff92e14</color>
+    <color name="c_ff808080">#ff808080</color>
+
+
+
     
 </resources>

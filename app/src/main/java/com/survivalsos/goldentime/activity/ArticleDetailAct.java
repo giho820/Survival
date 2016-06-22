@@ -2,13 +2,13 @@ package com.survivalsos.goldentime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.ParentAct;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.AdditionalArticleListAdapter;
@@ -20,7 +20,7 @@ import com.survivalsos.goldentime.util.MoveActUtil;
 
 import java.util.ArrayList;
 
-public class ArticleDetailAct extends AppCompatActivity implements AdapterItemClickListener {
+public class ArticleDetailAct extends ParentAct implements AdapterItemClickListener {
 
     private WebView wv;
     private Article currentArticle;

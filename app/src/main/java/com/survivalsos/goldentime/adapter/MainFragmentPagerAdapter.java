@@ -10,9 +10,11 @@ import com.survivalsos.goldentime.fragment.MainSecondFrag;
 /**
  * Created by kiho on 2016. 6. 21..
  */
-public class MainFragmentPagerAdapter extends FragmentPagerAdapter{
+public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
-    private String tabTitles[] = new String[] {"재난 대처", "서바이벌"};
+    private String tabTitles[] = {
+            "재난 대처", "서바이벌"
+    };
 
     public MainFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -20,14 +22,15 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return 0;
+        return tabTitles.length;//Todo 이거 0으로 하면 onmeasure 어쩌고 하면서 널포인트 에러난다
     }
 
     @Override
     public Fragment getItem(int position) {
+        Fragment returnFrag = new Fragment();
         switch (position) {
             case 1:
-            return new MainSecondFrag();
+                return new MainSecondFrag();
             default:
                 return new MainFirstFrag();
 

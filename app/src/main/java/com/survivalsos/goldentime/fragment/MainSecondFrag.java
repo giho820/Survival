@@ -27,7 +27,7 @@ public class MainSecondFrag extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPage = getArguments().getInt(ARG_PAGE);
+//        mPage = getArguments().getInt(ARG_PAGE);
     }
 
     // Inflate the fragment layout we defined above for this fragment
