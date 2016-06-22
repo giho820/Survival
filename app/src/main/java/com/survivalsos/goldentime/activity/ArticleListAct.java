@@ -1,5 +1,6 @@
 package com.survivalsos.goldentime.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.Article;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.ImageUtil;
+import com.survivalsos.goldentime.util.MoveActUtil;
 
 import java.util.ArrayList;
 
@@ -48,6 +50,9 @@ public class ArticleListAct extends AppCompatActivity {
             @Override
             public void onAdapterItemClick(View view, int position) {
                 DebugUtil.showDebug("ArticleListAct :: " + articles.get(position).title + " 클릭 됨 ");
+                Intent moveToArticleDetailAct = new Intent(ArticleListAct.this, ArticleDetailAct.class);
+                moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", articles.get(position));
+                MoveActUtil.moveActivity(ArticleListAct.this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
             }
         });
         articleListRecyclerView.setAdapter(articleListRecyclerAdapter);

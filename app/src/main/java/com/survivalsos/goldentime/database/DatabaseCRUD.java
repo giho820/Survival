@@ -112,4 +112,53 @@ public class DatabaseCRUD {
         cursor.close();
         return result;
     }
+
+
+    //특정 Article_Id를 통해서 Article의 정보를 가져오는 함수
+    public static Article getArticleInfo (int articleId) {
+        Article result = new Article();
+
+        String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE ARTICLE_ID = " + articleId;
+        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+        if (cursor == null)
+            return null;
+
+        while (cursor.moveToNext()) {
+            Article article = new Article();
+            article.articleId = cursor.getInt(0);
+            article.title = cursor.getString(1);
+            article.highRankCode = cursor.getInt(2);
+            article.nextArticleId = cursor.getInt(3);
+            article.relatedArticleId = cursor.getInt(4);
+            article.isSoundFile = cursor.getString(5);
+            article.articleText = cursor.getString(6);
+
+            DebugUtil.showDebug("toString :: " + article.toString());
+            result = article;
+        }
+
+        cursor.close();
+        return result;
+    }
+
+    //특정 Article_Id를 통해서 Article의 정보를 가져오는 함수
+    public static String getArticleTitle (int articleId) {
+        String title = "";
+
+        String sqlQueryForArticleTitle = "SELECT TITLE FROM ARTICLE WHERE ARTICLE_ID = " + articleId;
+        DebugUtil.showDebug("query :: " + sqlQueryForArticleTitle);
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleTitle, null);
+        if (cursor == null)
+            return null;
+
+        while (cursor.moveToNext()) {
+           title = cursor.getString(0);
+        }
+
+        cursor.close();
+        return title;
+    }
 }
