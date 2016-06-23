@@ -33,7 +33,6 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
                 return new MainSecondFrag();
             default:
                 return new MainFirstFrag();
-
         }
     }
 
@@ -46,13 +45,11 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         int position;
-
         if (object instanceof MainFirstFrag) {
             position = 0;
         } else {
             position = 1;
         }
-
         return position;
     }
 }

@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.survivalsos.goldentime.model.Article;
+import com.survivalsos.goldentime.model.MainImageItemInfo;
 import com.survivalsos.goldentime.util.DebugUtil;
 
 import java.util.ArrayList;
@@ -82,6 +83,60 @@ public class DatabaseCRUD {
         return result;
     }
 
+    public static ArrayList<MainImageItemInfo> getMainImageItemInfoFromAssetFolder(int section) {
+        ArrayList<MainImageItemInfo> result = new ArrayList<>();
+
+        String sqlQueryForMainPage = "SELECT * FROM CATEGORY WHERE CODE like '" + section + "%'";
+        DebugUtil.showDebug("query :: " + sqlQueryForMainPage);
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForMainPage, null);
+
+        if (cursor == null)
+            return null;
+
+        while (cursor.moveToNext()) {
+            MainImageItemInfo tempMainImageItem = new MainImageItemInfo();
+            tempMainImageItem.mainImageCode = cursor.getInt(0);
+            tempMainImageItem.mainImageName = cursor.getString(1);
+            tempMainImageItem.doesLocked = 0;
+
+            result.add(tempMainImageItem);
+        }
+
+        for (MainImageItemInfo i : result) {
+            DebugUtil.showDebug("result :: " + i.mainImageName);
+        }
+        cursor.close();
+        return result;
+    }
+
+    public static ArrayList<MainImageItemInfo> getMainImageItemInfoFromAssetFolder(int section, int section2) {
+        ArrayList<MainImageItemInfo> result = new ArrayList<>();
+
+        String sqlQueryForMainPage = "SELECT * FROM CATEGORY WHERE (CODE like '" + section + "%' or CODE like '" + section2 + "%')";
+        DebugUtil.showDebug("query :: " + sqlQueryForMainPage);
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForMainPage, null);
+
+        if (cursor == null)
+            return null;
+
+        while (cursor.moveToNext()) {
+            MainImageItemInfo tempMainImageItem = new MainImageItemInfo();
+            tempMainImageItem.mainImageCode = cursor.getInt(0);
+            tempMainImageItem.mainImageName = cursor.getString(1);
+            tempMainImageItem.doesLocked = 0;
+
+            result.add(tempMainImageItem);
+        }
+
+        for (MainImageItemInfo i : result) {
+            DebugUtil.showDebug("result :: " + i.mainImageName);
+        }
+        cursor.close();
+        return result;
+    }
+
     //메인화면에서 클릭한 카테고리에 해당하는 ArticleList 가져오기
     public static ArrayList<Article> getArticleList(int section) {
         ArrayList<Article> result = new ArrayList<>();
@@ -115,7 +170,7 @@ public class DatabaseCRUD {
 
 
     //특정 Article_Id를 통해서 Article의 정보를 가져오는 함수
-    public static Article getArticleInfo (int articleId) {
+    public static Article getArticleInfo(int articleId) {
         Article result = new Article();
 
         String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE ARTICLE_ID = " + articleId;
@@ -144,7 +199,7 @@ public class DatabaseCRUD {
     }
 
     //특정 Article_Id를 통해서 Article의 정보를 가져오는 함수
-    public static String getArticleTitle (int articleId) {
+    public static String getArticleTitle(int articleId) {
         String title = "";
 
         String sqlQueryForArticleTitle = "SELECT TITLE FROM ARTICLE WHERE ARTICLE_ID = " + articleId;
@@ -155,7 +210,7 @@ public class DatabaseCRUD {
             return null;
 
         while (cursor.moveToNext()) {
-           title = cursor.getString(0);
+            title = cursor.getString(0);
         }
 
         cursor.close();

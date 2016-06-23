@@ -7,9 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
+import com.survivalsos.goldentime.common.view.LatoBlackTextView;
+import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
-import com.survivalsos.goldentime.util.ImageUtil;
+import com.survivalsos.goldentime.model.MainImageItemInfo;
+import com.survivalsos.goldentime.util.TextUtil;
 
 import java.util.ArrayList;
 
@@ -18,18 +23,32 @@ import java.util.ArrayList;
  */
 public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
 
-    //Todo mainItem(이미지 파일이름, 텍스트, 버튼, 유료여부)로 포함하는 자료형 만들어서 구성할 것
-    private Integer item;
-    private ArrayList<Integer> mainImageNames;
+    private final int VIEW_HEADER = 0;//자연 재해인지 사고 ・ 화재인지 알려주는 헤더
+    private final int VIEW_ITEM = 1; //그에 따른 이미지 영역
+
+    private MainImageItemInfo item;
+    private ArrayList<MainImageItemInfo> mainImageItems;
     private static Context context;
     private AdapterItemClickListener adapterItemClickListener;
 
+
+    //헤더 영역
+    public static class MainHeaderViewHolder extends RecyclerView.ViewHolder {
+
+        public LatoBlackTextView tvHeader;
+
+        public MainHeaderViewHolder(View v) {
+            super(v);
+            tvHeader = (LatoBlackTextView) v.findViewById(R.id.tv_main_header);
+        }
+    }
+
+    //이미지 영역 뷰홀더
     public static class MainImgViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mainImg;
-        //private TextView label;
-        //private Button arrowBtnAtRightSide;
-        //private ImageView ImgLocker;
+        private ImageView imgLocker;
+        private LatoBlackTextView label;
 
         private AdapterItemClickListener itemClickListener;
 
@@ -38,6 +57,9 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
 
             mainImg = (ImageView) v.findViewById(R.id.item_iv_main);
             mainImg.setOnClickListener(this);
+            imgLocker = (ImageView) v.findViewById(R.id.item_iv_locked_image);
+            label = (LatoBlackTextView) v.findViewById(R.id.item_tv_image_title);
+
         }
 
         public void setClickListener(AdapterItemClickListener itemClickListener) {
@@ -60,49 +82,105 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
         this.adapterItemClickListener = adapterItemClickListener;
     }
 
-    // Todo Integer -> Item
-    public void setItem(Integer item) {
+    public void setItem(MainImageItemInfo item) {
         this.item = item;
     }
 
 
-    public void setAdapterArrayList(ArrayList<Integer> adapterArrayList) {
-        this.mainImageNames = adapterArrayList;
+    public void setAdapterArrayList(ArrayList<MainImageItemInfo> adapterArrayList) {
+        this.mainImageItems = adapterArrayList;
     }
 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_image, parent, false);
-        RecyclerView.ViewHolder vh = new MainImgViewHolder(v);
-        ((MainImgViewHolder) vh).setClickListener(adapterItemClickListener);//Todo 아직도 이해가 부족하네  그냥 넘어가지 말자
+        RecyclerView.ViewHolder vh;
+        View v;
+
+        switch (viewType) {
+//            case VIEW_HEADER:
+//                v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_header, parent, false);
+//                vh = new  MainHeaderViewHolder(v);
+//                break;
+
+            case VIEW_ITEM:
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_image, parent, false);
+                vh = new MainImgViewHolder(v);
+                ((MainImgViewHolder) vh).setClickListener(adapterItemClickListener);//Todo 여기서 여러 개의 뷰들을 분기처리해서 생성해주는 것 같다
+                break;
+
+            default:
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_header, parent, false);
+                vh = new MainHeaderViewHolder(v);
+                break;
+        }
         return vh;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        item = mainImageNames.get(position);
 
         if (holder instanceof MainImgViewHolder) {
-            ((MainImgViewHolder) holder).mainImg.setImageBitmap(null);
+            item = mainImageItems.get(position);
 
-            if (item != null) {
-//                if (!ImageLoader.getInstance().isInited()) {
-//                    ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
-//                }
-                ((MainImgViewHolder) holder).mainImg.setImageDrawable(ImageUtil.loadDrawableFromAssets(context, "image/" + item + ".png"));
-//                ImageLoader.getInstance().displayImage(item.getPath(), ((MatchImgViewHolder) holder).matchingImg);
+            if (item != null && holder instanceof MainImgViewHolder) {
+                ((MainImgViewHolder) holder).mainImg.setImageBitmap(null);
+                if (item.mainImageCode != null){
+//                    ((MainImgViewHolder) holder).mainImg.setImageDrawable(ImageUtil.loadDrawableFromAssets(context, "image/" + item.mainImageCode + ".png"));
+                    Picasso.with(context).load( "file:///android_asset/image/"  + item.mainImageCode + ".png").into(((MainImgViewHolder) holder).mainImg);
+                }
+
+                item.doesLocked = 1;
+                if (item.doesLocked != null) {
+                    if (item.doesLocked > 0) {
+                        ((MainImgViewHolder) holder).imgLocker.setVisibility(View.VISIBLE);
+                    } else {
+                        ((MainImgViewHolder) holder).imgLocker.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                ((MainImgViewHolder) holder).label.setText("");
+                if (!TextUtil.isNull(item.mainImageName)) {
+                    ((MainImgViewHolder) holder).label.setText(item.mainImageName);
+                }
+
             }
+        } else { //if (holder instance of MainHeaderViewHolder)
 
+            if (position == 0)
+                ((MainHeaderViewHolder) holder).tvHeader.setText("자연 재해");
+
+            int secondHeaderPos = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER).size() + 1;
+            if (position == secondHeaderPos)
+                ((MainHeaderViewHolder) holder).tvHeader.setText("사고 ・ 화재");
         }
+
     }
 
     @Override
     public int getItemCount() {
-        int itemCout = 0;
-        if(mainImageNames != null) {
-            itemCout = mainImageNames.size();
+        int itemCount = 0;
+        if (mainImageItems != null) {
+            itemCount = mainImageItems.size();
         }
-        return itemCout;
+        return itemCount;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mainImageItems == null) {
+            return VIEW_HEADER;
+        }
+
+        int viewType;
+
+        if (mainImageItems.get(position).mainImageName == null) {
+            viewType = VIEW_HEADER;
+        } else {//if (mainImageItems.get(position) != null) {
+            viewType = VIEW_ITEM;
+        }
+
+        return viewType;
+
     }
 }
