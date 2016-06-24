@@ -117,8 +117,10 @@ public class AdditionalArticleListAdapter extends BaseAdapter {
             if (item.articleId != null && item.articleId > 0) {
                 if (item.type == Definitions.ARTICLE_TYPE.NEXT)
                     viewHolder.tvLabelNextOrRelated.setText("NEXT");
-                else if (item.type == Definitions.ARTICLE_TYPE.RELATED)
+                else if (item.type == Definitions.ARTICLE_TYPE.RELATED) {
                     viewHolder.tvLabelNextOrRelated.setText("RELATED");
+                    viewHolder.tvLabelNextOrRelated.setTextColor(convertView.getResources().getColor(R.color.c_ff138185));
+                }
             }
         } else {
             DebugUtil.showDebug("AdditionalArticleListAdapter, item is null");

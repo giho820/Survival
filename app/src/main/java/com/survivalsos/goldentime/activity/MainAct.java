@@ -18,11 +18,11 @@ import com.survivalsos.goldentime.util.DebugUtil;
 
 import java.io.IOException;
 
+//Todo 잠깐 안 씀
 public class MainAct extends ParentAct {
 
     //Todo introAct로 옮겨야함
     private DatabaseHelper databaseHelper;
-
     private MainFragmentPagerAdapter mainFragmentPagerAdapter;
 
     @Override

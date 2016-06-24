@@ -14,7 +14,7 @@ import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.ParentFrag;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.activity.ArticleListAct;
-import com.survivalsos.goldentime.activity.MainAct;
+import com.survivalsos.goldentime.activity.GuideAddedMainAct;
 import com.survivalsos.goldentime.adapter.MainImageRecyclerAdapter;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class MainFirstFrag extends ParentFrag{
 
     public static Context mContext;
-    public static MainAct mainAct;
+    public static GuideAddedMainAct guideAddedMainAct;
 
     public static View view;
     private RecyclerView mainImageListRecyclerView;
@@ -52,14 +52,13 @@ public class MainFirstFrag extends ParentFrag{
         super.onCreate(savedInstanceState);
 //        mPage = getArguments().getInt(ARG_PAGE);
         mContext = getActivity();
-        mainAct = (MainAct) getActivity();
+        guideAddedMainAct = (GuideAddedMainAct) getActivity();
 
+        //헤더 섹션부분이랑 구분해서 데이터를 만드는 부분
         mainImages = new ArrayList<>();
-
-        mainImages.add(0, new MainImageItemInfo()); //idx 0 , 1개
-        mainImages.addAll(DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER)); //idx 1 ~ 6, 6개 / 총 7개
-//        mainImages = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER, Definitions.SECTION_TYPE.ACCIDENT_FIRE);
-        mainImages.add(mainImages.size(), new MainImageItemInfo()); //idx 7 // 총 8개
+        mainImages.add(0, new MainImageItemInfo());
+        mainImages.addAll(DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER));
+        mainImages.add(mainImages.size(), new MainImageItemInfo());
         mainImages.addAll(DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.ACCIDENT_FIRE));
         DebugUtil.showDebug("mainImages size :: " + mainImages.size());
     }
@@ -72,11 +71,10 @@ public class MainFirstFrag extends ParentFrag{
         view = inflater.inflate(R.layout.fragment_main_viewpager_ready_disaster, null);
 
         mainImageListRecyclerView = (RecyclerView) view.findViewById(R.id.main_listview_recycler);
-        //Todo 아래 두 줄은 왜 한거지..;혹시 이걸 바꾸면 그리드뷰도 될 수 있고 그런 건가 <- 알아보도록 하자
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         mainImageListRecyclerView.setLayoutManager(linearLayoutManager);
-        mainImageRecyclerAdapter = new MainImageRecyclerAdapter(getActivity());
+        mainImageRecyclerAdapter = new MainImageRecyclerAdapter(getActivity(), 0);
         mainImageRecyclerAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(View view, int position) {
@@ -84,7 +82,7 @@ public class MainFirstFrag extends ParentFrag{
                 //Todo (완료)Article로 이동하는 부분
                 Intent intent = new Intent(mContext, ArticleListAct.class);
                 intent.putExtra("mainImagesPosition", mainImages.get(position).mainImageCode);
-                MoveActUtil.moveActivity(mainAct, intent, -1, -1, false, false);
+                MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
             }
         });
         mainImageListRecyclerView.setAdapter(mainImageRecyclerAdapter);

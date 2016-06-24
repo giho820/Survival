@@ -30,7 +30,8 @@ public class DatabaseConstantUtil {
 //            "unique (" +DatabaseConstantUtil.COLUMN_AUTO_INCREMENT_KEY_TABLE_ALBUM_COVER +", "+ DatabaseConstantUtil.COLUMN_ALBUM_BUCKET_ID + ")" +
 //            ");";
 
-    public static int DATABASE_VERSION = 1;
+    //Todo 업데이트 테스트 수행한 결과 잘 되지 않았음 -> 고칠 것
+    public static int DATABASE_VERSION = 2;
 
 
 }

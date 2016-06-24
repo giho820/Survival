@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/item_article_list_click_area"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_70"
+        android:layout_height="@dimen/dp_46"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
+        <com.survivalsos.goldentime.common.view.LatoBlackTextView
             android:id="@+id/textview_title"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_25"
-            android:text="항목의 이름입니다" />
+            android:layout_marginLeft="@dimen/dp_36.5"
+            android:text="항목의 이름입니다"
+            android:textColor="@color/c_ff272727"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/item_article_list_rightside_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_70"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_width="@dimen/dp_8"
+            android:layout_height="@dimen/dp_14"
+            android:layout_marginRight="@dimen/dp_33.5"
+            android:background="@drawable/item_show_detail" />
+
 
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dp_334"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/item_underline"/>
 
 </LinearLayout>

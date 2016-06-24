@@ -2,7 +2,6 @@ package com.survivalsos.goldentime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,25 +9,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.ParentAct;
+import com.squareup.picasso.Picasso;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.ArticleListRecyclerAdapter;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.Article;
 import com.survivalsos.goldentime.util.DebugUtil;
-import com.survivalsos.goldentime.util.ImageUtil;
 import com.survivalsos.goldentime.util.MoveActUtil;
 
 import java.util.ArrayList;
 
-public class ArticleListAct extends ParentAct {
-
-    private ArrayList<Article> articles;
-    private RecyclerView articleListRecyclerView;
-    private ArticleListRecyclerAdapter articleListRecyclerAdapter;
+public class ArticleListAct extends ParentAct implements View.OnClickListener {
 
     private Integer clickedImagePosition;
+    private ArrayList<Article> articles;
+
+    private ImageView backBtn;
+    private RecyclerView articleListRecyclerView;
+    private ArticleListRecyclerAdapter articleListRecyclerAdapter;
     private ImageView imageViewRepresentImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,9 @@ public class ArticleListAct extends ParentAct {
         clickedImagePosition = getIntent().getIntExtra("mainImagesPosition", 0);
         DebugUtil.showDebug("넘어온 아키틀 번호 :: " + clickedImagePosition);
 
+        backBtn = (ImageView) findViewById(R.id.img_backbtn);
+        backBtn.setOnClickListener(this);
         imageViewRepresentImage = (ImageView) findViewById(R.id.img_representing_article);
-
         articleListRecyclerView = (RecyclerView) findViewById(R.id.article_list_listview_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
@@ -72,11 +74,18 @@ public class ArticleListAct extends ParentAct {
                 articleListRecyclerAdapter.notifyDataSetChanged();
             }
 
-
-            imageViewRepresentImage.setImageDrawable(ImageUtil.loadDrawableFromAssets(ArticleListAct.this, "image/ArticleListImages/" + clickedImagePosition + "00.png"));
-
+            Picasso.with(this).load( "file:///android_asset/image/ArticleListImages/"  + clickedImagePosition + "00.png").fit().into(imageViewRepresentImage);
 
         }
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.img_backbtn:
+                onBackPressed();
+                break;
+        }
     }
 }

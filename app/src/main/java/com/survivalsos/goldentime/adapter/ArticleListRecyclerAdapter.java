@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.survivalsos.goldentime.R;
@@ -27,6 +28,7 @@ public class ArticleListRecyclerAdapter extends RecyclerView.Adapter {
 
     public static class ArticleListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private LinearLayout clickArea;
         private TextView titleOfArticle;
         private ImageView arrowBtnAtRightSide;
         //private TextView label;
@@ -37,9 +39,10 @@ public class ArticleListRecyclerAdapter extends RecyclerView.Adapter {
         public ArticleListViewHolder(View v) {
             super(v);
 
+            clickArea = (LinearLayout) v.findViewById(R.id.item_article_list_click_area);
             titleOfArticle = (TextView) v.findViewById(R.id.textview_title);
             arrowBtnAtRightSide = (ImageView) v.findViewById(R.id.item_article_list_rightside_arrow);
-            arrowBtnAtRightSide.setOnClickListener(this);
+            clickArea.setOnClickListener(this);
         }
 
         public void setClickListener(AdapterItemClickListener itemClickListener) {

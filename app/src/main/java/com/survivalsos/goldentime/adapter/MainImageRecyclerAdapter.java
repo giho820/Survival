@@ -29,6 +29,7 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
     private MainImageItemInfo item;
     private ArrayList<MainImageItemInfo> mainImageItems;
     private static Context context;
+    private Integer argPage;
     private AdapterItemClickListener adapterItemClickListener;
 
 
@@ -74,8 +75,9 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MainImageRecyclerAdapter(Context context) {
+    public MainImageRecyclerAdapter(Context context, Integer argPage) {
         this.context = context;
+        this.argPage = argPage;
     }
 
     public void setAdapterItemClickListener(AdapterItemClickListener adapterItemClickListener) {
@@ -130,7 +132,6 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
                     Picasso.with(context).load( "file:///android_asset/image/"  + item.mainImageCode + ".png").into(((MainImgViewHolder) holder).mainImg);
                 }
 
-                item.doesLocked = 1;
                 if (item.doesLocked != null) {
                     if (item.doesLocked > 0) {
                         ((MainImgViewHolder) holder).imgLocker.setVisibility(View.VISIBLE);
@@ -147,12 +148,22 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
             }
         } else { //if (holder instance of MainHeaderViewHolder)
 
-            if (position == 0)
-                ((MainHeaderViewHolder) holder).tvHeader.setText("자연 재해");
+            //Todo 여기만 다른데 fragment만 구분해서하나의 어댑터로 처리하는 방법으로 해야할 것 같은데..
+            if(argPage == 0) {
+                if (position == 0)
+                    ((MainHeaderViewHolder) holder).tvHeader.setText("자연 재해");
 
-            int secondHeaderPos = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER).size() + 1;
-            if (position == secondHeaderPos)
-                ((MainHeaderViewHolder) holder).tvHeader.setText("사고 ・ 화재");
+                int secondHeaderPos = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER).size() + 1;
+                if (position == secondHeaderPos)
+                    ((MainHeaderViewHolder) holder).tvHeader.setText("사고 ・ 화재");
+            } else {
+                if (position == 0)
+                    ((MainHeaderViewHolder) holder).tvHeader.setText("생존 원칙과 방법");
+
+                int secondHeaderPos = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.SURVIVAL_PRINCIPLE).size() + 1;
+                if (position == secondHeaderPos)
+                    ((MainHeaderViewHolder) holder).tvHeader.setText("응급상황 대비");
+            }
         }
 
     }

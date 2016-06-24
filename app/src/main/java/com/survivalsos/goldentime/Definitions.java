@@ -8,7 +8,9 @@ import android.graphics.Typeface;
 public class Definitions {
 
     public static Typeface NanumGothic;
+    public static Typeface NanumGothicBold;
     public static Typeface LatoBlack;
+    public static Typeface LatoBold;
 
     public interface SECTION_TYPE {
         int NATURE_DISASTER = 1;

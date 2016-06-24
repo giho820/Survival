@@ -1,0 +1,36 @@
+package com.survivalsos.goldentime.common.view;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.widget.EditText;
+
+import com.survivalsos.goldentime.Definitions;
+
+
+public class LatoBoldEditView extends EditText {
+
+	public LatoBoldEditView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		if (Definitions.LatoBold != null)
+			setTypeface(Definitions.LatoBold);
+		//setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f, getResources().getDisplayMetrics()), 1.0f);
+	}
+
+	public LatoBoldEditView(Context context) {
+		super(context);
+		if (Definitions.LatoBold != null)
+			setTypeface(Definitions.LatoBold);
+
+		//setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f, getResources().getDisplayMetrics()), 1.0f);
+	}
+
+	public LatoBoldEditView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		if (Definitions.LatoBold != null)
+			setTypeface(Definitions.LatoBold);
+
+		//setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f, getResources().getDisplayMetrics()), 1.0f);
+	}
+
+
+}

@@ -10,11 +10,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
+import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.DeviceUtil;
 import com.survivalsos.goldentime.util.ToforUtil;
 
@@ -75,8 +79,16 @@ public abstract class ParentAct extends AppCompatActivity {
 			Definitions.NanumGothic = Typeface.createFromAsset(getAssets(), "NanumGothic.ttf");
 		}
 
+		if (Definitions.NanumGothicBold == null) {
+			Definitions.NanumGothicBold = Typeface.createFromAsset(getAssets(), "NanumGothicBold.ttf");
+		}
+
 		if (Definitions.LatoBlack == null) {
 			Definitions.LatoBlack = Typeface.createFromAsset(getAssets(), "Lato-Black.ttf");
+		}
+
+		if (Definitions.LatoBold == null) {
+			Definitions.LatoBold = Typeface.createFromAsset(getAssets(), "Lato-Bold.ttf");
 		}
 
 	}
@@ -118,5 +130,26 @@ public abstract class ParentAct extends AppCompatActivity {
 		ft.replace(contentId, fragment).commit();
 	}
 
+	//Todo 스크롤뷰 안에 있는 리스트뷰의 항목이 모두 보이도록하는 방법 잘되면 ParentAct로 옮기도록 하자
+	public static void setListViewHeightBasedOnChildren(ListView listView) {
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null)
+			return;
 
+		int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+		int totalHeight = 0;
+		View view = null;
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			view = listAdapter.getView(i, view, listView);
+			if (i == 0)
+				view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+			view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+			totalHeight += view.getMeasuredHeight();
+		}
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		DebugUtil.showDebug("setListViewHeightBasedOnChildren() :: " + params.height);
+		listView.setLayoutParams(params);
+	}
 }

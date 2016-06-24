@@ -357,6 +357,7 @@
     
     <!-- 2015-02-06 -->
      <dimen name="dp_480">480dp</dimen>
-    
+    <dimen name="dp_371">371dp</dimen>
+    <dimen name="dp_46.6">46.6dp</dimen>
 
 </resources>

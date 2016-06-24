@@ -2,11 +2,18 @@ package com.survivalsos.goldentime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ListAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.ParentAct;
 import com.survivalsos.goldentime.Definitions;
@@ -20,22 +27,54 @@ import com.survivalsos.goldentime.util.MoveActUtil;
 
 import java.util.ArrayList;
 
-public class ArticleDetailAct extends ParentAct implements AdapterItemClickListener {
+public class ArticleDetailAct extends ParentAct
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterItemClickListener, View.OnClickListener {
 
-    private WebView wv;
     private Article currentArticle;
     private Article additionalArticle;
+
+    private LinearLayout linearLayoutOpenDrawer;
+    private ScrollView scrollViewArticleDetail;
+    private WebView wv;
     private ArrayList<Article> additionalArticles;
     private ListView listViewContainingAdditionalArticle;
     private AdditionalArticleListAdapter additionalArticleListAdapter;
+    private LinearLayout linearLayoutIconHome;
+    private LinearLayout linearLayoutIconBack;
+    private LinearLayout linearLayoutIconGuide;
+    private LinearLayout linearLayoutIconTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article_detail);
+        setContentView(R.layout.activity_article_detail_with_navigation);
 
+        //guide 영역
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//invisible
+        setSupportActionBar(toolbar);//invisible
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer_article_detail);
+        linearLayoutOpenDrawer.setOnClickListener(this);
+
+        //스크롤뷰 영역
+
+        scrollViewArticleDetail = (ScrollView) findViewById(R.id.scrollViewArticleDetail);
         wv = (WebView) findViewById(R.id.webView_article_detail);
         listViewContainingAdditionalArticle = (ListView) findViewById(R.id.article_detail_listview);
+        linearLayoutIconHome = (LinearLayout) findViewById(R.id.linearlayout_icon_home);
+        linearLayoutIconBack = (LinearLayout) findViewById(R.id.linearlayout_icon_back);
+        linearLayoutIconGuide = (LinearLayout) findViewById(R.id.linearlayout_icon_list);
+        linearLayoutIconTop = (LinearLayout) findViewById(R.id.linearlayout_icon_top);
+
 
         currentArticle = (Article) getIntent().getSerializableExtra("articleId ArticleListAct To DetailAct");
         additionalArticles = new ArrayList<>();
@@ -70,50 +109,37 @@ public class ArticleDetailAct extends ParentAct implements AdapterItemClickListe
 //                    additionalArticle.title = DatabaseCRUD.getArticleTitle(currentArticle.nextArticleId);
                     additionalArticle = DatabaseCRUD.getArticleInfo(currentArticle.nextArticleId);
                     additionalArticle.type = Definitions.ARTICLE_TYPE.NEXT;
-
                     additionalArticles.add(additionalArticle);
                 }
 
-
                 if (additionalArticles != null) {
                     additionalArticleListAdapter.addItems(additionalArticles);
-                    DebugUtil.showDebug("집에가기전에 마지막 쳌 :: 어댑터에 있는 항목의 개수 ::: " + additionalArticleListAdapter.getCount());
                 }
             }
         }
         additionalArticleListAdapter.setAdapterArrayList(additionalArticles);
         listViewContainingAdditionalArticle.setAdapter(additionalArticleListAdapter);
         setListViewHeightBasedOnChildren(listViewContainingAdditionalArticle);
+
+        linearLayoutIconHome.setOnClickListener(this);
+        linearLayoutIconBack.setOnClickListener(this);
+        linearLayoutIconGuide.setOnClickListener(this);
+        linearLayoutIconTop.setOnClickListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        finish();
-        this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
-    }
-
-    //Todo 스크롤뷰 안에 있는 리스트뷰의 항목이 모두 보이도록하는 방법 잘되면 ParentAct로 옮기도록 하자
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+//            super.onBackPressed();
+            finish();
+            this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
         }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        DebugUtil.showDebug("setListViewHeightBasedOnChildren() :: " + params.height);
-        listView.setLayoutParams(params);
+
     }
+
 
     @Override
     public void onAdapterItemClick(View view, int position) {
@@ -125,6 +151,52 @@ public class ArticleDetailAct extends ParentAct implements AdapterItemClickListe
                 MoveActUtil.moveActivity(this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
                 break;
 
+
         }
     }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.linearlayout_open_drawer_article_detail:
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+                break;
+            
+            case R.id.linearlayout_icon_home:
+                Intent intent = new Intent(this, GuideAddedMainAct.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MoveActUtil.moveActivity(this, intent, R.anim.left_in, R.anim.left_out, true, true);
+                break;
+
+            case R.id.linearlayout_icon_back:
+                onBackPressed();
+                break;
+
+            case R.id.linearlayout_icon_list:
+
+                break;
+
+            case R.id.linearlayout_icon_top:
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        DebugUtil.showDebug("wv :: " + wv.getHeight());
+                        scrollViewArticleDetail.smoothScrollTo(0, 0);
+
+                    }
+                }, 300);
+
+                break;
+        }
+    }
+
+
 }

@@ -360,8 +360,14 @@
     <dimen name="dp_297">264dp</dimen>
     <!-- 2015-02-06 -->
     <dimen name="dp_480">426.66dp</dimen>
+    <dimen name="dp_371">329.77dp</dimen>
+    <dimen name="dp_46.6">41.44dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

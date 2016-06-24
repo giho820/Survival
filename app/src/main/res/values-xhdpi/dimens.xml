@@ -365,6 +365,7 @@
 
 
     <dimen name="dp_480">801.6dp</dimen>
-
+    <dimen name="dp_371">619.57dp</dimen>
+    <dimen name="dp_46.6">77.82dp</dimen>
 
 </resources>
