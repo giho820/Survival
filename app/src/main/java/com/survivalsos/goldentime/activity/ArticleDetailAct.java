@@ -34,6 +34,8 @@ public class ArticleDetailAct extends ParentAct
     private Article additionalArticle;
 
     private LinearLayout linearLayoutOpenDrawer;
+    private LinearLayout linearLayoutBookmarkInArticleDetailAct;
+    private LinearLayout linearLayoutSearchInArticleDetailAct;
     private ScrollView scrollViewArticleDetail;
     private WebView wv;
     private ArrayList<Article> additionalArticles;
@@ -65,6 +67,9 @@ public class ArticleDetailAct extends ParentAct
         linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer_article_detail);
         linearLayoutOpenDrawer.setOnClickListener(this);
 
+        //custom toolbar 영역
+        linearLayoutBookmarkInArticleDetailAct = (LinearLayout) findViewById(R.id.linearlayout_bookmark_in_article_detail_act);
+        linearLayoutSearchInArticleDetailAct = (LinearLayout) findViewById(R.id.linearlayout_search_in_article_detail_act);
         //스크롤뷰 영역
 
         scrollViewArticleDetail = (ScrollView) findViewById(R.id.scrollViewArticleDetail);
@@ -121,6 +126,8 @@ public class ArticleDetailAct extends ParentAct
         listViewContainingAdditionalArticle.setAdapter(additionalArticleListAdapter);
         setListViewHeightBasedOnChildren(listViewContainingAdditionalArticle);
 
+        linearLayoutBookmarkInArticleDetailAct.setOnClickListener(this);
+        linearLayoutSearchInArticleDetailAct.setOnClickListener(this);
         linearLayoutIconHome.setOnClickListener(this);
         linearLayoutIconBack.setOnClickListener(this);
         linearLayoutIconGuide.setOnClickListener(this);
@@ -168,7 +175,16 @@ public class ArticleDetailAct extends ParentAct
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.openDrawer(GravityCompat.START);
                 break;
-            
+
+            case R.id.linearlayout_bookmark_in_article_detail_act:
+                DebugUtil.showToast(this, "Toast ttttt먹을래????");
+                break;
+
+            case R.id.linearlayout_search_in_article_detail_act:
+                //Todo 서치 액티비티로 move
+                MoveActUtil.chageActivity(this, SearchAct.class, R.anim.up, R.anim.down, false, false);
+                break;
+
             case R.id.linearlayout_icon_home:
                 Intent intent = new Intent(this, GuideAddedMainAct.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

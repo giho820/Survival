@@ -15,6 +15,7 @@
 
     <!-- 알림 -->
     <LinearLayout
+        android:id="@+id/linearlayout_drawer_notificaiton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46.6"
         android:orientation="horizontal"
@@ -48,6 +49,7 @@
 
     <!-- 저작권 공지 -->
     <LinearLayout
+        android:id="@+id/linearlayout_drawer_copyright"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46.6"
         android:orientation="horizontal"
@@ -81,6 +83,7 @@
 
     <!-- Contact -->
     <LinearLayout
+        android:id="@+id/linearlayout_drawer_contact"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46.6"
         android:orientation="horizontal"
@@ -114,6 +117,7 @@
 
     <!-- 다운로드 -->
     <LinearLayout
+        android:id="@+id/linearlayout_drawer_download"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46.6"
         android:orientation="horizontal"
@@ -147,6 +151,7 @@
 
     <!-- 북마크 -->
     <LinearLayout
+        android:id="@+id/linearlayout_drawer_bookmark"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46.6"
         android:orientation="horizontal"
@@ -180,6 +185,7 @@
 
     <!-- 리뷰쓰기-->
     <LinearLayout
+        android:id="@+id/linearlayout_drawer_review"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46.6"
         android:orientation="horizontal"

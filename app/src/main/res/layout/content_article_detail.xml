@@ -29,6 +29,7 @@
             android:layout_weight="1"></View>
 
         <LinearLayout
+            android:id="@+id/linearlayout_bookmark_in_article_detail_act"
             android:layout_width="@dimen/dp_35"
             android:layout_height="match_parent"
             android:gravity="center">
@@ -40,6 +41,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearlayout_search_in_article_detail_act"
             android:layout_width="@dimen/dp_47"
             android:layout_height="match_parent"
             android:gravity="center">

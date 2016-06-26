@@ -122,7 +122,7 @@ public class SearchResultActImageAdapter extends BaseAdapter {
                     String filePath = "file:///android_asset/html/img/"  + item.articleId + "1.jpg";
 
                     convertView.setVisibility(View.VISIBLE);
-                    Picasso.with(context).load(filePath).into(holder.image, new Callback() {
+                    Picasso.with(context).load(filePath).fit().into(holder.image, new Callback() {
                         @Override
                         public void onSuccess() {
 

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/act_search_bg"
+    android:orientation="vertical"
+    tools:context=".activity.DrawerNotificationAct">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+        <LinearLayout
+            android:id="@+id/linearlayout_close_x_drawer_notification"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/dp_16.5"
+                android:layout_height="@dimen/dp_16"
+                android:background="@drawable/drawer_close_x"></ImageView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollViewNotiCopyrightContact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <!--알림-->
+            <LinearLayout
+                android:id="@+id/linear_drawer_noti_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c_ff325157"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.survivalsos.goldentime.common.view.NanumGothicTextView
+                    android:id="@+id/tv_nanum_gothic_notification_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_17"
+
+                    android:gravity="center_vertical"
+                    android:text="알림"
+                    android:textColor="@color/c_ffffffff"
+                    android:textSize="@dimen/dp_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.survivalsos.goldentime.common.view.NanumGothicTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_17"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="@dimen/dp_3"
+                    android:text="이 앱이 설명하는 재난 발생시의 행동 요령은 일반적인 대처 방법이며, 개별 상황에서는 별도의 행동 및 조치가 필요할 수 있습니다. 이 앱이 제공하는 정보는 특수한 상황에서 의학 및 구조 전문가의 지시에 우선하지 않습니다."
+                    android:textColor="@color/c_ffffffff"
+                    android:textSize="@dimen/dp_12" />
+            </LinearLayout>
+
+            <!--저작권 공지-->
+            <LinearLayout
+                android:id="@+id/linear_drawer_copyright_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c_ff325157"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.survivalsos.goldentime.common.view.NanumGothicTextView
+                    android:id="@+id/tv_copyright_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_17"
+                    android:gravity="center_vertical"
+                    android:text="저작권 공지"
+                    android:textColor="@color/c_ffffffff"
+                    android:textSize="@dimen/dp_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.survivalsos.goldentime.common.view.NanumGothicTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_17"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="@dimen/dp_3"
+                    android:text="Copyright 2016. Summer Rabbit. All rights reserved.  \nillustrations ⓒ SUZY \n\nphotographs and partial graphics ⓒ various artists via Sutterstock
+\n\n이 어플리케이션의 게시에 관한 모든 권리는 ⓒ Summer Rabbit 에게 있습니다. 아래와 같이 사전 허락된 게재 조건 이외의 무단 복제, 인쇄 및 전재를 금합니다.\n\n개인 및 등록된 언론사는 본 어플리케이션의 일부를 실행화면 캡쳐 (스크린샷) 형태로 인용하고 출처 ‘골든타임 재난 서바이벌’을 명시하는 경우에 한해 별도의 허락을 요청하지 않고 기사, 블로그, SNS 등에 게재할 수 있습니다. 1인 또는 1미디어당 사용할 수 있는 스크린샷 갯수는 9개 이하입니다.
+\n\n이 어플리케이션에 사용된 모든 일러스트레이션과 대부분의 사진들은 저작권법의 보호를 받습니다. 출처를 밝히고 스크린샷을 게재하는 것이 아닌, 이미지나 텍스트의 일부를 복제, 추출하여 사용할 경우 저작권자로부터 권리 침해에 대한 손해배상 청구를 받을 수 있습니다.
+\n\n위의 발췌 및 인용에 관한 지침은 비영리기관 및 개인에게도 동일하게 적용됩니다. 최대 9개의 스크린샷을 초과하는 전재 및 인쇄 출판의 경우 (교육 목적의 무상배포 포함) 사전에 summer.rabbit.apps@gmail.com 으로 연락해 사용 권한을 협의하고 별도로 저작권자의 허락을 받아야 합니다.
+\n\n이 어플리케이션의 내용 일부는 미국 Federal Emergency Management Agency (FEMA)에서 제공하는 정보를 발췌 번역한 것임을 알려드립니다.
+\n\n이 어플리케이션은 일부 U.S. Air Force, U.S. Navy 에서 공개한 사진, 인도네시아 정부가 배포한 보도자료 이미지, 개인들이 CC0 라이센스로 게시한 사진과 아래의 CC2, CC3 라이센스 사진을 사용하고 있습니다.
+\n\nThe Deanery after the 2011 Christchurch earthquake by Schwede66
+\n\nBuilding collapsed in Concepción, Upper Rio, 2010 Chile earthquake by Claudio Núñez
+\n\nVespucio Norte Highway 27-FEB-2010 Chile Earthquake by Esteban Maldonado
+\n\n이 어플리케이션의 한국어판에는 NAVER에서 제공하는 나눔글꼴이 적용되어 있습니다."
+                    android:textColor="@color/c_ffffffff"
+                    android:textSize="@dimen/dp_12" />
+            </LinearLayout>
+
+            <!--Contact-->
+            <LinearLayout
+                android:id="@+id/linear_drawer_contact_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c_ff325157"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.survivalsos.goldentime.common.view.NanumGothicTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_17"
+
+                    android:gravity="center_vertical"
+                    android:text="Contact"
+                    android:textColor="@color/c_ffffffff"
+                    android:textSize="@dimen/dp_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.survivalsos.goldentime.common.view.NanumGothicTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_17"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="@dimen/dp_3"
+                    android:text="오류신고 및 문의\nsummer.rabbit.apps@gmail.com"
+                    android:textColor="@color/c_ffffffff"
+                    android:textSize="@dimen/dp_12" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

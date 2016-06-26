@@ -1,7 +1,10 @@
 package com.survivalsos.goldentime.activity;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +38,15 @@ public class GuideAddedMainAct extends ParentAct
     private MainFragmentPagerAdapter mainFragmentPagerAdapter;
     private LinearLayout linearLayoutOpenDrawer;
     private LinearLayout linearLayoutSearch;
+    //drawer 메뉴
+    private LinearLayout linearLayoutDrawerNotice;
+    private LinearLayout linearLayoutDrawerCopyRight;
+    private LinearLayout linearLayoutDrawerContact;
+    private LinearLayout linearLayoutDrawerDownload;
+    private LinearLayout linearLayoutDrawerBookmark;
+    private LinearLayout linearLayoutDrawerReview;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +72,29 @@ public class GuideAddedMainAct extends ParentAct
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setOnClickListener(this);
 
         linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer);
         linearLayoutOpenDrawer.setOnClickListener(this);
 
         linearLayoutSearch = (LinearLayout) findViewById(R.id.linearlayout_search);
         linearLayoutSearch.setOnClickListener(this);
+
+        //drawer 메뉴
+        linearLayoutDrawerNotice = (LinearLayout) findViewById(R.id.linearlayout_drawer_notificaiton);
+        linearLayoutDrawerCopyRight = (LinearLayout) findViewById(R.id.linearlayout_drawer_copyright);
+        linearLayoutDrawerContact = (LinearLayout) findViewById(R.id.linearlayout_drawer_contact);
+        linearLayoutDrawerDownload = (LinearLayout) findViewById(R.id.linearlayout_drawer_download);
+        linearLayoutDrawerBookmark = (LinearLayout) findViewById(R.id.linearlayout_drawer_bookmark);
+        linearLayoutDrawerReview = (LinearLayout) findViewById(R.id.linearlayout_drawer_review);
+
+        linearLayoutDrawerNotice.setOnClickListener(this);
+        linearLayoutDrawerCopyRight.setOnClickListener(this);
+        linearLayoutDrawerContact.setOnClickListener(this);
+        linearLayoutDrawerDownload.setOnClickListener(this);
+        linearLayoutDrawerBookmark.setOnClickListener(this);
+        linearLayoutDrawerReview.setOnClickListener(this);
 
         //페이져 어댑터
         mainFragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
@@ -135,6 +163,57 @@ public class GuideAddedMainAct extends ParentAct
             case R.id.linearlayout_search:
                 //Todo 서치 액티비티로 move
                 MoveActUtil.chageActivity(this, SearchAct.class, R.anim.up, R.anim.down, false, false);
+                break;
+
+            case R.id.linearlayout_drawer_notificaiton:
+                Intent moveToDrawerNotificationAct = new Intent(this, DrawerNotificationAct.class);
+                moveToDrawerNotificationAct.putExtra("whichInfo", 0);
+                MoveActUtil.moveActivity(this, moveToDrawerNotificationAct, R.anim.right_in, R.anim.right_out, false, false);
+                break;
+
+            case R.id.linearlayout_drawer_copyright:
+                Intent moveToDrawerNotificationActAtCopy = new Intent(this, DrawerNotificationAct.class);
+                moveToDrawerNotificationActAtCopy.putExtra("whichInfo", 1);
+                MoveActUtil.moveActivity(this, moveToDrawerNotificationActAtCopy, R.anim.right_in, R.anim.right_out, false, false);
+                break;
+
+            case R.id.linearlayout_drawer_contact:
+                Intent moveToDrawerNotificationActAtContact = new Intent(this, DrawerNotificationAct.class);
+                moveToDrawerNotificationActAtContact.putExtra("whichInfo", 2);
+                MoveActUtil.moveActivity(this, moveToDrawerNotificationActAtContact, R.anim.right_in, R.anim.right_out, false, false);
+                break;
+
+            case R.id.linearlayout_drawer_download:
+                Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
+                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
+//                intentDownLoad.setData(Uri.parse("market://details?id=" + this.getPackageName()));
+                if (this == null) {
+                    DebugUtil.showDebug("parentAct is null");
+                } else {
+                    DebugUtil.showDebug("parentAct is not null ");
+                    MoveActUtil.moveActivity(this, intentDownLoad, -1, -1, false, false);
+                }
+                break;
+
+            case R.id.linearlayout_drawer_bookmark:
+                DebugUtil.showToast(this, "토스트는 맛있지");
+                break;
+
+            case R.id.linearlayout_drawer_review:
+                Uri uri = Uri.parse("market://details?id=" + "com.google.android.tts");
+//                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+                }
                 break;
         }
     }
