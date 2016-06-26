@@ -33,6 +33,7 @@
             />
 
         <LinearLayout
+            android:id="@+id/linearlayout_search"
             android:layout_width="@dimen/dp_47"
             android:layout_height="match_parent"
             android:gravity="center">

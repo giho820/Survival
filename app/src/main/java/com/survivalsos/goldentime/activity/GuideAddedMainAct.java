@@ -23,6 +23,7 @@ import com.survivalsos.goldentime.database.DatabaseHelper;
 import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
 import com.survivalsos.goldentime.database.util.DatabaseUtil;
 import com.survivalsos.goldentime.util.DebugUtil;
+import com.survivalsos.goldentime.util.MoveActUtil;
 
 import java.io.IOException;
 
@@ -33,6 +34,7 @@ public class GuideAddedMainAct extends ParentAct
     private DatabaseHelper databaseHelper;
     private MainFragmentPagerAdapter mainFragmentPagerAdapter;
     private LinearLayout linearLayoutOpenDrawer;
+    private LinearLayout linearLayoutSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,9 @@ public class GuideAddedMainAct extends ParentAct
         linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer);
         linearLayoutOpenDrawer.setOnClickListener(this);
 
+        linearLayoutSearch = (LinearLayout) findViewById(R.id.linearlayout_search);
+        linearLayoutSearch.setOnClickListener(this);
+
         //페이져 어댑터
         mainFragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
 
@@ -77,10 +82,8 @@ public class GuideAddedMainAct extends ParentAct
         tabStrip.setTextColorResource(R.color.text_color);
         tabStrip.setShouldExpand(true);
         tabStrip.setDividerColor(getResources().getColor(android.R.color.transparent));
-
         if(Definitions.LatoBlack != null) tabStrip.setTypeface(Definitions.LatoBlack, Typeface.NORMAL);
         tabStrip.setViewPager(viewPager);
-
     }
 
     public void copyDatabaseOnIntroAct() {
@@ -127,6 +130,11 @@ public class GuideAddedMainAct extends ParentAct
             case R.id.linearlayout_open_drawer:
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.openDrawer(GravityCompat.START);
+                break;
+
+            case R.id.linearlayout_search:
+                //Todo 서치 액티비티로 move
+                MoveActUtil.chageActivity(this, SearchAct.class, R.anim.up, R.anim.down, false, false);
                 break;
         }
     }

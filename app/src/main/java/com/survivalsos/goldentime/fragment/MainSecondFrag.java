@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.activity.ArticleListAct;
+import com.survivalsos.goldentime.activity.CheckListAct;
 import com.survivalsos.goldentime.activity.GuideAddedMainAct;
 import com.survivalsos.goldentime.adapter.MainImageRecyclerAdapter;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
@@ -78,11 +79,19 @@ public class MainSecondFrag extends Fragment{
         mainImageRecyclerAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(View view, int position) {
-                DebugUtil.showDebug("mainImage :: " + mainImages.get(position).toString() + " 클릭 됨...");
-                //Todo (완료)Article로 이동하는 부분
-                Intent intent = new Intent(mContext, ArticleListAct.class);
-                intent.putExtra("mainImagesPosition", mainImages.get(position).mainImageCode);
-                MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
+                //체크리스트 항목인 경우에
+                if(mainImages.get(position).mainImageCode == 43){
+                    DebugUtil.showToast(guideAddedMainAct, "체크리스트 항목에 대한 부분입니다");
+                    Intent intent = new Intent(mContext, CheckListAct.class);
+                    MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
+
+                } else {
+                    DebugUtil.showDebug("mainImage :: " + mainImages.get(position).toString() + " 클릭 됨...");
+                    //Todo (완료)Article로 이동하는 부분
+                    Intent intent = new Intent(mContext, ArticleListAct.class);
+                    intent.putExtra("mainImagesPosition", mainImages.get(position).mainImageCode);
+                    MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
+                }
             }
         });
         mainImageListRecyclerView.setAdapter(mainImageRecyclerAdapter);

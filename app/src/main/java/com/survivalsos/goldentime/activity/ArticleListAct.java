@@ -77,8 +77,9 @@ public class ArticleListAct extends ParentAct implements View.OnClickListener {
             Picasso.with(this).load( "file:///android_asset/image/ArticleListImages/"  + clickedImagePosition + "00.png").fit().into(imageViewRepresentImage);
 
         }
-
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -88,4 +89,6 @@ public class ArticleListAct extends ParentAct implements View.OnClickListener {
                 break;
         }
     }
+
+
 }

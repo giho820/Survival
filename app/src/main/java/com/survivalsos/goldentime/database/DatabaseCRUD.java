@@ -190,4 +190,35 @@ public class DatabaseCRUD {
         cursor.close();
         return title;
     }
+
+    //검색 화면에서 특정 검색어를 통해서 Article의 정보를 가져오는 함수
+    public static ArrayList<Article> getSearchList(String inputText) {
+        ArrayList<Article> result = new ArrayList<>();
+
+        String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE ARTICLE_TEXT LIKE '%" + inputText + "%'";
+        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+        if (cursor == null)
+            return null;
+
+        while (cursor.moveToNext()) {
+            Article article = new Article();
+            article.articleId = cursor.getInt(0);
+            article.title = cursor.getString(1);
+            article.highRankCode = cursor.getInt(2);
+            article.nextArticleId = cursor.getInt(3);
+            article.relatedArticleId = cursor.getInt(4);
+            article.isSoundFile = cursor.getString(5);
+            article.articleText = cursor.getString(6);
+
+            result.add(article);
+        }
+
+        for (Article article : result) {
+            DebugUtil.showDebug("result :: " + article.articleId);
+        }
+        cursor.close();
+        return result;
+    }
 }

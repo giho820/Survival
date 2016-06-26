@@ -181,7 +181,12 @@ public class ArticleDetailAct extends ParentAct
                 break;
 
             case R.id.linearlayout_icon_list:
-
+                Intent intentToList = new Intent(this, ArticleListAct.class);
+                Integer categoryCode = Integer.parseInt(currentArticle.articleId.toString().substring(0, 2));
+                intentToList.putExtra("mainImagesPosition", categoryCode);
+                intentToList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentToList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MoveActUtil.moveActivity(this, intentToList, R.anim.left_in, R.anim.left_out, true, true);
                 break;
 
             case R.id.linearlayout_icon_top:

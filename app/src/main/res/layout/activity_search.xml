@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.survivalsos.goldentime.activity.SearchAct"
+    android:orientation="vertical"
+    android:background="@drawable/act_search_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/c_ff1c1c1c">
+
+        <LinearLayout
+            android:id="@+id/linearlayout_exit_search_act"
+            android:layout_width="@dimen/dp_47"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:background="@drawable/abc_ic_clear_mtrl_alpha" />
+        </LinearLayout>
+
+        <com.survivalsos.goldentime.common.view.NanumGothicTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="검색"
+            android:textColor="@color/c_ffffffff"
+            android:textSize="@dimen/dp_17"
+            android:gravity="center"
+            android:hint="검색">
+
+        </com.survivalsos.goldentime.common.view.NanumGothicTextView>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_47"
+            android:layout_height="match_parent"
+            android:gravity="center">
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center"
+        android:background="@drawable/act_search_et_bg"
+        android:layout_margin="@dimen/dp_10">
+
+        <com.survivalsos.goldentime.common.view.NanumGothicEditView
+            android:id="@+id/edittext_input_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="검색"
+            android:textColor="@color/c_ffffffff"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_search_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="texteext"
+        android:textColor="@color/c_ffffffff"/>
+
+</LinearLayout>
