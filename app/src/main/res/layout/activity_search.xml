@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.survivalsos.goldentime.activity.SearchAct"
+    android:background="@drawable/act_search_bg"
     android:orientation="vertical"
-    android:background="@drawable/act_search_bg">
+    tools:context="com.survivalsos.goldentime.activity.SearchAct">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,44 +28,68 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
+            android:hint="검색"
             android:text="검색"
             android:textColor="@color/c_ffffffff"
-            android:textSize="@dimen/dp_17"
-            android:gravity="center"
-            android:hint="검색">
+            android:textSize="@dimen/dp_17">
 
         </com.survivalsos.goldentime.common.view.NanumGothicTextView>
 
         <LinearLayout
             android:layout_width="@dimen/dp_47"
             android:layout_height="match_parent"
-            android:gravity="center">
-        </LinearLayout>
+            android:gravity="center"></LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:gravity="center"
+        android:layout_margin="@dimen/dp_10"
         android:background="@drawable/act_search_et_bg"
-        android:layout_margin="@dimen/dp_10">
+        android:gravity="center">
 
         <com.survivalsos.goldentime.common.view.NanumGothicEditView
             android:id="@+id/edittext_input_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="검색"
-            android:textColor="@color/c_ffffffff"
+            android:imeOptions="actionDone"
             android:singleLine="true"
-            android:imeOptions="actionDone"/>
+            android:textColor="@color/c_ffffffff" />
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/tv_search_test"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="texteext"
-        android:textColor="@color/c_ffffffff"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_search_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/c_ffffffff"
+                android:visibility="gone"/>
+
+            <com.survivalsos.goldentime.common.view.ExpandableHeightGridView
+                android:id="@+id/gridViewKeywordSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/dp_6"
+                android:verticalSpacing="@dimen/dp_2"
+                android:isScrollContainer="false"
+                android:padding="@dimen/dp_3"
+                android:stretchMode="columnWidth"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>

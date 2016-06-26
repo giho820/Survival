@@ -1,7 +1,7 @@
 package com.survivalsos.goldentime.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,9 +9,14 @@ import android.widget.TextView;
 
 import com.ParentAct;
 import com.survivalsos.goldentime.R;
+import com.survivalsos.goldentime.adapter.SearchResultActImageAdapter;
+import com.survivalsos.goldentime.common.view.ExpandableHeightGridView;
 import com.survivalsos.goldentime.common.view.NanumGothicEditView;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
+import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.Article;
+import com.survivalsos.goldentime.util.DebugUtil;
+import com.survivalsos.goldentime.util.MoveActUtil;
 import com.survivalsos.goldentime.util.TextUtil;
 
 import java.util.ArrayList;
@@ -20,11 +25,13 @@ public class SearchAct extends ParentAct implements View.OnClickListener, TextVi
 
 
     NanumGothicEditView nanumGothicEditView;
-    private TextWatcher textWatcher;
     LinearLayout linearLayoutBackBtn;
     TextView tvSearchTest;
 
+    private Article clickedArticle;
     ArrayList<Article> searchResult;
+    private SearchResultActImageAdapter keywordSearchResultimageAdapter;
+    private ExpandableHeightGridView gridViewKeywordSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,11 @@ public class SearchAct extends ParentAct implements View.OnClickListener, TextVi
 
         nanumGothicEditView = (NanumGothicEditView) findViewById(R.id.edittext_input_search);
         nanumGothicEditView.setOnEditorActionListener(this);
+
+        gridViewKeywordSearch = (ExpandableHeightGridView) findViewById(R.id.gridViewKeywordSearch);
+        gridViewKeywordSearch.setNumColumns(2);
+        gridViewKeywordSearch.setExpanded(true);
+
     }
 
     @Override
@@ -68,6 +80,27 @@ public class SearchAct extends ParentAct implements View.OnClickListener, TextVi
                 result += article.articleId + ", " + article.title;
             }
             tvSearchTest.setText(searchResult.size() + "//" + result);
+
+            if (searchResult != null && searchResult.size() >= 0) {
+                keywordSearchResultimageAdapter = new SearchResultActImageAdapter(SearchAct.this, searchResult);
+                DebugUtil.showDebug("keywordSearchResultimageAdapter : " + keywordSearchResultimageAdapter.getCount());
+                keywordSearchResultimageAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
+                    @Override
+                    public void onAdapterItemClick(View view, int position) {
+                        clickedArticle = keywordSearchResultimageAdapter.getItem(position);
+//                        switch (view.getId()){
+//                            case R.id.item_list_framelayout:
+                        //Todo 이미지 클릭해서 아티클 보여주는 부분
+                        DebugUtil.showDebug("item :: " + clickedArticle.articleId + "클릭 됨");
+                        Intent moveToArticleDetailAct = new Intent(SearchAct.this, ArticleDetailAct.class);
+                        moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", clickedArticle);
+                        MoveActUtil.moveActivity(SearchAct.this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, true, true);
+//                                break;
+//                        }
+                    }
+                });
+                gridViewKeywordSearch.setAdapter(keywordSearchResultimageAdapter);
+            }
         }
         return false;
     }

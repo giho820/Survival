@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_list_framelayout"
+    android:layout_width="@dimen/dp_180"
+    android:layout_height="@dimen/dp_180">
+
+
+    <ImageView
+        android:id="@+id/imageView_article_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:id="@+id/item_list_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="bottom"
+        android:background="@color/c_4d000000"
+        android:gravity="center">
+
+
+        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+            android:id="@+id/item_list_article_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_17"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="아티클 이름"
+            android:textColor="@color/c_ffffffff" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

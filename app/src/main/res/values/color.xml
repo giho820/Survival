@@ -124,6 +124,7 @@
     <color name="c_ff7e8083">#ff7e8083</color>
     <color name="c_ff3d3d3d">#ff3d3d3d</color>
     <color name="c_ff000000">#ff000000</color>
+    <color name="c_4d000000">#4d000000</color>
     <color name="c_bb000000">#bb000000</color>
     <color name="c_ff393939">#ff393939</color>
 
@@ -145,7 +146,7 @@
     <color name="c_ff325157">#ff325157</color>
     <color name="c_ff113339">#ff113339</color>
     <color name="c_ff191021">#ff191021</color>
-
+    <color name="c_ff222222">#222222</color>
 
 
 
