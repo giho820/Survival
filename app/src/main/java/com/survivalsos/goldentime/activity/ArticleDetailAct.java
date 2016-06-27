@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -20,6 +21,7 @@ import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.AdditionalArticleListAdapter;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
+import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.Article;
 import com.survivalsos.goldentime.util.DebugUtil;
@@ -46,40 +48,14 @@ public class ArticleDetailAct extends ParentAct
     private LinearLayout linearLayoutIconGuide;
     private LinearLayout linearLayoutIconTop;
 
+    private ImageView ivBookmarkInDetailAct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail_with_navigation);
 
-        //guide 영역
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//invisible
-        setSupportActionBar(toolbar);//invisible
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer_article_detail);
-        linearLayoutOpenDrawer.setOnClickListener(this);
-
-        //custom toolbar 영역
-        linearLayoutBookmarkInArticleDetailAct = (LinearLayout) findViewById(R.id.linearlayout_bookmark_in_article_detail_act);
-        linearLayoutSearchInArticleDetailAct = (LinearLayout) findViewById(R.id.linearlayout_search_in_article_detail_act);
-        //스크롤뷰 영역
-
-        scrollViewArticleDetail = (ScrollView) findViewById(R.id.scrollViewArticleDetail);
-        wv = (WebView) findViewById(R.id.webView_article_detail);
-        listViewContainingAdditionalArticle = (ListView) findViewById(R.id.article_detail_listview);
-        linearLayoutIconHome = (LinearLayout) findViewById(R.id.linearlayout_icon_home);
-        linearLayoutIconBack = (LinearLayout) findViewById(R.id.linearlayout_icon_back);
-        linearLayoutIconGuide = (LinearLayout) findViewById(R.id.linearlayout_icon_list);
-        linearLayoutIconTop = (LinearLayout) findViewById(R.id.linearlayout_icon_top);
-
+        initUI();
 
         currentArticle = (Article) getIntent().getSerializableExtra("articleId ArticleListAct To DetailAct");
         additionalArticles = new ArrayList<>();
@@ -93,11 +69,12 @@ public class ArticleDetailAct extends ParentAct
             DebugUtil.showDebug("ArticleDetailAct이 넘어오지 않음");
         } else {
             if (currentArticle.articleId != null) {
+
                 DebugUtil.showDebug("Article ID :: " + currentArticle.articleId);
                 String filePath = "file:///android_asset/html/" + currentArticle.articleId + ".html";
                 wv.loadUrl(filePath);
 
-                if (currentArticle.relatedArticleId > 0) {
+                if (currentArticle.relatedArticleId != null && currentArticle.relatedArticleId > 0) {
                     Article additionalArticle = new Article();
                     DebugUtil.showDebug("해당 아티클과 연관된 아티클이 아이디가 존재함 :: " + currentArticle.relatedArticleId);
                     additionalArticle.articleId = currentArticle.relatedArticleId;
@@ -107,7 +84,7 @@ public class ArticleDetailAct extends ParentAct
                     additionalArticles.add(additionalArticle);
                 }
 
-                if (currentArticle.nextArticleId > 0) {
+                if (currentArticle.nextArticleId != null && currentArticle.nextArticleId > 0) {
                     Article additionalArticle = new Article();
                     DebugUtil.showDebug("해당 아티클의 다음 아티클의 아이디가 존재함  ::  " + currentArticle.nextArticleId);
                     additionalArticle.articleId = currentArticle.nextArticleId;
@@ -119,6 +96,11 @@ public class ArticleDetailAct extends ParentAct
 
                 if (additionalArticles != null) {
                     additionalArticleListAdapter.addItems(additionalArticles);
+                }
+
+                //Todo 디비에서 현재 아티클이 저장되어있는지에 따라
+                if (DatabaseCRUD.isBookmarked(currentArticle.articleId)) {
+                    ivBookmarkInDetailAct.setImageResource(R.drawable.sub_icon_bookmark_01);
                 }
             }
         }
@@ -134,6 +116,37 @@ public class ArticleDetailAct extends ParentAct
         linearLayoutIconTop.setOnClickListener(this);
     }
 
+    public void initUI() {
+        //guide 영역
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//invisible
+        setSupportActionBar(toolbar);//invisible
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //custom toolbar 영역
+        linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer_article_detail);
+        linearLayoutOpenDrawer.setOnClickListener(this);
+        linearLayoutBookmarkInArticleDetailAct = (LinearLayout) findViewById(R.id.linearlayout_bookmark_in_article_detail_act);
+        ivBookmarkInDetailAct = (ImageView) findViewById(R.id.img_bookmark_detail_act);
+        linearLayoutSearchInArticleDetailAct = (LinearLayout) findViewById(R.id.linearlayout_search_in_article_detail_act);
+
+        //스크롤뷰 영역
+        scrollViewArticleDetail = (ScrollView) findViewById(R.id.scrollViewArticleDetail);
+        wv = (WebView) findViewById(R.id.webView_article_detail);
+        listViewContainingAdditionalArticle = (ListView) findViewById(R.id.article_detail_listview);
+        linearLayoutIconHome = (LinearLayout) findViewById(R.id.linearlayout_icon_home);
+        linearLayoutIconBack = (LinearLayout) findViewById(R.id.linearlayout_icon_back);
+        linearLayoutIconGuide = (LinearLayout) findViewById(R.id.linearlayout_icon_list);
+        linearLayoutIconTop = (LinearLayout) findViewById(R.id.linearlayout_icon_top);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -144,7 +157,6 @@ public class ArticleDetailAct extends ParentAct
             finish();
             this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
         }
-
     }
 
 
@@ -157,7 +169,6 @@ public class ArticleDetailAct extends ParentAct
                 moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", additionalArticle);
                 MoveActUtil.moveActivity(this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
                 break;
-
 
         }
     }
@@ -177,12 +188,25 @@ public class ArticleDetailAct extends ParentAct
                 break;
 
             case R.id.linearlayout_bookmark_in_article_detail_act:
-                DebugUtil.showToast(this, "Toast ttttt먹을래????");
+                if (DatabaseCRUD.isBookmarked(currentArticle.articleId)) {
+                    ivBookmarkInDetailAct.setImageResource(R.drawable.sub_icon_bookmark_00);
+                    String deleteQuery = "delete from " + DatabaseConstantUtil.TABLE_USER_BOOKMARK + " where " +
+                            DatabaseConstantUtil.COLUMN_ARTICLE_ID + "=" + currentArticle.articleId + ";";
+                    DatabaseCRUD.execRawQuery(deleteQuery);
+
+                } else {
+                    ivBookmarkInDetailAct.setImageResource(R.drawable.sub_icon_bookmark_01);
+                    String insertQuery = "insert or ignore into " + DatabaseConstantUtil.TABLE_USER_BOOKMARK + "(" + DatabaseConstantUtil.COLUMN_ARTICLE_ID + ", " +
+                            DatabaseConstantUtil.COLUMN_TITLE+") values (" + currentArticle.articleId + ", '" + currentArticle.title+"')";
+                    DatabaseCRUD.execRawQuery(insertQuery);
+                }
                 break;
 
             case R.id.linearlayout_search_in_article_detail_act:
                 //Todo 서치 액티비티로 move
-                MoveActUtil.chageActivity(this, SearchAct.class, R.anim.up, R.anim.down, false, false);
+//                MoveActUtil.chageActivity(this, SearchAct.class, R.anim.up, R.anim.down, false, false);
+
+                DebugUtil.showDebug("gggg :: ArticleDetailAct BookmarkTest :: " + DatabaseCRUD.selectBookmarkDBQuery());
                 break;
 
             case R.id.linearlayout_icon_home:

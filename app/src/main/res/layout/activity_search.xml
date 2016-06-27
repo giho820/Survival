@@ -29,7 +29,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="검색"
             android:text="검색"
             android:textColor="@color/c_ffffffff"
             android:textSize="@dimen/dp_17">

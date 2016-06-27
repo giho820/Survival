@@ -3,6 +3,7 @@ package com.survivalsos.goldentime.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
 import com.survivalsos.goldentime.model.Article;
 import com.survivalsos.goldentime.model.MainImageItemInfo;
 import com.survivalsos.goldentime.util.DebugUtil;
@@ -221,4 +222,59 @@ public class DatabaseCRUD {
         cursor.close();
         return result;
     }
+
+
+    //북마크 정보가 있는 아티클 인지를 확인하는 함수
+    public static boolean isBookmarked(Integer inputInteger) {
+        boolean isExist = false;
+
+        String sqlQueryForArticleList = "SELECT * FROM " + DatabaseConstantUtil.TABLE_USER_BOOKMARK +" WHERE "+
+                DatabaseConstantUtil.COLUMN_ARTICLE_ID +" = " + inputInteger;
+        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+        if (cursor == null)
+            return false;
+
+        if (cursor.getCount() > 0)
+            isExist = true;
+        else
+            isExist = false;
+        cursor.close();
+
+        return isExist;
+    }
+
+    public static String selectBookmarkDBQuery() {
+        String result = "";
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from " + DatabaseConstantUtil.TABLE_USER_BOOKMARK, null);
+
+        while (cursor != null && cursor.moveToNext()) {
+            result += cursor.getInt(0)
+                    + ". "
+                    + cursor.getString(1)
+                    + "\n";
+        }
+
+        cursor.close();
+        return result;
+    }
+
+    public static ArrayList<Article> getBookmarkArticlesFromDB() {
+        ArrayList<Article> results = new ArrayList<>();
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from " + DatabaseConstantUtil.TABLE_USER_BOOKMARK, null);
+
+        while (cursor != null && cursor.moveToNext()) {
+            Article article = new Article();
+            article.articleId = cursor.getInt(0);
+            article.title = cursor.getString(1);
+            results.add(article);
+        }
+
+        cursor.close();
+        return results;
+    }
+
 }

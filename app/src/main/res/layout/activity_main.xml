@@ -41,7 +41,7 @@
 
     <!--PagerSlidingTabStrip-->
     <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabs"
+        android:id="@+id/tabs_main"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
         android:background="@color/c_ff272727"  />

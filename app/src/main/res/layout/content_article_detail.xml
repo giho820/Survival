@@ -35,6 +35,7 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/img_bookmark_detail_act"
                 android:layout_width="@dimen/dp_16.5"
                 android:layout_height="@dimen/dp_22"
                 android:background="@drawable/sub_icon_bookmark_00" />

@@ -1,12 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/act_search_bg"
+    android:orientation="vertical"
     tools:context="com.survivalsos.goldentime.activity.BookmarkAct">
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/c_ff1c1c1c">
+
+        <LinearLayout
+            android:id="@+id/linearlayout_exit_bookmark_act"
+            android:layout_width="@dimen/dp_47"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:background="@drawable/abc_ic_clear_mtrl_alpha" />
+        </LinearLayout>
+
+        <com.survivalsos.goldentime.common.view.NanumGothicTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="북마크"
+            android:textColor="@color/c_ffffffff"
+            android:textSize="@dimen/dp_17">
+
+        </com.survivalsos.goldentime.common.view.NanumGothicTextView>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_47"
+            android:layout_height="match_parent"
+            android:gravity="center"></LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_bookmark_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/c_ffffffff"
+                android:visibility="gone"/>
+
+            <com.survivalsos.goldentime.common.view.ExpandableHeightGridView
+                android:id="@+id/gridViewBookmark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/dp_6"
+                android:verticalSpacing="@dimen/dp_2"
+                android:isScrollContainer="false"
+                android:padding="@dimen/dp_3"
+                android:stretchMode="columnWidth"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -13,6 +13,13 @@ public class DatabaseConstantUtil {
     public static final String COLUMN_CODE = "IDX";
     public static final String COLUMN_CODE_NAME = "CODE_NAME";
 
+    //BOOKMARK_TABLE
+    public static final String TABLE_USER_BOOKMARK= "USER_BOOKMARK_TABLE";
+    public static final String COLUMN_ARTICLE_ID = "ARTICLE_ID";
+    public static final String COLUMN_TITLE = "TITLE";
+
+
+
 //
 //    public static final String CREATE_INTELLIGENT_GALLERY_TABLE = "create table " + DatabaseConstantUtil.TABLE_INTELLIGENT_GALLERY_NAME + "(" +
 //            DatabaseConstantUtil.COLUMN_AUTO_INCREMENT_KEY + " integer primary key autoincrement Not null UNIQUE, " +
@@ -30,8 +37,14 @@ public class DatabaseConstantUtil {
 //            "unique (" +DatabaseConstantUtil.COLUMN_AUTO_INCREMENT_KEY_TABLE_ALBUM_COVER +", "+ DatabaseConstantUtil.COLUMN_ALBUM_BUCKET_ID + ")" +
 //            ");";
 
+
+
+    public static final String CREATE_USER_BOOKMARK_TABLE = "CREATE TABLE " + DatabaseConstantUtil.TABLE_USER_BOOKMARK +"(" +
+            DatabaseConstantUtil.COLUMN_ARTICLE_ID + " INTEGER PRIMARY KEY  NOT NULL, " +
+            DatabaseConstantUtil.COLUMN_TITLE + " TEXT);";
+
     //Todo 업데이트 테스트 수행한 결과 잘 되지 않았음 -> 고칠 것
-    public static int DATABASE_VERSION = 2;
+    public static int DATABASE_VERSION = 3;
 
 
 }

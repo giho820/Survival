@@ -63,8 +63,7 @@ public class CheckListAct extends ParentAct implements
 
         pagerTabStrip.setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3));
         pagerTabStrip.setIndicatorColor(getResources().getColor(R.color.c_fff92e14));
-        if (Definitions.LatoBlack != null)
-            pagerTabStrip.setTypeface(Definitions.LatoBlack, Typeface.NORMAL);
+        if (Definitions.LatoBlack != null) pagerTabStrip.setTypeface(Definitions.LatoBlack, Typeface.NORMAL);
         pagerTabStrip.setTextColorResource(R.color.text_color);
         pagerTabStrip.setShouldExpand(true);
         pagerTabStrip.setDividerColor(getResources().getColor(android.R.color.transparent));

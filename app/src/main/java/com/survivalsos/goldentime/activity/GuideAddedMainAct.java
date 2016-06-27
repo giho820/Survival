@@ -196,7 +196,8 @@ public class GuideAddedMainAct extends ParentAct
                 break;
 
             case R.id.linearlayout_drawer_bookmark:
-                DebugUtil.showToast(this, "토스트는 맛있지");
+                Intent intentBookmark = new Intent(this, BookmarkAct.class);
+                MoveActUtil.moveActivity(this, intentBookmark, R.anim.right_in, R.anim.right_out, false, false);
                 break;
 
             case R.id.linearlayout_drawer_review:

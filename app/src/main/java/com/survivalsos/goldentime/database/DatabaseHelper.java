@@ -11,7 +11,7 @@ import com.survivalsos.goldentime.util.DebugUtil;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static DatabaseHelper databaseHelper;
+    public static DatabaseHelper databaseHelper;
     public static SQLiteDatabase sqLiteDatabase;
     private static Context context;
     private static Cursor cursor;
@@ -40,12 +40,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             DebugUtil.showDebug("Database is existed");
         }
-
         db.beginTransaction();
         try {
             //Todo database Table Create 하는 부분
-//            db.execSQL(DatabaseConstantUtil.CREATE_INTELLIGENT_GALLERY_TABLE);
-//            DebugUtil.showDebug(DatabaseConstantUtil.CREATE_INTELLIGENT_GALLERY_TABLE);
+            db.execSQL(DatabaseConstantUtil.CREATE_USER_BOOKMARK_TABLE);
+            DebugUtil.showDebug(DatabaseConstantUtil.CREATE_USER_BOOKMARK_TABLE);
             db.setTransactionSuccessful();
 
         } catch (Exception err) {
@@ -53,13 +52,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.endTransaction();
 
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Todo 데이터 베이스 변경되었을 시 업데이트 하는 부분
         DebugUtil.showDebug("DatabaseHelper onUpgrade()");
-//        db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstantUtil.TABLE_INTELLIGENT_GALLERY_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstantUtil.TABLE_USER_BOOKMARK);
 //        db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstantUtil.TABLE_ALBUM_COVER);
 
         onCreate(db);
