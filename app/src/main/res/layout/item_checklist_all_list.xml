@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_checklist_all_header" />
+
+    <LinearLayout
+        android:id="@+id/item_checklist_all_list_click_area"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43.5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/item_checklist_all_checkbox_click_area"
+            android:layout_width="@dimen/dp_43.5"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="invisible">
+            <ImageView
+                android:layout_width="@dimen/dp_16.5"
+                android:layout_height="@dimen/dp_12.5"
+                android:background="@drawable/check_list_icon_check" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/c_ffD0D0D0"></LinearLayout>
+        
+        <com.survivalsos.goldentime.common.view.LatoBlackTextView
+            android:id="@+id/tv_checklist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="항목의 이름입니다"
+            android:textSize="@dimen/dp_14"
+            android:textColor="@color/c_ff272727"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+
+        <LinearLayout
+            android:id="@+id/linearlayout_checklist_all_trash"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="@dimen/dp_17"
+                android:layout_height="@dimen/dp_18"
+                android:background="@drawable/check_list_icon_delete"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/c_ffD0D0D0"></LinearLayout>
+
+</LinearLayout>

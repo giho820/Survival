@@ -116,7 +116,7 @@ public class GuideAddedMainAct extends ParentAct
 
     public void copyDatabaseOnIntroAct() {
         DebugUtil.showDebug("MainAct, copyDatabaseOnIntroAct() ::");
-        databaseHelper = DatabaseHelper.getInstacnce(this);//Todo 모든 액티비티에서 실행해야하므로 상위 액티비티로 보내서 실행할 것
+        databaseHelper = DatabaseHelper.getInstacnce(this);
         copyDatabase(DatabaseHelper.sqLiteDatabase);
     }
 

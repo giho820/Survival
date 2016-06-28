@@ -108,7 +108,7 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
             case VIEW_ITEM:
                 v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_image, parent, false);
                 vh = new MainImgViewHolder(v);
-                ((MainImgViewHolder) vh).setClickListener(adapterItemClickListener);//Todo 여기서 여러 개의 뷰들을 분기처리해서 생성해주는 것 같다
+                ((MainImgViewHolder) vh).setClickListener(adapterItemClickListener);
                 break;
 
             default:

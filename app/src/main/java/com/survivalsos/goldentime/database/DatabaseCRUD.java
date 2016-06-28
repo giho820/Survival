@@ -3,8 +3,10 @@ package com.survivalsos.goldentime.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
 import com.survivalsos.goldentime.model.Article;
+import com.survivalsos.goldentime.model.CheckList;
 import com.survivalsos.goldentime.model.MainImageItemInfo;
 import com.survivalsos.goldentime.util.DebugUtil;
 
@@ -275,6 +277,183 @@ public class DatabaseCRUD {
 
         cursor.close();
         return results;
+    }
+
+    public static String selectCheckedListDBQuery() {
+        String result = "";
+
+//        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from CHECK_LIST;", null);
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from "+ DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +";", null);
+
+        if(cursor == null)
+            return "결과 없음";
+
+        while (cursor.moveToNext()) {
+            result += cursor.getInt(0) + ". "
+                    + cursor.getString(1) + ", "
+                    + cursor.getInt(2) + ", "
+                    + cursor.getInt(3) + ", "
+                    + cursor.getInt(4) + ", "
+                    + cursor.getInt(5)
+//                    + cursor.getInt(5)
+                    + "\n";
+        }
+
+        cursor.close();
+        return result;
+    }
+
+    public static ArrayList<CheckList> getOriginCheckListFromDb() {
+        ArrayList<CheckList> result = new ArrayList<>();
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from CHECK_LIST order by NO;", null);
+
+        if(cursor == null) {
+            DebugUtil.showDebug("DatabaseCRUD, getOriginCheckListFromDb() 결과가 없습니다");
+            return null;
+        }
+        //헤더 여부를 가려내기 위한 작업
+        ArrayList<Integer> categoryIds = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            CheckList checkList = new CheckList();
+            checkList.no = cursor.getInt(0);
+            checkList.title = cursor.getString(1);
+            checkList.link = cursor.getInt(2);
+            checkList.articleId = cursor.getInt(3);
+            checkList.categoryId = cursor.getInt(4);
+            checkList.isHeader = false;
+            checkList.isInMyList = Definitions.CHECK_BOX_CHECKED.UNCHECKED;
+
+            if(checkList.articleId != null) {
+                checkList.setCategoryName(checkList.categoryId);
+            }
+
+            if(!categoryIds.contains(checkList.categoryId)){
+                categoryIds.add(checkList.categoryId);
+                checkList.isHeader = true;
+            }
+
+            DebugUtil.showDebug("checkList :: " + checkList.toString());
+            result.add(checkList);
+        }
+
+        cursor.close();
+        return result;
+    }
+
+    //유저 고유의 체크리스트
+    public static ArrayList<CheckList> getUserCheckedListFromDb() {
+        ArrayList<CheckList> result = new ArrayList<>();
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from "+ DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +" order by NO;", null);
+
+        if(cursor == null) {
+            DebugUtil.showDebug("DatabaseCRUD, getOriginCheckListFromDb() 결과가 없습니다");
+            return null;
+        }
+        //헤더 여부를 가려내기 위한 작업
+        ArrayList<Integer> categoryIds = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            CheckList checkList = new CheckList();
+            checkList.no = cursor.getInt(0);
+            checkList.title = cursor.getString(1);
+            checkList.link = cursor.getInt(2);
+            checkList.articleId = cursor.getInt(3);
+            checkList.categoryId = cursor.getInt(4);
+            checkList.isInMyList = cursor.getInt(5);
+            checkList.isHeader = false;
+
+            if(checkList.articleId != null) {
+                checkList.setCategoryName(checkList.categoryId);
+            }
+
+            if(!categoryIds.contains(checkList.categoryId)){
+                categoryIds.add(checkList.categoryId);
+                checkList.isHeader = true;
+            }
+
+            DebugUtil.showDebug("checkList :: " + checkList.toString());
+            result.add(checkList);
+        }
+
+        cursor.close();
+        return result;
+    }
+
+    //최초 1번만 실행
+    public static String getInsertQueryFromCheckListTable(){
+        String result = "";
+        String startQuery = "insert or ignore into " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +" (" + DatabaseConstantUtil.COLUMN_NO_USER_CHECKED_LIST + ", " +
+                DatabaseConstantUtil.COLUMN_TITLE_USER_CHECKED_LIST + ", " + DatabaseConstantUtil.COLUMN_LINK_CHECKED_LIST + ", " +
+                DatabaseConstantUtil.COLUMN_ARTICLE_ID_CHECKED_LIST + ", " + DatabaseConstantUtil.COLUMN_CATEGORY_ID_CHECKED_LIST +", " +
+                DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + ") values ";
+        String middleQuery = "";
+
+        //String insertQuery = "insert or ignore into " + DatabaseConstantUtil.TABLE_USER_BOOKMARK + "(" + DatabaseConstantUtil.COLUMN_ARTICLE_ID + ", " +
+        //DatabaseConstantUtil.COLUMN_TITLE+") values (" + currentArticle.articleId + ", '" + currentArticle.title+"')";
+
+        ArrayList<CheckList> checkLists = new ArrayList<>();
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from CHECK_LIST order by NO;", null);
+
+        if(cursor == null) {
+            DebugUtil.showDebug("DatabaseCRUD, getOriginCheckListFromDb() 결과가 없습니다");
+            return null;
+        }
+        //헤더 여부를 가려내기 위한 작업
+        ArrayList<Integer> categoryIds = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            CheckList checkList = new CheckList();
+            checkList.no = cursor.getInt(0);
+            checkList.title = cursor.getString(1);
+            checkList.link = cursor.getInt(2);
+            checkList.articleId = cursor.getInt(3);
+            checkList.categoryId = cursor.getInt(4);
+            checkList.isHeader = false;
+            checkList.isInMyList = Definitions.CHECK_BOX_CHECKED.UNCHECKED;
+
+            if(checkList.articleId != null) {
+                checkList.setCategoryName(checkList.categoryId);
+            }
+
+            if(!categoryIds.contains(checkList.categoryId)){
+                categoryIds.add(checkList.categoryId);
+                checkList.isHeader = true;
+            }
+
+            if(checkList.no != cursor.getCount()){
+                middleQuery += "(" + checkList.no +", '" + checkList.title +"', " + checkList.link +", " + checkList.articleId + ", " + checkList.categoryId + ", " + checkList.isInMyList +"), ";
+                DebugUtil.showDebug("checkList.no :: "+checkList.no +" != " + "cursor.getCount() :: "+cursor.getCount());
+            } else if(checkList.no == cursor.getCount()){
+                middleQuery += "(" + checkList.no +", '" + checkList.title +"', " + checkList.link +", " + checkList.articleId + ", " + checkList.categoryId + ", " + checkList.isInMyList +");";
+                DebugUtil.showDebug("checkList.no :: "+checkList.no +" == " + "cursor.getCount() :: "+cursor.getCount());
+            }
+        }
+        cursor.close();
+
+        result = startQuery + middleQuery;
+        DebugUtil.showDebug("result :: " + result);
+        return result;
+    }
+
+    //유저 테이블이 있는지에 대한 여부
+    //유저 고유의 체크리스트
+    public static boolean doesCheckedListTableExist() {
+        boolean doesCheckedListTableExist = false;
+        int count = 0;
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from "+ DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +" order by NO;", null);
+        if(cursor == null) {
+            DebugUtil.showDebug("DatabaseCRUD, getOriginCheckListFromDb() 결과가 없습니다");
+            return false;
+        }
+
+        count = cursor.getCount();
+        if(count>0) {
+            doesCheckedListTableExist = true;
+        }
+
+        cursor.close();
+        return doesCheckedListTableExist;
     }
 
 }
