@@ -26,7 +26,9 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.SearchAct" />
         <activity android:name=".activity.DrawerNotificationAct" />
-        <activity android:name=".activity.BookmarkAct"></activity>
+        <activity android:name=".activity.BookmarkAct" />
+        <activity android:name=".activity.ImportToCheckListAct" />
+        <activity android:name=".activity.AddCheckListAct"></activity>
     </application>
 
 </manifest>

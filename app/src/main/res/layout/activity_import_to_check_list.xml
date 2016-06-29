@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/act_search_bg"
+    tools:context="com.survivalsos.goldentime.activity.ImportToCheckListAct">
+
+    <!--헤더 영역-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/c_ff171717">
+
+        <LinearLayout
+            android:id="@+id/linearlayout_check_list_import_back"
+            android:layout_width="@dimen/dp_47"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/dp_17"
+                android:layout_height="@dimen/dp_14.5"
+                android:background="@drawable/icon_back" />
+        </LinearLayout>
+
+        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="목록 불러오기"
+            android:textColor="@color/c_ffffffff" />
+
+        <LinearLayout
+            android:id="@+id/linearlayout_checklist_import_all"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/dp_43.5"
+                android:layout_height="@dimen/dp_10"
+                android:background="@drawable/check_list_t_all"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/checklist_import_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

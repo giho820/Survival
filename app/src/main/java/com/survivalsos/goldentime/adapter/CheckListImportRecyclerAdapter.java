@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by kiho on 2016. 6. 20..
  */
-public class CheckListAllRecyclerAdapter extends RecyclerView.Adapter {
+public class CheckListImportRecyclerAdapter extends RecyclerView.Adapter {
 
     private CheckList item;
     private ArrayList<CheckList> items;
@@ -49,15 +49,16 @@ public class CheckListAllRecyclerAdapter extends RecyclerView.Adapter {
             linearLayoutCheckListAllHeader = (LinearLayout) v.findViewById(R.id.linearlayout_checklist_all_header);
             nanumGothicTextViewCheckListHeader = (NanumGothicTextView) v.findViewById(R.id.tv_checklist_title_header);
 
-            itemChecklistIncludingItem = (LinearLayout) v.findViewById(R.id.item_checklist_all_list_click_area);
-            clickArea = (LinearLayout) v.findViewById(R.id.item_checklist_all_checkbox_click_area);
-            imgCheck = (ImageView) v.findViewById(R.id.item_checklist_img_check);
+            itemChecklistIncludingItem = (LinearLayout) v.findViewById(R.id.item_checklist_import_list_click_area);
+//            clickArea = (LinearLayout) v.findViewById(R.id.item_checklist_all_checkbox_click_area);
+//            imgCheck = (ImageView) v.findViewById(R.id.item_checklist_img_check);
             titleOfItem = (TextView) v.findViewById(R.id.tv_checklist_title);
-            checklistAllTrashClickArea = (LinearLayout) v.findViewById(R.id.linearlayout_checklist_all_trash);
+
+            checklistAllTrashClickArea = (LinearLayout) v.findViewById(R.id.linearlayout_checklist_import_add);
             imgTrash = (ImageView) v.findViewById(R.id.iv_checklist_trash_icon);
 
 //            itemChecklistIncludingItem.setOnClickListener(this);
-            clickArea.setOnClickListener(this);
+//            clickArea.setOnClickListener(this);
             checklistAllTrashClickArea.setOnClickListener(this);
         }
 
@@ -74,7 +75,7 @@ public class CheckListAllRecyclerAdapter extends RecyclerView.Adapter {
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CheckListAllRecyclerAdapter(Context context) {
+    public CheckListImportRecyclerAdapter(Context context) {
         this.context = context;
     }
 
@@ -95,7 +96,7 @@ public class CheckListAllRecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_checklist_all_list, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_checklist_import_list, parent, false);
         RecyclerView.ViewHolder vh = new CheckListAllContentViewHolder(v);
         ((CheckListAllContentViewHolder) vh).setClickListener(adapterItemClickListener);
         return vh;
@@ -129,16 +130,20 @@ public class CheckListAllRecyclerAdapter extends RecyclerView.Adapter {
 
                 //import 여부
                 if (item.isInMyList == Definitions.CHECK_BOX_IMPORTED.IMPORTED) {
-                    ((CheckListAllContentViewHolder) holder).itemChecklistIncludingItem.setVisibility(View.VISIBLE);
+//                    ((CheckListAllContentViewHolder) holder).imgTrash.setVisibility(View.VISIBLE);
+                    ((CheckListAllContentViewHolder) holder).imgTrash.setImageResource(R.drawable.check_list_import_check_all_01);
+
                 } else {
-                    ((CheckListAllContentViewHolder) holder).itemChecklistIncludingItem.setVisibility(View.GONE);
+//                    ((CheckListAllContentViewHolder) holder).imgTrash.setVisibility(View.INVISIBLE);
+                    ((CheckListAllContentViewHolder) holder).imgTrash.setImageResource(R.drawable.check_list_import_check_all_00);
+
                 }
 
-                //체크박스 체크 여부
-                if (item.isChecked == Definitions.CHECK_BOX_CHECKED.CHECKED)
-                    ((CheckListAllContentViewHolder) holder).imgCheck.setVisibility(View.VISIBLE);
-                else
-                    ((CheckListAllContentViewHolder) holder).imgCheck.setVisibility(View.INVISIBLE);
+//                //체크박스 체크 여부
+//                if (item.isChecked == Definitions.CHECK_BOX_CHECKED.CHECKED)
+//                    ((CheckListAllContentViewHolder) holder).imgCheck.setVisibility(View.VISIBLE);
+//                else
+//                    ((CheckListAllContentViewHolder) holder).imgCheck.setVisibility(View.INVISIBLE);
             }
         } else {
             //Todo 뷰홀더 2개 쓰지 말고 header visible/invisible로 변경하자

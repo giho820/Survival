@@ -13,6 +13,7 @@ public class CheckList {
     public Integer articleId;
     public Integer categoryId;
     public Integer isInMyList;
+    public Integer isChecked;
 
     public String categoryName;;
     public boolean isHeader;
@@ -24,6 +25,7 @@ public class CheckList {
                 "articleId :: " + articleId + "\n" +
                 "categoryId :: " + categoryId + "\n" +
                 "isInMyList :: " + isInMyList +"\n" +
+                "isChecked :: " + isChecked +"\n" +
                 "카테고리 명 :: " + Definitions.CATEGORY_NAME[categoryId] +
                 "isHeader :: " + isHeader;
 

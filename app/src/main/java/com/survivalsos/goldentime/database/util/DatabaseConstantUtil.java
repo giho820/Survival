@@ -26,6 +26,7 @@ public class DatabaseConstantUtil {
     public static final String COLUMN_ARTICLE_ID_CHECKED_LIST = "ARTICLE_ID";
     public static final String COLUMN_CATEGORY_ID_CHECKED_LIST = "CATEGORY_ID";
     public static final String COLUMN_IS_IN_MY_LIST_CHECKED_LIST = "IN_MY_LIST";
+    public static final String COLUMN_IS_CHECKED = "IS_CHECKED";
 
     public static final String CREATE_USER_CHECKED_LIST_TABLE = "create table '" + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST + "' (" +
             DatabaseConstantUtil.COLUMN_NO_USER_CHECKED_LIST + " integer primary key Not null, " +
@@ -33,7 +34,8 @@ public class DatabaseConstantUtil {
             DatabaseConstantUtil.COLUMN_LINK_CHECKED_LIST + " text , " +
             DatabaseConstantUtil.COLUMN_ARTICLE_ID_CHECKED_LIST + " integer , " +
             DatabaseConstantUtil.COLUMN_CATEGORY_ID_CHECKED_LIST + " integer , " +
-            DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " integer);";
+            DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " integer, " +
+            DatabaseConstantUtil.COLUMN_IS_CHECKED +" integer);";
 
 //
 //    public static final String CREATE_INTELLIGENT_GALLERY_TABLE = "create table " + DatabaseConstantUtil.TABLE_INTELLIGENT_GALLERY_NAME + "(" +

@@ -29,6 +29,11 @@ public class Definitions {
 
     public static String[] CATEGORY_NAME = {"필수", "방수 • 방진", "보온 • 의복", "통신 • 조명", "위생", "구급약", "쉘터 • 도구", "내가 추가한 아이템"};
 
+    public interface CHECK_BOX_IMPORTED {
+        int IMPORTED = 1;
+        int UNIMPORTED= 0;
+    }
+
     public interface CHECK_BOX_CHECKED {
         int CHECKED = 1;
         int UNCHECKED = 0;

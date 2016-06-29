@@ -14,8 +14,7 @@
             android:id="@+id/img_representing_article"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_371"
-            android:scaleType="fitStart"
-            android:background="@color/accent_material_dark" />
+            android:scaleType="fitStart" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/article_list_listview_recycler"

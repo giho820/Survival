@@ -3,7 +3,8 @@
     android:id="@+id/linearlayout_checklist_all_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/act_search_et_bg">
 
     <LinearLayout
 
@@ -18,15 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_13.5"
             android:text="체크리스트의 항목에 대한 헤더입니다"
-            android:textSize="@dimen/dp_10" />
+            android:textSize="@dimen/dp_12"
+            android:textColor="@color/c_ffffffff"/>
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/item_line_checklist_header"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/c_ffD0D0D0"
-        android:orientation="vertical"
-        android:visibility="visible"></LinearLayout>
 </LinearLayout>
