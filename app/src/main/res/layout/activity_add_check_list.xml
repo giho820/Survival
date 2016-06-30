@@ -81,7 +81,8 @@
                 android:hint=""
                 android:imeOptions="actionDone"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:background="@null"/>
         </LinearLayout>
     </LinearLayout>
 

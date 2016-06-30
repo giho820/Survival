@@ -89,6 +89,7 @@ public class ImportToCheckListAct extends ParentAct implements View.OnClickListe
 
                             String updateQuery = "update " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST + " set " +
                                     DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " = " + Definitions.CHECK_BOX_IMPORTED.IMPORTED
+                                    + ", " + DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.UNCHECKED
                                     + " where " + DatabaseConstantUtil.COLUMN_NO_USER_CHECKED_LIST + "=" + checkLists.get(position).no;
                             DebugUtil.showDebug("updateQuery :: " + updateQuery);
                             DatabaseCRUD.execRawQuery(updateQuery);
@@ -124,11 +125,11 @@ public class ImportToCheckListAct extends ParentAct implements View.OnClickListe
 
             case R.id.linearlayout_checklist_import_all:
                 //Todo 뷰에 있는 것들 토글할 것
-                if (DatabaseCRUD.getImportCheckedListFromDb().size() == DatabaseCRUD.getUserCheckedListFromDb().size())
-                    isAll = false;
-                else if (DatabaseCRUD.getUserCheckedListFromDb().size() == 0)
-                    isAll = true;
-                else
+//                if (DatabaseCRUD.getImportCheckedListFromDb().size() == DatabaseCRUD.getUserCheckedListFromDb().size())
+//                    isAll = false;
+//                else if (DatabaseCRUD.getUserCheckedListFromDb().size() == 0)
+//                    isAll = true;
+//                else
                     isAll = !isAll;
 
                 if (isAll) {

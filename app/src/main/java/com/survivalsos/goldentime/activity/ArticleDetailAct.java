@@ -1,8 +1,10 @@
 package com.survivalsos.goldentime.activity;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.Article;
+import com.survivalsos.goldentime.model.CheckList;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.MoveActUtil;
 
@@ -46,6 +49,8 @@ public class ArticleDetailAct extends ParentAct
     private ScrollView scrollViewArticleDetail;
     private WebView wv;
     private ArrayList<Article> additionalArticles;
+    private ArrayList<CheckList> checkLists;
+
     private ListView listViewContainingAdditionalArticle;
     private AdditionalArticleListAdapter additionalArticleListAdapter;
     private LinearLayout linearLayoutIconHome;
@@ -126,13 +131,24 @@ public class ArticleDetailAct extends ParentAct
                 }
 
                 //Todo 체크리스트 테이블에서 아티클 아이디를 검색했을 때 항목이 나오는지 여부에 따라 체크리스트에 추가
-//                int checkListCnt = DatabaseCRUD.getCheckListOfIndivisualArticle(currentArticle.articleId).size();
-                int checkListCnt = DatabaseCRUD.getCheckListOfOriginalDb(currentArticle.articleId).size();
-//                ArrayList<CheckList> checkLists =
-                DebugUtil.showDebug(" 리스트 있음 :: " + checkListCnt +" 개");
-                if (checkListCnt > 0) {
+                checkLists = new ArrayList<>();
+                //Todo 1. 디비 복사할 것(어플 실행 후 최초 1회만 이루어져야함)
+                //insert 쿼리를 리턴하는 함수를 만들고나서 동적으로 생성한 checkedlist db에 insert 쿼리를 날린다
+                if (!DatabaseCRUD.doesCheckedListTableExist()) {
+                    DebugUtil.showDebug("User CheckedList Table is not exist");
+                    String insertQuery = DatabaseCRUD.getInsertQueryFromCheckListTable();
+                    DebugUtil.showDebug("insertQuery :: " + insertQuery);
+                    DatabaseCRUD.execRawQuery(insertQuery);
+                } else {
+                    String selectUserByArticleQuery = "select * from " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST
+                            + " where " + DatabaseConstantUtil.COLUMN_ARTICLE_ID_CHECKED_LIST +" = " + currentArticle.articleId + " order by " + DatabaseConstantUtil.COLUMN_NO_USER_CHECKED_LIST;
+                    checkLists = DatabaseCRUD.selectUserCheckList(selectUserByArticleQuery);
+                }
+
+                if(checkLists != null && checkLists.size() > 0) {
                     linearLayoutCheckList.setVisibility(View.VISIBLE);
                 }
+
             }
         }
         additionalArticleListAdapter.setAdapterArrayList(additionalArticles);
@@ -176,7 +192,6 @@ public class ArticleDetailAct extends ParentAct
         linearLayoutDrawerBookmark.setOnClickListener(this);
         linearLayoutDrawerReview.setOnClickListener(this);
 
-
         //custom toolbar 영역
         linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer_article_detail);
         linearLayoutOpenDrawer.setOnClickListener(this);
@@ -213,7 +228,6 @@ public class ArticleDetailAct extends ParentAct
             this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
         }
     }
-
 
     @Override
     public void onAdapterItemClick(View view, int position) {
@@ -347,15 +361,15 @@ public class ArticleDetailAct extends ParentAct
 
             case R.id.speaker:
                 DebugUtil.showDebug("재생합니다 ");
-                //Todo ArticleDetailAct -> 스피커 재생
+                linearLayoutSpeaker.setBackground(getResources().getDrawable(R.drawable.speaker12));
 
+
+
+                mPlayer = new MediaPlayer();
+                mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 try {
-                    mPlayer = new MediaPlayer();
                     AssetFileDescriptor afd = this.getAssets().openFd("SOS_morse_code.mp3");
                     mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                    mPlayer.prepare();
-                    linearLayoutSpeaker.setBackground(getResources().getDrawable(R.drawable.speaker12));
-                    mPlayer.start();
                     mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
@@ -368,9 +382,26 @@ public class ArticleDetailAct extends ParentAct
                             });
                         }
                     });
+                    mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                        }
+                    });
+                    mPlayer.prepare();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+
+
+
+                //Todo ArticleDetailAct -> 스피커 재생
+
+
+
+
+
 
                 break;
 

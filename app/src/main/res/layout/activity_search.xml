@@ -55,7 +55,8 @@
             android:hint="검색"
             android:imeOptions="actionDone"
             android:singleLine="true"
-            android:textColor="@color/c_ffffffff" />
+            android:textColor="@color/c_ffffffff"
+            android:background="@null"/>
     </LinearLayout>
 
     <ScrollView

@@ -43,6 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             db.execSQL(DatabaseConstantUtil.CREATE_USER_BOOKMARK_TABLE);
+            db.execSQL(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
             DebugUtil.showDebug(DatabaseConstantUtil.CREATE_USER_BOOKMARK_TABLE);
             db.setTransactionSuccessful();
 
@@ -51,17 +52,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.endTransaction();
 
-        db.beginTransaction();
-        try {
-            //Todo user checked list Table Create 하는 부분
-            db.execSQL(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
-            DebugUtil.showDebug(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
-            db.setTransactionSuccessful();
-
-        } catch (Exception err) {
-            DebugUtil.showDebug(err.toString());
-        }
-        db.endTransaction();
+//        db.beginTransaction();
+//        try {
+//            //Todo user checked list Table Create 하는 부분
+//
+//            DebugUtil.showDebug(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
+//            db.setTransactionSuccessful();
+//
+//        } catch (Exception err) {
+//            DebugUtil.showDebug(err.toString());
+//        }
+//        db.endTransaction();
 
 
     }

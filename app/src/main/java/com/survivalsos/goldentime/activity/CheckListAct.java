@@ -118,8 +118,11 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                         break;
                 }
                 checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
-                categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
-                categoryAllRecyclerAdapter.notifyDataSetChanged();
+                if (checkLists != null) {
+                    categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
+                    categoryAllRecyclerAdapter.notifyDataSetChanged();
+                    DebugUtil.showDebug("categoryAllRecyclerAdapter.setAdapterArrayList() 진행 함 :: " + categoryAllRecyclerAdapter.getItemCount());
+                }
             }
         });
 
@@ -129,21 +132,17 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
         //Todo 1. 디비 복사할 것(어플 실행 후 최초 1회만 이루어져야함)
         //insert 쿼리를 리턴하는 함수를 만들고나서 동적으로 생성한 checkedlist db에 insert 쿼리를 날린다
         if (!DatabaseCRUD.doesCheckedListTableExist()) {
-            DebugUtil.showDebug("User CheckedList Table is exist");
+            DebugUtil.showDebug("User CheckedList Table is not exist");
             String insertQuery = DatabaseCRUD.getInsertQueryFromCheckListTable();
             DebugUtil.showDebug("insertQuery :: " + insertQuery);
             DatabaseCRUD.execRawQuery(insertQuery);
         }
-
-//        checkLists = DatabaseCRUD.getOriginCheckListFromDb();
         checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
-
         if (checkLists != null) {
             categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
             categoryAllRecyclerAdapter.notifyDataSetChanged();
             DebugUtil.showDebug("categoryAllRecyclerAdapter.setAdapterArrayList() 진행 함 :: " + categoryAllRecyclerAdapter.getItemCount());
         }
-
     }
 
     @Override
@@ -155,6 +154,10 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                 break;
 
             case R.id.linearlayout_checklist_new:
+
+//                DebugUtil.showDebug(DatabaseCRUD.selectCheckedListDBQuery(DatabaseConstantUtil.TABLE_USER_CHECKED_LIST));
+//                DebugUtil.showDebug(DatabaseCRUD.selectCheckedListDBQuery("CHECK_LIST"));
+
                 //Todo 디비에서도 isInMyList값 없애기
                 String makeInitQuery = "update " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +
                         " set " + DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.UNCHECKED
@@ -172,22 +175,19 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
 
             case R.id.linearlayout_check_list_all:
 
-
                 DebugUtil.showDebug(" DatabaseCRUD.getUserCheckedListFromDb().size() :: " + DatabaseCRUD.getUserCheckedListFromDb().size());
                 DebugUtil.showDebug(" DatabaseCRUD.getUserCheckedAndImportListFromDb().size() :: " + DatabaseCRUD.getUserCheckedAndImportListFromDb().size());
                 //Todo 컬럼에서 import된 개수와 체크된 개수를 비교해서 같으면
+                //import 된 수 == import 된 수  && 체크되고 import된 수가 0이 아님
                 if (DatabaseCRUD.getUserCheckedListFromDb().size() == DatabaseCRUD.getUserCheckedAndImportListFromDb().size() &&
                         DatabaseCRUD.getUserCheckedAndImportListFromDb().size() != 0) {
-
-                    isAll = true;
+                    isAll = true;//import된 모든 항목에 대해서 체크는 안되도록 하고, import 되도록 조치한다
                 } else if (DatabaseCRUD.getUserCheckedListFromDb().size() > DatabaseCRUD.getUserCheckedAndImportListFromDb().size() ||
                         DatabaseCRUD.getUserCheckedAndImportListFromDb().size() == 0) {//0이거나 import된 것이 체크된 컬럼의 개수보다 많으면
-
                     isAll = false;
                 } else {
                     isAll = !isAll;
                 }
-
 
                 DebugUtil.showDebug("isAll ::" + isAll);
                 if (isAll) {
@@ -210,8 +210,6 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                 break;
 
             case R.id.linearlayout_check_list_import:
-
-                DebugUtil.showDebug(DatabaseCRUD.selectCheckedListDBQuery());
                 //Todo 2. 복사한 디비를 새로운 화면에 체크박스와 함께 띄워준다
 
                 Intent moveToImportCheckListActIntent = new Intent(this, ImportToCheckListAct.class);
@@ -250,7 +248,7 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
             if (requestCode == ADD_ACT) {
                 String input = data.getExtras().getString("userInputString");
 
-                if (!TextUtil.isNull(input)){
+                if (!TextUtil.isNull(input)) {
                     String insertQuery = DatabaseCRUD.getInsertNewCheckListToUserCheckListTable(input);
                     DebugUtil.showDebug("insertQuery  ::" + insertQuery);
                     DatabaseCRUD.execRawQuery(insertQuery);

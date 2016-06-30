@@ -118,6 +118,13 @@ public class GuideAddedMainAct extends ParentAct
         DebugUtil.showDebug("MainAct, copyDatabaseOnIntroAct() ::");
         databaseHelper = DatabaseHelper.getInstacnce(this);
         copyDatabase(DatabaseHelper.sqLiteDatabase);
+
+        if (!DatabaseCRUD.doesCheckedListTableExist()) {//Todo 어떻게 했는데 에러가 안나고 처리가 되는거지 ?
+            DebugUtil.showDebug("User CheckedList Table is not exist");
+            String insertQuery = DatabaseCRUD.getInsertQueryFromCheckListTable();
+            DebugUtil.showDebug("insertQuery :: " + insertQuery);
+            DatabaseCRUD.execRawQuery(insertQuery);
+        }
     }
 
     // to copy database
