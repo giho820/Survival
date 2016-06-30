@@ -16,7 +16,7 @@ import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.CheckList;
 import com.survivalsos.goldentime.util.DebugUtil;
-import com.survivalsos.goldentime.util.MoveActUtil;
+import com.survivalsos.goldentime.util.TextUtil;
 
 import java.util.ArrayList;
 
@@ -160,7 +160,11 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                         " set " + DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.UNCHECKED
                         + ", " + DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " = " + Definitions.CHECK_BOX_IMPORTED.UNIMPORTED;
                 DebugUtil.showDebug(makeInitQuery);
-                DatabaseCRUD.execRawQuery(makeInitQuery);
+
+                String deleteUserMadeCLQuery = "delete from " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +
+                        " where " + DatabaseConstantUtil.COLUMN_CATEGORY_ID_CHECKED_LIST + " = 8";
+                DatabaseCRUD.execRawQuery(deleteUserMadeCLQuery);
+
                 checkLists.clear();
                 categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
                 categoryAllRecyclerAdapter.notifyDataSetChanged();
@@ -176,8 +180,7 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                         DatabaseCRUD.getUserCheckedAndImportListFromDb().size() != 0) {
 
                     isAll = true;
-                }
-                else if (DatabaseCRUD.getUserCheckedListFromDb().size() > DatabaseCRUD.getUserCheckedAndImportListFromDb().size() ||
+                } else if (DatabaseCRUD.getUserCheckedListFromDb().size() > DatabaseCRUD.getUserCheckedAndImportListFromDb().size() ||
                         DatabaseCRUD.getUserCheckedAndImportListFromDb().size() == 0) {//0이거나 import된 것이 체크된 컬럼의 개수보다 많으면
 
                     isAll = false;
@@ -207,18 +210,21 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                 break;
 
             case R.id.linearlayout_check_list_import:
+
+                DebugUtil.showDebug(DatabaseCRUD.selectCheckedListDBQuery());
                 //Todo 2. 복사한 디비를 새로운 화면에 체크박스와 함께 띄워준다
 
                 Intent moveToImportCheckListActIntent = new Intent(this, ImportToCheckListAct.class);
                 startActivityForResult(moveToImportCheckListActIntent, IMPORT_ACT);
-//                MoveActUtil.moveActivity(this, moveToImportCheckListActIntent, -1, -1, false, false);
 
                 break;
 
             case R.id.linearlayout_check_list_add:
                 Intent moveToAddCheckListActIntent = new Intent(this, AddCheckListAct.class);
-//                startActivityForResult(moveToAddCheckListActIntent, ADD_ACT);
-                MoveActUtil.moveActivity(this, moveToAddCheckListActIntent, -1, -1, false, false);
+                startActivityForResult(moveToAddCheckListActIntent, ADD_ACT);
+//                MoveActUtil.moveActivity(this, moveToAddCheckListActIntent, -1, -1, false, false);
+
+
                 break;
 
         }
@@ -229,16 +235,33 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         //Todo 3. import 액티비티가 종료되었을 때 all activity 화면 refresh를 통해서 디비 내용 다시 뿌려주기
         if (resultCode == RESULT_OK) {
-            int test = data.getExtras().getInt("sizeOfCheckList");
-            DebugUtil.showDebug("onActivityResult :: 호출됨 " + test);
+            if (requestCode == IMPORT_ACT) {
+                int test = data.getExtras().getInt("sizeOfCheckList");
+                DebugUtil.showDebug("onActivityResult :: 호출됨 " + test);
 
-            if (checkLists != null) {
-                checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
-                categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
-                categoryAllRecyclerAdapter.notifyDataSetChanged();
-                DebugUtil.showDebug("categoryAllRecyclerAdapter.setAdapterArrayList() 진행 함 :: " + categoryAllRecyclerAdapter.getItemCount());
+                if (checkLists != null) {
+                    checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
+                    categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
+                    categoryAllRecyclerAdapter.notifyDataSetChanged();
+                    DebugUtil.showDebug("categoryAllRecyclerAdapter.setAdapterArrayList() 진행 함 :: " + categoryAllRecyclerAdapter.getItemCount());
+                }
+
             }
+            if (requestCode == ADD_ACT) {
+                String input = data.getExtras().getString("userInputString");
 
+                if (!TextUtil.isNull(input)){
+                    String insertQuery = DatabaseCRUD.getInsertNewCheckListToUserCheckListTable(input);
+                    DebugUtil.showDebug("insertQuery  ::" + insertQuery);
+                    DatabaseCRUD.execRawQuery(insertQuery);
+
+                    checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
+                    categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
+                    categoryAllRecyclerAdapter.notifyDataSetChanged();
+                }
+            }
         }
+
+
     }
 }

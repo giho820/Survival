@@ -2,6 +2,8 @@ package com.survivalsos.goldentime.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +31,7 @@ import com.survivalsos.goldentime.model.Article;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.MoveActUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ArticleDetailAct extends ParentAct
@@ -60,6 +63,11 @@ public class ArticleDetailAct extends ParentAct
     private LinearLayout linearLayoutDrawerBookmark;
     private LinearLayout linearLayoutDrawerReview;
 
+    private LinearLayout linearLayoutSpeaker;
+    private LinearLayout linearLayoutCheckList;
+
+    private MediaPlayer mPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +88,7 @@ public class ArticleDetailAct extends ParentAct
         } else {
             if (currentArticle.articleId != null) {
 
-                DebugUtil.showDebug("Article ID :: " + currentArticle.articleId);
+                DebugUtil.showDebug("Article ID :: " + currentArticle.articleId + " \n " + "sound :: " + currentArticle.isSoundFile);
                 String filePath = "file:///android_asset/html/" + currentArticle.articleId + ".html";
                 wv.loadUrl(filePath);
 
@@ -111,6 +119,19 @@ public class ArticleDetailAct extends ParentAct
                 //Todo 디비에서 현재 아티클이 저장되어있는지에 따라
                 if (DatabaseCRUD.isBookmarked(currentArticle.articleId)) {
                     ivBookmarkInDetailAct.setImageResource(R.drawable.sub_icon_bookmark_01);
+                }
+
+                if (currentArticle.isSoundFile.equalsIgnoreCase("Y")){
+                    linearLayoutSpeaker.setVisibility(View.VISIBLE);
+                }
+
+                //Todo 체크리스트 테이블에서 아티클 아이디를 검색했을 때 항목이 나오는지 여부에 따라 체크리스트에 추가
+//                int checkListCnt = DatabaseCRUD.getCheckListOfIndivisualArticle(currentArticle.articleId).size();
+                int checkListCnt = DatabaseCRUD.getCheckListOfOriginalDb(currentArticle.articleId).size();
+//                ArrayList<CheckList> checkLists =
+                DebugUtil.showDebug(" 리스트 있음 :: " + checkListCnt +" 개");
+                if (checkListCnt > 0) {
+                    linearLayoutCheckList.setVisibility(View.VISIBLE);
                 }
             }
         }
@@ -171,6 +192,14 @@ public class ArticleDetailAct extends ParentAct
         linearLayoutIconBack = (LinearLayout) findViewById(R.id.linearlayout_icon_back);
         linearLayoutIconGuide = (LinearLayout) findViewById(R.id.linearlayout_icon_list);
         linearLayoutIconTop = (LinearLayout) findViewById(R.id.linearlayout_icon_top);
+
+        //스피커
+        linearLayoutSpeaker = (LinearLayout) findViewById(R.id.speaker);
+        linearLayoutSpeaker.setOnClickListener(this);
+
+        //체크리스트
+        linearLayoutCheckList = (LinearLayout) findViewById(R.id.img_having_checklist);
+        linearLayoutCheckList.setOnClickListener(this);
     }
 
     @Override
@@ -282,9 +311,8 @@ public class ArticleDetailAct extends ParentAct
 
             case R.id.linearlayout_search_in_article_detail_act:
                 //Todo 서치 액티비티로 move
-//                MoveActUtil.chageActivity(this, SearchAct.class, R.anim.up, R.anim.down, false, false);
-
-                DebugUtil.showDebug("gggg :: ArticleDetailAct BookmarkTest :: " + DatabaseCRUD.selectBookmarkDBQuery());
+                MoveActUtil.chageActivity(this, SearchAct.class, R.anim.up, R.anim.down, false, false);
+//                DebugUtil.showDebug("gggg :: ArticleDetailAct BookmarkTest :: " + DatabaseCRUD.selectBookmarkDBQuery());
                 break;
 
             case R.id.linearlayout_icon_home:
@@ -315,7 +343,43 @@ public class ArticleDetailAct extends ParentAct
                         scrollViewArticleDetail.smoothScrollTo(0, 0);
                     }
                 }, 300);
+                break;
 
+            case R.id.speaker:
+                DebugUtil.showDebug("재생합니다 ");
+                //Todo ArticleDetailAct -> 스피커 재생
+
+                try {
+                    mPlayer = new MediaPlayer();
+                    AssetFileDescriptor afd = this.getAssets().openFd("SOS_morse_code.mp3");
+                    mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                    mPlayer.prepare();
+                    linearLayoutSpeaker.setBackground(getResources().getDrawable(R.drawable.speaker12));
+                    mPlayer.start();
+                    mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            DebugUtil.showDebug("ggggg");
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    linearLayoutSpeaker.setBackground(getResources().getDrawable(R.drawable.speaker11));
+                                }
+                            });
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+
+            case R.id.img_having_checklist:
+                DebugUtil.showDebug("ArticleDetailAct -> 체크리스트 import 화면 ");
+                //Todo ArticleDetailAct -> 체크리스트 import 화면
+                Intent moveToArticleDetailCheckListImportAct = new Intent(this, ArticleDetailCheckListImportAct.class);
+                moveToArticleDetailCheckListImportAct.putExtra("article Infos", currentArticle);
+                MoveActUtil.moveActivity(this, moveToArticleDetailCheckListImportAct, -1, -1, false, false);
                 break;
         }
     }

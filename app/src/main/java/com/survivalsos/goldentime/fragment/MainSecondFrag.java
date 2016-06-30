@@ -81,7 +81,6 @@ public class MainSecondFrag extends Fragment{
             public void onAdapterItemClick(View view, int position) {
                 //체크리스트 항목인 경우에
                 if(mainImages.get(position).mainImageCode == 43){
-                    DebugUtil.showToast(guideAddedMainAct, "체크리스트 항목에 대한 부분입니다");
                     Intent intent = new Intent(mContext, CheckListAct.class);
                     MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
 

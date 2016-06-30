@@ -28,7 +28,9 @@
         <activity android:name=".activity.DrawerNotificationAct" />
         <activity android:name=".activity.BookmarkAct" />
         <activity android:name=".activity.ImportToCheckListAct" />
-        <activity android:name=".activity.AddCheckListAct"></activity>
+        <activity android:name=".activity.AddCheckListAct"
+            android:theme="@style/Theme.Transparent"></activity>
+        <activity android:name=".activity.ArticleDetailCheckListImportAct" />
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
+import com.survivalsos.goldentime.dialog.CommonLoadingDialog;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.DeviceUtil;
 import com.survivalsos.goldentime.util.ToforUtil;
@@ -32,6 +33,7 @@ public abstract class ParentAct extends AppCompatActivity {
 	private int IMAGE_SIZE = 500;
 
 	private InputMethodManager inputManager;
+	private CommonLoadingDialog loading;
 
 	public static ArrayList<Activity> activityList;
 
@@ -56,6 +58,32 @@ public abstract class ParentAct extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 
 		toforAppInit();
+	}
+
+	public void showLoading() {
+		try {
+			if (loading == null)
+				return;
+			loading.show();
+		} catch (Exception e) {
+		}
+	}
+
+	public void hideLoading() {
+		try {
+			if (loading == null)
+				return;
+			loading.dismiss();
+		} catch (Exception e) {
+		}
+	}
+
+	public void setLoading(Activity a) {
+		loading = new CommonLoadingDialog(a);
+	}
+
+	public void setLoading(Activity a, boolean isTransBG) {
+		loading = new CommonLoadingDialog(a, isTransBG);
 	}
 
 

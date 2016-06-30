@@ -26,14 +26,14 @@ public class CheckList {
                 "categoryId :: " + categoryId + "\n" +
                 "isInMyList :: " + isInMyList +"\n" +
                 "isChecked :: " + isChecked +"\n" +
-                "카테고리 명 :: " + Definitions.CATEGORY_NAME[categoryId] +
+                "카테고리 명 :: " + Definitions.CATEGORY_NAME[categoryId-1] + "\n" +
                 "isHeader :: " + isHeader;
 
         return result;
     }
 
     public void setCategoryName(Integer categoryId){
-        if(categoryId != null && Definitions.CATEGORY_NAME.length > categoryId) {
+        if(categoryId != null && Definitions.CATEGORY_NAME.length >= categoryId) {
             DebugUtil.showDebug("카테고리 네임 :: " + Definitions.CATEGORY_NAME[categoryId - 1]);
             categoryName =  Definitions.CATEGORY_NAME[categoryId - 1];
         } else {
