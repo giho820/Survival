@@ -1,7 +1,6 @@
 package com.survivalsos.goldentime.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -13,8 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static DatabaseHelper databaseHelper;
     public static SQLiteDatabase sqLiteDatabase;
-    private static Context context;
-    private static Cursor cursor;
+    public static Context context;
 
     private DatabaseHelper(Context context) {
         super(context, DatabaseConstantUtil.DATABASE_DB_NAME, null, DatabaseConstantUtil.DATABASE_VERSION);
@@ -27,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         databaseHelper = new DatabaseHelper(context);
 
         DatabaseHelper.context = context;
-        DatabaseHelper.sqLiteDatabase = databaseHelper.getReadableDatabase();
+        DatabaseHelper.sqLiteDatabase = databaseHelper.getReadableDatabase(); //이때 onCreate()나 onUpgrade()
         return databaseHelper;
     }
 
@@ -41,51 +39,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             DebugUtil.showDebug("Database is existed");
         }
         db.beginTransaction();
+        //Todo user checked list Table Create 하는 부분
         try {
             db.execSQL(DatabaseConstantUtil.CREATE_USER_BOOKMARK_TABLE);
             db.execSQL(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
             DebugUtil.showDebug(DatabaseConstantUtil.CREATE_USER_BOOKMARK_TABLE);
-            db.setTransactionSuccessful();
+            DebugUtil.showDebug(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
 
+            db.setTransactionSuccessful();
         } catch (Exception err) {
+            err.getMessage();
             DebugUtil.showDebug(err.toString());
         }
         db.endTransaction();
-
-//        db.beginTransaction();
-//        try {
-//            //Todo user checked list Table Create 하는 부분
-//
-//            DebugUtil.showDebug(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
-//            db.setTransactionSuccessful();
-//
-//        } catch (Exception err) {
-//            DebugUtil.showDebug(err.toString());
-//        }
-//        db.endTransaction();
-
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //Todo 데이터 베이스 변경되었을 시 업데이트 하는 부분
         DebugUtil.showDebug("DatabaseHelper onUpgrade()");
+
         db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstantUtil.TABLE_USER_BOOKMARK);
         db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST);
 
         onCreate(db);
-
     }
 
     @Override
     public synchronized void close() {
-
         if (sqLiteDatabase != null)
             sqLiteDatabase.close();
 
         super.close();
     }
-
-
 }

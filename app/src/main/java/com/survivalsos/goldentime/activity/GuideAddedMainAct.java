@@ -2,7 +2,6 @@ package com.survivalsos.goldentime.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,20 +20,17 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.MainFragmentPagerAdapter;
+import com.survivalsos.goldentime.database.ChangeableDatabaseHelper;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.database.DatabaseHelper;
 import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
-import com.survivalsos.goldentime.database.util.DatabaseUtil;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.MoveActUtil;
-
-import java.io.IOException;
 
 public class GuideAddedMainAct extends ParentAct
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    //Todo introAct로 옮겨야함
-    private DatabaseHelper databaseHelper;
+
     private MainFragmentPagerAdapter mainFragmentPagerAdapter;
     private LinearLayout linearLayoutOpenDrawer;
     private LinearLayout linearLayoutSearch;
@@ -52,10 +48,31 @@ public class GuideAddedMainAct extends ParentAct
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        initMainUi();
 
-        //Todo introAct로 옮겨야함2
-        copyDatabaseOnIntroAct();
+
+        try{
+            //Table 복사
+            if (!DatabaseCRUD.checkTable(ChangeableDatabaseHelper.changeableDatabaseHelper, DatabaseHelper.sqLiteDatabase, DatabaseConstantUtil.TABLE_CHECK_LIST)) {
+                DebugUtil.showDebug("CheckedList Table was not exist");
+                DebugUtil.showDebug("insert 실행");
+
+                //Todo 이 과정에서 이미 존재하는 값이 있다면 insert를 하지 않고 업데이트를 수행한다
+                //테이블의 내용을 채우는 과정
+                //insert 쿼리를 리턴하는 함수를 만들고나서 동적으로 생성한 checkedlist db에 insert 쿼리를 날린다
+                String insertQuery = DatabaseCRUD.getInsertQueryFromCheckListTable();
+                DebugUtil.showDebug("insertQuery :: " + insertQuery);
+                DatabaseCRUD.execRawQuery(insertQuery);
+
+                DatabaseCRUD.selectCheckedListDBQuery(DatabaseConstantUtil.TABLE_USER_CHECKED_LIST);
+                DebugUtil.showDebug("에셋에서 정상적으로 테이블 복사됨 ");
+            } else {
+                DebugUtil.showDebug("테이블 테스트 ::" + DatabaseCRUD.getArticleInfo(11));
+            }
+        } catch (Exception e) {
+
+        } finally {
+            initMainUi();
+        }
 
     }
 
@@ -99,7 +116,7 @@ public class GuideAddedMainAct extends ParentAct
         //페이져 어댑터
         mainFragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
 
-        // about ViewPager
+        //뷰페이져
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(mainFragmentPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
@@ -114,32 +131,7 @@ public class GuideAddedMainAct extends ParentAct
         tabStrip.setViewPager(viewPager);
     }
 
-    public void copyDatabaseOnIntroAct() {
-        DebugUtil.showDebug("MainAct, copyDatabaseOnIntroAct() ::");
-        databaseHelper = DatabaseHelper.getInstacnce(this);
-        copyDatabase(DatabaseHelper.sqLiteDatabase);
 
-        if (!DatabaseCRUD.doesCheckedListTableExist()) {//Todo 어떻게 했는데 에러가 안나고 처리가 되는거지 ?
-            DebugUtil.showDebug("User CheckedList Table is not exist");
-            String insertQuery = DatabaseCRUD.getInsertQueryFromCheckListTable();
-            DebugUtil.showDebug("insertQuery :: " + insertQuery);
-            DatabaseCRUD.execRawQuery(insertQuery);
-        }
-    }
-
-    // to copy database
-    private void copyDatabase(SQLiteDatabase sqLiteDatabase) {
-        if (!DatabaseCRUD.checkTable(databaseHelper, sqLiteDatabase, DatabaseConstantUtil.TABLE_CATEGORY)) {
-            DebugUtil.showDebug("CATEGORY table is not existed");
-            try {
-                DatabaseUtil.copyDataBase(this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            DebugUtil.showDebug("CATEGORY table is existed");
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -192,8 +184,8 @@ public class GuideAddedMainAct extends ParentAct
 
             case R.id.linearlayout_drawer_download:
                 Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
-                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
-//                intentDownLoad.setData(Uri.parse("market://details?id=" + this.getPackageName()));
+//                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
+                intentDownLoad.setData(Uri.parse("market://details?id=" + this.getPackageName()));
                 if (this == null) {
                     DebugUtil.showDebug("parentAct is null");
                 } else {
@@ -208,8 +200,8 @@ public class GuideAddedMainAct extends ParentAct
                 break;
 
             case R.id.linearlayout_drawer_review:
-                Uri uri = Uri.parse("market://details?id=" + "com.google.android.tts");
-//                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+//                Uri uri = Uri.parse("market://details?id=" + "com.google.android.tts");
+                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Play market backstack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.

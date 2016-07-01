@@ -36,6 +36,7 @@ public class AddCheckListAct extends ParentAct implements View.OnClickListener {
         linearLayoutBackgroundBlur = (LinearLayout) findViewById(R.id.linearlayout_add_check_list_blur);
         evInput = (NanumGothicEditView) findViewById(R.id.edittext_input_search);
 
+
         linearLayoutBackgroundBlur.setOnClickListener(this);
         linearLayoutCheckListBack.setOnClickListener(this);
         evInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -43,6 +44,7 @@ public class AddCheckListAct extends ParentAct implements View.OnClickListener {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 userInput = v.getText().toString();
                 DebugUtil.showDebug("userInput :: " + userInput);
+                onBackPressed();
                 return false;
             }
         });

@@ -130,13 +130,7 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
 
         checkLists = new ArrayList<>();
         //Todo 1. 디비 복사할 것(어플 실행 후 최초 1회만 이루어져야함)
-        //insert 쿼리를 리턴하는 함수를 만들고나서 동적으로 생성한 checkedlist db에 insert 쿼리를 날린다
-        if (!DatabaseCRUD.doesCheckedListTableExist()) {
-            DebugUtil.showDebug("User CheckedList Table is not exist");
-            String insertQuery = DatabaseCRUD.getInsertQueryFromCheckListTable();
-            DebugUtil.showDebug("insertQuery :: " + insertQuery);
-            DatabaseCRUD.execRawQuery(insertQuery);
-        }
+
         checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
         if (checkLists != null) {
             categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
@@ -162,6 +156,7 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                 String makeInitQuery = "update " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +
                         " set " + DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.UNCHECKED
                         + ", " + DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " = " + Definitions.CHECK_BOX_IMPORTED.UNIMPORTED;
+                DatabaseCRUD.execRawQuery(makeInitQuery);
                 DebugUtil.showDebug(makeInitQuery);
 
                 String deleteUserMadeCLQuery = "delete from " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST +

@@ -8,18 +8,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ArticleListAct" />
-        <activity android:name=".activity.ArticleDetailAct" />
-        <activity
-            android:name=".activity.GuideAddedMainAct"
-            android:label="@string/title_activity_guide"
-            android:theme="@style/AppTheme">
+        <activity android:name=".activity.IntroAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.GuideAddedMainAct"
+            android:label="@string/title_activity_guide"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".activity.ArticleListAct" />
+        <activity android:name=".activity.ArticleDetailAct" />
         <activity
             android:name=".activity.CheckListAct"
             android:label="@string/title_activity_check_list"
@@ -28,9 +28,11 @@
         <activity android:name=".activity.DrawerNotificationAct" />
         <activity android:name=".activity.BookmarkAct" />
         <activity android:name=".activity.ImportToCheckListAct" />
-        <activity android:name=".activity.AddCheckListAct"
-            android:theme="@style/Theme.Transparent"></activity>
+        <activity
+            android:name=".activity.AddCheckListAct"
+            android:theme="@style/Theme.Transparent" />
         <activity android:name=".activity.ArticleDetailCheckListImportAct" />
+
     </application>
 
 </manifest>

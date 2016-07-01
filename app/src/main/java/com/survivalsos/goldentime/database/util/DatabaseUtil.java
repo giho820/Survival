@@ -30,6 +30,22 @@ public class DatabaseUtil {
         return checkDatabase != null ? true : false;
     }
 
+    public static boolean checkChangeableDatabase() {
+        SQLiteDatabase checkDatabase = null;
+
+        try {
+            String path = DatabaseConstantUtil.CHANGEABLE_DB_PATH;
+            checkDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
+        } catch (SQLiteException sqlE) {
+            DebugUtil.showDebug("checkDatabase() : " + sqlE.getMessage());
+        }
+
+        if (checkDatabase != null)
+            checkDatabase.close();
+
+        return checkDatabase != null ? true : false;
+    }
+
     public static void copyDataBase(Context context) throws IOException {
         DebugUtil.showDebug("DatabaseUtil, copyDataBase() asset에서 데이터베이스 복사");
 
@@ -37,7 +53,7 @@ public class DatabaseUtil {
         InputStream myInput = context.getAssets().open(DatabaseConstantUtil.DATABASE_SQLITE_NAME);
 
         // Path to the just created empty db
-        String outFileName = DatabaseConstantUtil.DATABASE_PATH;
+        String outFileName = DatabaseConstantUtil.CHANGEABLE_DB_PATH;
 
         //Open the empty db as the output stream
         OutputStream myOutput = new FileOutputStream(outFileName);

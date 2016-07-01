@@ -17,14 +17,14 @@ public class DatabaseCRUD {
     private static SQLiteDatabase sqLiteDatabase;
     private static String keyword;
 
-    public static boolean checkTable(DatabaseHelper databaseHelper, SQLiteDatabase sqLiteDatabase, String tableName) {
+    public static boolean checkTable(ChangeableDatabaseHelper changeableDatabaseHelper, SQLiteDatabase sqLiteDatabase, String tableName) {
         boolean flag = true;
         if (sqLiteDatabase == null) {
             DebugUtil.showDebug("SQLiteDatabase is null");
             flag = false;
             return flag;
         }
-        //Todo 이부분 정확히 이해할 것 테이블명을 어떤 디비에서 찾는다는 것이지?
+        //Todo 이부분 정확히 이해할 것 테이블명을 어떤 디비에서 찾는다는 것이지? -> 에셋에 있는 테이블명을 넣었을 때 있으면 그 테이블이 생성되었다는 뜻
         String sql_check_whether_table_exist_or_not = "SELECT count(*) as check_table FROM sqlite_master WHERE type='table' AND name='" + tableName + "'";
         Cursor cursor = sqLiteDatabase.rawQuery(sql_check_whether_table_exist_or_not, null);
         cursor.moveToFirst();
@@ -41,33 +41,12 @@ public class DatabaseCRUD {
         DatabaseHelper.sqLiteDatabase.execSQL(_query);
     }
 
-    //메인화면 그림가져오기, asset의 적절한 파일 이름 리턴
-    public static ArrayList<Integer> getMainImageFileNameFromAssetFolder(int section) {
-        ArrayList<Integer> result = new ArrayList<>();
-
-        String sqlQueryForMainPage = "SELECT CODE FROM CATEGORY WHERE CODE like '" + section + "%'";
-//        DebugUtil.showDebug("query :: " + sqlQueryForMainPage);
-
-        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForMainPage, null);
-
-        if (cursor == null)
-            return null;
-
-        while (cursor.moveToNext()) {
-            result.add(cursor.getInt(0));
-        }
-
-        cursor.close();
-        return result;
-    }
 
     public static ArrayList<MainImageItemInfo> getMainImageItemInfoFromAssetFolder(int section) {
         ArrayList<MainImageItemInfo> result = new ArrayList<>();
-
         String sqlQueryForMainPage = "SELECT * FROM CATEGORY WHERE CODE like '" + section + "%'";
-//        DebugUtil.showDebug("query :: " + sqlQueryForMainPage);
-
-        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForMainPage, null);
+//        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForMainPage, null);
+        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery(sqlQueryForMainPage, null);
 
         if (cursor == null)
             return null;
@@ -77,7 +56,6 @@ public class DatabaseCRUD {
             tempMainImageItem.mainImageCode = cursor.getInt(0);
             tempMainImageItem.mainImageName = cursor.getString(1);
             tempMainImageItem.doesLocked = cursor.getInt(2);
-
             result.add(tempMainImageItem);
         }
 
@@ -93,7 +71,8 @@ public class DatabaseCRUD {
         String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE HIGH_RANK_CODE = " + section + "";
 //        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
 
-        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+//        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
         if (cursor == null)
             return null;
 
@@ -122,7 +101,8 @@ public class DatabaseCRUD {
         String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE ARTICLE_ID = " + articleId;
 //        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
 
-        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+//        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
         if (cursor == null)
             return null;
 
@@ -152,7 +132,7 @@ public class DatabaseCRUD {
         String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE ARTICLE_TEXT LIKE '%" + inputText + "%'";
 //        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
 
-        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
         if (cursor == null)
             return null;
 
@@ -177,21 +157,20 @@ public class DatabaseCRUD {
     //북마크 정보가 있는 아티클 인지를 확인하는 함수
     public static boolean isBookmarked(Integer inputInteger) {
         boolean isExist = false;
-
-        String sqlQueryForArticleList = "SELECT * FROM " + DatabaseConstantUtil.TABLE_USER_BOOKMARK + " WHERE " +
-                DatabaseConstantUtil.COLUMN_ARTICLE_ID + " = " + inputInteger;
-        DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
-
-        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
-        if (cursor == null)
-            return false;
-
-        if (cursor.getCount() > 0)
-            isExist = true;
-        else
+        Cursor cursor = null;
+        try {
+            String sqlQueryForArticleList = "SELECT * FROM " + DatabaseConstantUtil.TABLE_USER_BOOKMARK + " WHERE " +
+                    DatabaseConstantUtil.COLUMN_ARTICLE_ID + " = " + inputInteger;
+            cursor = DatabaseHelper.sqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+            DebugUtil.showDebug("query :: " + sqlQueryForArticleList);
+            if (cursor != null && cursor.getCount() > 0)
+                isExist = true;
+        } catch (Exception err) {
+            err.getStackTrace();
             isExist = false;
-        cursor.close();
-
+        } finally {
+            cursor.close();
+        }
         return isExist;
     }
 
@@ -226,8 +205,6 @@ public class DatabaseCRUD {
         cursor.close();
         return results;
     }
-
-
 
 
     public static ArrayList<CheckList> getOriginCheckListFromDb() {
@@ -273,7 +250,7 @@ public class DatabaseCRUD {
 
         if (cursor == null)
             return "결과 없음";
-        if(tableName.equalsIgnoreCase(DatabaseConstantUtil.TABLE_USER_CHECKED_LIST)) {
+        if (tableName.equalsIgnoreCase(DatabaseConstantUtil.TABLE_USER_CHECKED_LIST)) {
             while (cursor.moveToNext()) {
                 result += cursor.getInt(0) + ". "
                         + cursor.getString(1) + ", "
@@ -296,6 +273,7 @@ public class DatabaseCRUD {
                         + "\n";
             }
         }
+
 
         cursor.close();
         return result;
@@ -388,8 +366,7 @@ public class DatabaseCRUD {
     }
 
 
-
-    //최초 1번만 실행
+    //Todo
     public static String getInsertQueryFromCheckListTable() {
         String result = "";
         String startQuery = "insert or ignore into " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST + " (" + DatabaseConstantUtil.COLUMN_NO_USER_CHECKED_LIST + ", " +
@@ -403,10 +380,10 @@ public class DatabaseCRUD {
         //DatabaseConstantUtil.COLUMN_TITLE+") values (" + currentArticle.articleId + ", '" + currentArticle.title+"')";
 
         ArrayList<CheckList> checkLists = new ArrayList<>();
-        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from CHECK_LIST order by NO;", null);
+        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery("select * from "+DatabaseConstantUtil.TABLE_CHECK_LIST+" order by NO;", null);
 
         if (cursor == null) {
-            DebugUtil.showDebug("DatabaseCRUD, getOriginCheckListFromDb() 결과가 없습니다");
+            DebugUtil.showDebug("DatabaseCRUD, getInsertQueryFromCheckListTable() 결과가 없습니다");
             return null;
         }
         //헤더 여부를 가려내기 위한 작업
@@ -443,7 +420,7 @@ public class DatabaseCRUD {
         cursor.close();
 
         result = startQuery + middleQuery;
-//        DebugUtil.showDebug("result :: " + result);
+        DebugUtil.showDebug("result :: " + result);
         return result;
     }
 
@@ -511,8 +488,8 @@ public class DatabaseCRUD {
     public static boolean doesCheckedListTableExist() {
         boolean doesCheckedListTableExist = false;
         int count = 0;
-        Cursor cursor   =   null;
-        try{
+        Cursor cursor = null;
+        try {
             cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST + " order by NO;", null);
             if (cursor == null) {
                 DebugUtil.showDebug("DatabaseCRUD, getOriginCheckListFromDb() 결과가 없습니다");
@@ -524,12 +501,11 @@ public class DatabaseCRUD {
                 }
             }
 
-        }catch (Exception err){
+        } catch (Exception err) {
             doesCheckedListTableExist = true;
-        }finally {
+        } finally {
             cursor.close();
         }
-
 
 
         return doesCheckedListTableExist;
@@ -570,6 +546,7 @@ public class DatabaseCRUD {
             result.add(checkList);
         }
         cursor.close();
+        DebugUtil.showDebug("result :: " + result.size());
         return result;
     }
 
@@ -610,7 +587,6 @@ public class DatabaseCRUD {
         cursor.close();
         return result;
     }
-
 
 
 }
