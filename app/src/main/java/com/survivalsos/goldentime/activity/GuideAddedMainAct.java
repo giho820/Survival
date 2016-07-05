@@ -6,6 +6,9 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,11 +22,12 @@ import com.ParentAct;
 import com.astuetz.PagerSlidingTabStrip;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
-import com.survivalsos.goldentime.adapter.MainFragmentPagerAdapter;
 import com.survivalsos.goldentime.database.ChangeableDatabaseHelper;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.database.DatabaseHelper;
 import com.survivalsos.goldentime.database.util.DatabaseConstantUtil;
+import com.survivalsos.goldentime.fragment.MainFirstFrag;
+import com.survivalsos.goldentime.fragment.MainSecondFrag;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.MoveActUtil;
 
@@ -121,14 +125,17 @@ public class GuideAddedMainAct extends ParentAct
         viewPager.setAdapter(mainFragmentPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
 
-        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
+        final PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabStrip.setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3));
         tabStrip.setIndicatorColor(getResources().getColor(R.color.c_fff92e14));
+        tabStrip.setTabSelectTextColor(getResources().getColor(R.color.c_fff92e14));
         tabStrip.setTextColorResource(R.color.text_color);
         tabStrip.setShouldExpand(true);
         tabStrip.setDividerColor(getResources().getColor(android.R.color.transparent));
-        if(Definitions.LatoBlack != null) tabStrip.setTypeface(Definitions.LatoBlack, Typeface.NORMAL);
+        if(Definitions.NanumBarunGothic != null) tabStrip.setTypeface(Definitions.NanumBarunGothic, Typeface.NORMAL);
         tabStrip.setViewPager(viewPager);
+
     }
 
 
@@ -215,6 +222,50 @@ public class GuideAddedMainAct extends ParentAct
                             Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
                 }
                 break;
+        }
+    }
+
+    public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
+        final int PAGE_COUNT = 2;
+        private String tabTitles[] = {
+                "재난 대처", "서바이벌"
+        };
+
+        public MainFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return tabTitles.length;//Todo 이거 0으로 하면 onmeasure 어쩌고 하면서 널포인트 에러난다
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment returnFrag = new Fragment();
+            switch (position) {
+                case 1:
+                    return new MainSecondFrag();
+                default:
+                    return new MainFirstFrag();
+            }
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            // Generate title based on item position
+            return tabTitles[position];
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            int position;
+            if (object instanceof MainFirstFrag) {
+                position = 0;
+            } else {
+                position = 1;
+            }
+            return position;
         }
     }
 }

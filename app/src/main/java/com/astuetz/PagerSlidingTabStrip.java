@@ -76,6 +76,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     private int tabTextSize = 12;
     private int tabTextColor = 0xFF808080;
+    private int tabSelectTextColor  =   0xFF000000;
     private Typeface tabTypeface = Definitions.LatoBlack;
     private int tabTypefaceStyle = Typeface.NORMAL;
 
@@ -269,7 +270,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                 tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
                 tab.setTypeface(tabTypeface, tabTypefaceStyle);
                 tab.setTextColor(tabTextColor);
+            if(currentPosition==i){
+                tab.setTextColor(tabSelectTextColor);
 
+            }
                 // setAllCaps() is only available from API 14, so the upper case is made manually if we are on a
                 // pre-ICS-build
                 if (textAllCaps) {
@@ -402,6 +406,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
                     TextView tab = (TextView) v;
                     tab.setSelected(true);
+                    tab.setTextColor(tabTextColor);
+                    tab.setTypeface(tabTypeface, tabTypefaceStyle);
 
                 }
             }
@@ -414,6 +420,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
                 TextView tab = (TextView) v;
                 tab.setSelected(true);
+                tab.setTextColor(tabSelectTextColor);
+                tab.setTypeface(tabTypeface, tabTypefaceStyle);
 
             }
         }
@@ -476,6 +484,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         invalidate();
     }
 
+
+
     public int getUnderlineHeight() {
         return underlineHeight;
     }
@@ -536,6 +546,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     public int getTextColor() {
         return tabTextColor;
+    }
+
+    public void setTabSelectTextColor(int textSelectColor){
+        this.tabSelectTextColor =   textSelectColor;
     }
 
     public void setTypeface(Typeface typeface, int style) {
