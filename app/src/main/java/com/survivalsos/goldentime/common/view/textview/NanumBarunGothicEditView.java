@@ -11,23 +11,23 @@ public class NanumBarunGothicEditView extends EditText {
 
 	public NanumBarunGothicEditView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		if (Definitions.NanumGothicBold != null)
-			setTypeface(Definitions.NanumGothicBold);
+		if (Definitions.NanumBarunGothic != null)
+			setTypeface(Definitions.NanumBarunGothic);
 		//setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f, getResources().getDisplayMetrics()), 1.0f);
 	}
 
 	public NanumBarunGothicEditView(Context context) {
 		super(context);
-		if (Definitions.NanumGothicBold != null)
-			setTypeface(Definitions.NanumGothicBold);
+		if (Definitions.NanumBarunGothic != null)
+			setTypeface(Definitions.NanumBarunGothic);
 
 		//setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f, getResources().getDisplayMetrics()), 1.0f);
 	}
 
 	public NanumBarunGothicEditView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		if (Definitions.NanumGothicBold != null)
-			setTypeface(Definitions.NanumGothicBold);
+		if (Definitions.NanumBarunGothic != null)
+			setTypeface(Definitions.NanumBarunGothic);
 
 		//setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f, getResources().getDisplayMetrics()), 1.0f);
 	}

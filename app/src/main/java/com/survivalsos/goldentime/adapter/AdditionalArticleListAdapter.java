@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
@@ -104,7 +106,7 @@ public class AdditionalArticleListAdapter extends BaseAdapter {
                     }
                 }
             });
-            viewHolder.tvLabelNextOrRelated = (TextView) convertView.findViewById(R.id.item_tv_nextOrRelated);
+            viewHolder.tvLabelNextOrRelated = (ImageView) convertView.findViewById(R.id.item_tv_nextOrRelated);
             viewHolder.tvTitleOfAdditionalItem = (TextView) convertView.findViewById(R.id.titleOfAdditionalArticle);
 
             convertView.setTag(viewHolder);
@@ -112,14 +114,21 @@ public class AdditionalArticleListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+
+
+        viewHolder.linearLayoutClickSection.setVisibility(View.GONE);
+
         item = adapterArrayList.get(position);
         if (item != null) {
             if (item.articleId != null && item.articleId > 0) {
-                if (item.type == Definitions.ARTICLE_TYPE.NEXT)
-                    viewHolder.tvLabelNextOrRelated.setText("NEXT");
+                if (item.type == Definitions.ARTICLE_TYPE.NEXT){
+                    viewHolder.linearLayoutClickSection.setVisibility(View.VISIBLE);
+                    Picasso.with(context).load(R.drawable.icon_additional_next).resizeDimen(R.dimen.dp_36, R.dimen.dp_10).into(viewHolder.tvLabelNextOrRelated);
+                }
+
                 else if (item.type == Definitions.ARTICLE_TYPE.RELATED) {
-                    viewHolder.tvLabelNextOrRelated.setText("RELATED");
-                    viewHolder.tvLabelNextOrRelated.setTextColor(convertView.getResources().getColor(R.color.c_ff138185));
+                    viewHolder.linearLayoutClickSection.setVisibility(View.VISIBLE);
+                    Picasso.with(context).load(R.drawable.icon_additional_related).resizeDimen(R.dimen.dp_62, R.dimen.dp_10).into(viewHolder.tvLabelNextOrRelated);
                 }
             }
         } else {
@@ -136,7 +145,7 @@ public class AdditionalArticleListAdapter extends BaseAdapter {
 
     public class ViewHolder {
         LinearLayout linearLayoutClickSection;
-        TextView tvLabelNextOrRelated;
+        ImageView tvLabelNextOrRelated;
         TextView tvTitleOfAdditionalItem;
     }
 }

@@ -18,7 +18,7 @@
         android:layout_height="@dimen/dp_50"
         android:background="@drawable/main_icon_lock" />
 
-    <com.survivalsos.goldentime.common.view.LatoBlackTextView
+    <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
         android:id="@+id/item_tv_image_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

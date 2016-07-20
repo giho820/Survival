@@ -11,13 +11,14 @@
         <activity android:name=".activity.IntroAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.GuideAddedMainAct"
             android:label="@string/title_activity_guide"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".activity.ArticleListAct" />
         <activity android:name=".activity.ArticleDetailAct" />
         <activity
@@ -30,9 +31,9 @@
         <activity android:name=".activity.ImportToCheckListAct" />
         <activity
             android:name=".activity.AddCheckListAct"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity android:name=".activity.ArticleDetailCheckListImportAct" />
-
     </application>
 
 </manifest>

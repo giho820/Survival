@@ -206,6 +206,32 @@ public class DatabaseCRUD {
         return results;
     }
 
+    public static ArrayList<Article> getCompletedArticlesUsingBookmarkTable(ArrayList<Article> arrayList) {
+        ArrayList<Article> results = new ArrayList<>();
+
+        for (Article article : arrayList) {
+            String sqlQueryForArticleList = "SELECT * FROM ARTICLE WHERE ARTICLE_ID = " + article.articleId;
+            DebugUtil.showDebug("sqlQueryForArticleList :: " + sqlQueryForArticleList);
+
+            Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery(sqlQueryForArticleList, null);
+
+            while (cursor != null && cursor.moveToNext()) {
+                Article tempArticle = new Article();
+                tempArticle.articleId = cursor.getInt(0);
+                tempArticle.title = cursor.getString(1);
+                tempArticle.highRankCode = cursor.getInt(2);
+                tempArticle.nextArticleId = cursor.getInt(3);
+                tempArticle.relatedArticleId = cursor.getInt(4);
+                tempArticle.isSoundFile = cursor.getString(5);
+                tempArticle.articleText = cursor.getString(6);
+
+                results.add(tempArticle);
+            }
+        }
+
+        return results;
+    }
+
 
     public static ArrayList<CheckList> getOriginCheckListFromDb() {
         ArrayList<CheckList> result = new ArrayList<>();
@@ -380,7 +406,7 @@ public class DatabaseCRUD {
         //DatabaseConstantUtil.COLUMN_TITLE+") values (" + currentArticle.articleId + ", '" + currentArticle.title+"')";
 
         ArrayList<CheckList> checkLists = new ArrayList<>();
-        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery("select * from "+DatabaseConstantUtil.TABLE_CHECK_LIST+" order by NO;", null);
+        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery("select * from " + DatabaseConstantUtil.TABLE_CHECK_LIST + " order by NO;", null);
 
         if (cursor == null) {
             DebugUtil.showDebug("DatabaseCRUD, getInsertQueryFromCheckListTable() 결과가 없습니다");
@@ -443,11 +469,77 @@ public class DatabaseCRUD {
         return result;
     }
 
+
+
     //유저 고유의 체크리스트
     public static ArrayList<CheckList> getImportCheckedListFromDb() {
         ArrayList<CheckList> result = new ArrayList<>();
 
         Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST
+                + " order by NO", null);
+
+        if (cursor == null) {
+            DebugUtil.showDebug("DatabaseCRUD, getOriginCheckListFromDb() 결과가 없습니다");
+            return null;
+        }
+        //헤더 여부를 가려내기 위한 작업
+        ArrayList<Integer> categoryIds = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            CheckList checkList = new CheckList();
+            checkList.no = cursor.getInt(0);
+            checkList.title = cursor.getString(1);
+            checkList.link = cursor.getInt(2);
+            checkList.articleId = cursor.getInt(3);
+            checkList.categoryId = cursor.getInt(4);
+            checkList.isInMyList = cursor.getInt(5);
+            checkList.isChecked = cursor.getInt(6);
+            checkList.isHeader = false;
+
+            if (checkList.articleId != null) {
+                checkList.setCategoryName(checkList.categoryId);
+            }
+
+            if (!categoryIds.contains(checkList.categoryId)) {
+                categoryIds.add(checkList.categoryId);
+                checkList.isHeader = true;
+            }
+
+            DebugUtil.showDebug("checkList :: " + checkList.toString());
+            result.add(checkList);
+        }
+
+        cursor.close();
+        return result;
+    }
+
+
+    public static boolean doesDuplicatedInCheckListTable(String input){
+        boolean doesDuplicated = false;
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST
+                + " where CATEGORY_ID == 8"
+                + " and " + DatabaseConstantUtil.COLUMN_TITLE_USER_CHECKED_LIST + " like '" + input +"'"
+                + " order by NO", null);
+
+        if (cursor == null || cursor.getCount()==0) {
+            DebugUtil.showDebug("DatabaseCRUD, doesDuplicatedInCheckListTable() 중복된 결과가 없습니다");
+            doesDuplicated = false;
+        } else{
+            DebugUtil.showDebug("DatabaseCRUD, doesDuplicatedInCheckListTable, 중복된 결과가 있음 :: ");
+            doesDuplicated = true;
+        }
+
+        cursor.close();
+        return doesDuplicated;
+    }
+
+    //유저 고유의 체크리스트
+    public static ArrayList<CheckList> getImportCheckedListFromDbIncludingUserAdded()
+    {
+        ArrayList<CheckList> result = new ArrayList<>();
+
+        Cursor cursor = DatabaseHelper.sqLiteDatabase.rawQuery("select * from " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST
+                + " where CATEGORY_ID != 8 "
                 + " order by NO", null);
 
         if (cursor == null) {
@@ -588,5 +680,25 @@ public class DatabaseCRUD {
         return result;
     }
 
+
+    public static Integer checkRelatedArticleAvailable(int additionalArticleCode) {
+        Integer result = null;
+
+        String query = "select LOCKED from CATEGORY where CODE = " + additionalArticleCode;
+
+        Cursor cursor = ChangeableDatabaseHelper.changeableSqLiteDatabase.rawQuery(query, null);
+
+        if (cursor == null) {
+            DebugUtil.showDebug("DatabaseCRUD, checkRelatedArticleAvailable() 결과가 없습니다");
+            return null;
+        }
+
+        while (cursor.moveToNext()){
+            result = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return result;
+    }
 
 }

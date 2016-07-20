@@ -39,6 +39,7 @@ public class ChangeableDatabaseHelper extends SQLiteOpenHelper {
             DebugUtil.showDebug("Changeable DB is existed");
         }
 
+//        db.beginTransaction();
 //        try {
 //            db.execSQL(DatabaseConstantUtil.CREATE_USER_BOOKMARK_TABLE);
 //            db.execSQL(DatabaseConstantUtil.CREATE_USER_CHECKED_LIST_TABLE);
@@ -50,6 +51,7 @@ public class ChangeableDatabaseHelper extends SQLiteOpenHelper {
 //            err.getMessage();
 //            DebugUtil.showDebug(err.toString());
 //        }
+//        db.endTransaction();
 
     }
 

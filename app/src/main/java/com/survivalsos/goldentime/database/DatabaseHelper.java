@@ -38,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             DebugUtil.showDebug("Database is existed");
         }
+
         db.beginTransaction();
         //Todo user checked list Table Create 하는 부분
         try {

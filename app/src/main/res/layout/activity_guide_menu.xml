@@ -31,7 +31,7 @@
                 android:background="@drawable/guide_icon_notice"/>
         </LinearLayout>
         
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="알림"
@@ -65,7 +65,7 @@
                 android:background="@drawable/guide_icon_copyright"/>
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="저작권 공지"
@@ -99,7 +99,7 @@
                 android:background="@drawable/guide_icon_contact"/>
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.LatoBlackTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contact"
@@ -133,7 +133,7 @@
                 android:background="@drawable/guide_icon_download"/>
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="다운로드"
@@ -167,7 +167,7 @@
                 android:background="@drawable/guide_icon_bookmark"/>
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="북마크"
@@ -201,7 +201,7 @@
                 android:background="@drawable/guide_icon_review"/>
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="리뷰쓰기"

@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
 
-        <com.survivalsos.goldentime.common.view.LatoBlackTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:id="@+id/tv_checklist_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -6,7 +6,7 @@ public class DatabaseConstantUtil {
     public static final String DATABASE_SQLITE_NAME = "SURVIVAL_V2.sqlite";
     public static final String PAKAGE_NAME = "com.survivalsos.goldentime";
     public static final String DATABASE_DB_NAME = "Survival.db";
-    public static final String DATABASE_CHANGEABLE_DB_NAME = "ChangealbeSurvival.db";
+    public static final String DATABASE_CHANGEABLE_DB_NAME = "ChangealbeSurvival" + "_"+ DatabaseConstantUtil.CHANGEABLE_DB_VERSION +".db";
     public static final String DATABASE_PATH = "/data/data/" + PAKAGE_NAME + "/databases/" + DATABASE_DB_NAME;
     public static final String CHANGEABLE_DB_PATH = "/data/data/" + PAKAGE_NAME + "/databases/" + DATABASE_CHANGEABLE_DB_NAME;
 
@@ -49,8 +49,8 @@ public class DatabaseConstantUtil {
 
 
     //Todo 업데이트 테스트 수행한 결과 잘 되지 않았음 -> 고칠 것
-    public static int DATABASE_VERSION = 5;
-    public static int CHANGEABLE_DB_VERSION = 1;
+    public static int DATABASE_VERSION = 6;
+    public static int CHANGEABLE_DB_VERSION = 4;
 
 
 }

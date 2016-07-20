@@ -9,7 +9,9 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme"></style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="colorPrimaryDark">@color/c_000000</item>
+    </style>
 
     <style name="mainbtn1">
         <item name="android:layout_width">98.5dp</item>

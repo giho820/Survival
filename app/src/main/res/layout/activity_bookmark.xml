@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:background="@color/c_ff1c1c1c">
+        android:background="@color/c_ff315056">
 
         <LinearLayout
             android:id="@+id/linearlayout_exit_bookmark_act"
@@ -24,7 +24,7 @@
                 android:background="@drawable/abc_ic_clear_mtrl_alpha" />
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -33,7 +33,7 @@
             android:textColor="@color/c_ffffffff"
             android:textSize="@dimen/dp_17">
 
-        </com.survivalsos.goldentime.common.view.NanumGothicTextView>
+        </com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView>
 
         <LinearLayout
             android:layout_width="@dimen/dp_47"
@@ -50,12 +50,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_bookmark_test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/c_ffffffff"
-                android:visibility="gone"/>
 
             <com.survivalsos.goldentime.common.view.ExpandableHeightGridView
                 android:id="@+id/gridViewBookmark"

@@ -2,8 +2,10 @@ package com;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -37,7 +39,7 @@ public abstract class ParentAct extends AppCompatActivity {
 
 	public static ArrayList<Activity> activityList;
 
-	public void onUIRefresh() {
+    public void onUIRefresh() {
 	}
 
 	public void hiddenKeyboard() {
@@ -97,7 +99,13 @@ public abstract class ParentAct extends AppCompatActivity {
 
 	public void toforAppInit() {
 
-		if (ToforUtil.PHONE_W <= 0 || ToforUtil.PHONE_H <= 0) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // 화면을 portrait(세로) 화면으로 고정하고 싶은 경우
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        // 화면을 landscape(가로) 화면으로 고정하고 싶은 경우
+
+
+        if (ToforUtil.PHONE_W <= 0 || ToforUtil.PHONE_H <= 0) {
 			Display defaultDisplay = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 			ToforUtil.PHONE_W = defaultDisplay.getWidth();
 			ToforUtil.PHONE_H = defaultDisplay.getHeight();
@@ -117,6 +125,14 @@ public abstract class ParentAct extends AppCompatActivity {
 
 		if (Definitions.LatoBold == null) {
 			Definitions.LatoBold = Typeface.createFromAsset(getAssets(), "Lato-Bold.ttf");
+		}
+
+		if (Definitions.NanumBarunGothic == null) {
+			Definitions.NanumBarunGothic = Typeface.createFromAsset(getAssets(), "NanumBarunGothic.ttf");
+		}
+
+		if (Definitions.NanumBarunGothicBold == null) {
+			Definitions.NanumBarunGothicBold = Typeface.createFromAsset(getAssets(), "NanumBarunGothicBold.ttf");
 		}
 
 	}

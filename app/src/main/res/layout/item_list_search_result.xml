@@ -21,7 +21,7 @@
         android:gravity="center">
 
 
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:id="@+id/item_list_article_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

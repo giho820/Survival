@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import com.ParentAct;
 import com.survivalsos.goldentime.R;
-import com.survivalsos.goldentime.common.view.NanumGothicEditView;
-import com.survivalsos.goldentime.model.CheckList;
+import com.survivalsos.goldentime.common.view.textview.NanumBarunGothicEditView;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.TextUtil;
 
@@ -20,7 +19,7 @@ public class AddCheckListAct extends ParentAct implements View.OnClickListener {
     LinearLayout linearLayoutCheckListBack;
 
     String userInput;
-    NanumGothicEditView evInput;
+    NanumBarunGothicEditView evInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +33,8 @@ public class AddCheckListAct extends ParentAct implements View.OnClickListener {
 
         linearLayoutCheckListBack = (LinearLayout) findViewById(R.id.linearlayout_check_list_add_close_xx);
         linearLayoutBackgroundBlur = (LinearLayout) findViewById(R.id.linearlayout_add_check_list_blur);
-        evInput = (NanumGothicEditView) findViewById(R.id.edittext_input_search);
-
+        evInput = (NanumBarunGothicEditView) findViewById(R.id.edittext_input_search);
+        evInput.setFocusable(true);
 
         linearLayoutBackgroundBlur.setOnClickListener(this);
         linearLayoutCheckListBack.setOnClickListener(this);
@@ -44,6 +43,7 @@ public class AddCheckListAct extends ParentAct implements View.OnClickListener {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 userInput = v.getText().toString();
                 DebugUtil.showDebug("userInput :: " + userInput);
+                hiddenKeyboard();
                 onBackPressed();
                 return false;
             }
@@ -65,8 +65,10 @@ public class AddCheckListAct extends ParentAct implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        if (!TextUtil.isNull(userInput)){
-            Intent intent = new Intent(this, CheckList.class);
+        userInput = evInput.getText().toString();
+
+        if (!TextUtil.isNull(userInput)) {
+            Intent intent = new Intent(this, CheckListAct.class);
             intent.putExtra("userInputString", userInput);
             this.setResult(RESULT_OK, intent);
         }

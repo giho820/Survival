@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.ParentAct;
-import com.squareup.picasso.Picasso;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.ArticleListRecyclerAdapter;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
@@ -28,7 +27,7 @@ public class ArticleListAct extends ParentAct implements View.OnClickListener {
     private ImageView backBtn;
     private RecyclerView articleListRecyclerView;
     private ArticleListRecyclerAdapter articleListRecyclerAdapter;
-    private ImageView imageViewRepresentImage;
+//    private ImageView imageViewRepresentImage;
 
 
     @Override
@@ -38,11 +37,11 @@ public class ArticleListAct extends ParentAct implements View.OnClickListener {
         DebugUtil.showDebug("ArticleListAct :: onCreate");
 
         clickedImagePosition = getIntent().getIntExtra("mainImagesPosition", 0);
-        DebugUtil.showDebug("넘어온 아키틀 번호 :: " + clickedImagePosition);
+        DebugUtil.showDebug("넘어온 아티클 번호 :: " + clickedImagePosition);
 
         backBtn = (ImageView) findViewById(R.id.img_backbtn);
         backBtn.setOnClickListener(this);
-        imageViewRepresentImage = (ImageView) findViewById(R.id.img_representing_article);
+//        imageViewRepresentImage = (ImageView) findViewById(R.id.img_representing_article);
         articleListRecyclerView = (RecyclerView) findViewById(R.id.article_list_listview_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
@@ -53,9 +52,19 @@ public class ArticleListAct extends ParentAct implements View.OnClickListener {
             @Override
             public void onAdapterItemClick(View view, int position) {
                 DebugUtil.showDebug("ArticleListAct :: " + articles.get(position).title + " 클릭 됨 ");
-                Intent moveToArticleDetailAct = new Intent(ArticleListAct.this, ArticleDetailAct.class);
-                moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", articles.get(position));
-                MoveActUtil.moveActivity(ArticleListAct.this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
+
+                if(articles == null || articles.get(position).articleId == null)
+                    return;
+
+                if (articles.get(position).articleId == 428) {//서바이벌 키트 체크리스트 추가 관련
+                    Intent intent = new Intent(ArticleListAct.this, CheckListAct.class);
+                    MoveActUtil.moveActivity(ArticleListAct.this, intent, -1, -1, false, false);
+                } else {
+                    Intent moveToArticleDetailAct = new Intent(ArticleListAct.this, ArticleDetailAct.class);
+                    moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", articles.get(position));
+                    MoveActUtil.moveActivity(ArticleListAct.this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
+                }
+
             }
         });
         articleListRecyclerView.setAdapter(articleListRecyclerAdapter);
@@ -67,6 +76,9 @@ public class ArticleListAct extends ParentAct implements View.OnClickListener {
             return;
         } else if (clickedImagePosition != 0) {
             articles = DatabaseCRUD.getArticleList(clickedImagePosition);
+            Article tempArticleForBlank = new Article();
+            articles.add(tempArticleForBlank);
+
             if (articles != null) {
                 DebugUtil.showDebug("기사의 개수는 :: " + articles.size());
 
@@ -74,16 +86,15 @@ public class ArticleListAct extends ParentAct implements View.OnClickListener {
                 articleListRecyclerAdapter.notifyDataSetChanged();
             }
 
-            Picasso.with(this).load( "file:///android_asset/image/ArticleListImages/"  + clickedImagePosition + "00.png").fit().into(imageViewRepresentImage);
+//            Picasso.with(this).load( "file:///android_asset/image/ArticleListImages/"  + clickedImagePosition + "00.png").fit().into(imageViewRepresentImage);
 
         }
     }
 
 
-
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_backbtn:
                 onBackPressed();
                 break;

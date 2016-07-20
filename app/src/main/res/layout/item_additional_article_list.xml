@@ -17,16 +17,20 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/item_tv_nextOrRelated"
+        <LinearLayout
             android:layout_width="@dimen/dp_96"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Next"
-            android:textColor="@color/c_ff500690"
-            android:textSize="@dimen/dp_16" />
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/item_tv_nextOrRelated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                />
+        </LinearLayout>
 
-        <TextView
+
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:id="@+id/titleOfAdditionalArticle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

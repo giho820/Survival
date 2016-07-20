@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
-import com.survivalsos.goldentime.common.view.NanumGothicTextView;
+import com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.CheckList;
 import com.survivalsos.goldentime.util.TextUtil;
@@ -32,7 +32,7 @@ public class CheckListImportRecyclerAdapter extends RecyclerView.Adapter {
     public static class CheckListAllContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private LinearLayout linearLayoutCheckListAllHeader;
-        private NanumGothicTextView nanumGothicTextViewCheckListHeader;
+        private NanumBarunGothicTextView nanumGothicTextViewCheckListHeader;
 
         private LinearLayout itemChecklistIncludingItem;
         private LinearLayout clickArea;
@@ -47,7 +47,7 @@ public class CheckListImportRecyclerAdapter extends RecyclerView.Adapter {
             super(v);
 
             linearLayoutCheckListAllHeader = (LinearLayout) v.findViewById(R.id.linearlayout_checklist_all_header);
-            nanumGothicTextViewCheckListHeader = (NanumGothicTextView) v.findViewById(R.id.tv_checklist_title_header);
+            nanumGothicTextViewCheckListHeader = (NanumBarunGothicTextView) v.findViewById(R.id.tv_checklist_title_header);
 
             itemChecklistIncludingItem = (LinearLayout) v.findViewById(R.id.item_checklist_import_list_click_area);
 //            clickArea = (LinearLayout) v.findViewById(R.id.item_checklist_all_checkbox_click_area);

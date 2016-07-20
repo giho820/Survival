@@ -133,7 +133,6 @@ public class ArticleDetailCheckListImportAct extends ParentAct implements View.O
                     String updateQuery = "update " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST + " set " +
                             DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " = " + Definitions.CHECK_BOX_IMPORTED.IMPORTED + ", "
                             + DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.UNCHECKED + " where "
-//                            + DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.UNCHECKED + " and "
                             + DatabaseConstantUtil.COLUMN_ARTICLE_ID_CHECKED_LIST + "==" + currentArticle.articleId;
                     DebugUtil.showDebug("updateQuery :: " + updateQuery);
                     DatabaseCRUD.execRawQuery(updateQuery);

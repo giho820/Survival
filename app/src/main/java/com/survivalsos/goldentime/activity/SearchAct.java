@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,7 +12,7 @@ import com.ParentAct;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.adapter.SearchResultActImageAdapter;
 import com.survivalsos.goldentime.common.view.ExpandableHeightGridView;
-import com.survivalsos.goldentime.common.view.NanumGothicEditView;
+import com.survivalsos.goldentime.common.view.textview.NanumBarunGothicEditView;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.Article;
@@ -24,9 +25,8 @@ import java.util.ArrayList;
 public class SearchAct extends ParentAct implements View.OnClickListener, TextView.OnEditorActionListener {
 
 
-    NanumGothicEditView nanumGothicEditView;
+    NanumBarunGothicEditView nanumGothicEditView;
     LinearLayout linearLayoutBackBtn;
-    TextView tvSearchTest;
 
     private Article clickedArticle;
     ArrayList<Article> searchResult;
@@ -42,9 +42,8 @@ public class SearchAct extends ParentAct implements View.OnClickListener, TextVi
 
         linearLayoutBackBtn = (LinearLayout) findViewById(R.id.linearlayout_exit_search_act);
         linearLayoutBackBtn.setOnClickListener(this);
-        tvSearchTest = (TextView) findViewById(R.id.tv_search_test);
 
-        nanumGothicEditView = (NanumGothicEditView) findViewById(R.id.edittext_input_search);
+        nanumGothicEditView = (NanumBarunGothicEditView) findViewById(R.id.edittext_input_search);
         nanumGothicEditView.setOnEditorActionListener(this);
 
         gridViewKeywordSearch = (ExpandableHeightGridView) findViewById(R.id.gridViewKeywordSearch);
@@ -71,37 +70,48 @@ public class SearchAct extends ParentAct implements View.OnClickListener, TextVi
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (!TextUtil.isNull(v.getText().toString())) {
-            String inputText = v.getText().toString();
-            searchResult = DatabaseCRUD.getSearchList(inputText);
 
-            String result = "";
-            for (Article article : searchResult) {
-                result += article.articleId + ", " + article.title;
-            }
-            tvSearchTest.setText(searchResult.size() + "//" + result);
+        try{
+            if (actionId == EditorInfo.IME_ACTION_SEARCH){
 
-            if (searchResult != null && searchResult.size() >= 0) {
-                keywordSearchResultimageAdapter = new SearchResultActImageAdapter(SearchAct.this, searchResult);
-                DebugUtil.showDebug("keywordSearchResultimageAdapter : " + keywordSearchResultimageAdapter.getCount());
-                keywordSearchResultimageAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
-                    @Override
-                    public void onAdapterItemClick(View view, int position) {
-                        clickedArticle = keywordSearchResultimageAdapter.getItem(position);
+                hiddenKeyboard();
+
+                if (!TextUtil.isNull(v.getText().toString())) {
+                    String inputText = v.getText().toString();
+                    searchResult = DatabaseCRUD.getSearchList(inputText);
+
+                    String result = "";
+                    for (Article article : searchResult) {
+                        result += article.articleId + ", " + article.title;
+                    }
+
+                    if (searchResult != null && searchResult.size() > 0) {
+                        keywordSearchResultimageAdapter = new SearchResultActImageAdapter(SearchAct.this, searchResult);
+                        DebugUtil.showDebug("keywordSearchResultimageAdapter : " + keywordSearchResultimageAdapter.getCount());
+                        keywordSearchResultimageAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
+                            @Override
+                            public void onAdapterItemClick(View view, int position) {
+                                clickedArticle = keywordSearchResultimageAdapter.getItem(position);
 //                        switch (view.getId()){
 //                            case R.id.item_list_framelayout:
-                        //Todo 이미지 클릭해서 아티클 보여주는 부분
-                        DebugUtil.showDebug("item :: " + clickedArticle.articleId + "클릭 됨");
-                        Intent moveToArticleDetailAct = new Intent(SearchAct.this, ArticleDetailAct.class);
-                        moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", clickedArticle);
-                        MoveActUtil.moveActivity(SearchAct.this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, true, true);
+                                //Todo 이미지 클릭해서 아티클 보여주는 부분
+                                DebugUtil.showDebug("item :: " + clickedArticle.articleId + "클릭 됨");
+                                Intent moveToArticleDetailAct = new Intent(SearchAct.this, ArticleDetailAct.class);
+                                moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", clickedArticle);
+                                MoveActUtil.moveActivity(SearchAct.this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
 //                                break;
 //                        }
+                            }
+                        });
+                        gridViewKeywordSearch.setAdapter(keywordSearchResultimageAdapter);
                     }
-                });
-                gridViewKeywordSearch.setAdapter(keywordSearchResultimageAdapter);
+                }
             }
+        } catch (Exception e) {
+            e.getMessage();
+            e.getStackTrace();
         }
-        return false;
+
+        return false;//Todo 이 리턴 값은 어떤 걸 의미할까?
     }
 }

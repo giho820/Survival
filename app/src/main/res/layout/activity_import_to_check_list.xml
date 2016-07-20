@@ -25,7 +25,7 @@
                 android:background="@drawable/drawer_close_x" />
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -35,14 +35,14 @@
 
         <LinearLayout
             android:id="@+id/linearlayout_checklist_import_all"
-            android:layout_width="@dimen/dp_60"
+            android:layout_width="@dimen/dp_47"
             android:layout_height="match_parent"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="@dimen/dp_43.5"
+                android:layout_width="@dimen/dp_21.5"
                 android:layout_height="@dimen/dp_10"
-                android:background="@drawable/check_list_t_all"
+                android:background="@drawable/check_list_t_all_only_alpha"
                 android:layout_gravity="center"/>
         </LinearLayout>
     </LinearLayout>

@@ -27,7 +27,7 @@
                 android:background="@drawable/icon_back" />
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46.6"
-        android:background="@color/c_ff2E2E2E"
+        android:background="@color/c_ff2e2e2e"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -64,16 +64,19 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/imageView_check_list_active"
                     android:layout_width="@dimen/dp_43.5"
                     android:layout_height="@dimen/dp_10"
-                    android:background="@drawable/check_list_t_all"
+                    android:background="@drawable/check_list_t_all_00"
                     android:layout_gravity="center"/>
                 
                 <ImageView
+                    android:id="@+id/imageView_check_list_all"
                     android:layout_width="@dimen/dp_73"
                     android:layout_height="@dimen/dp_3.5"
                     android:layout_gravity="bottom"
-                    android:background="@drawable/check_list_underline_indicator"/>
+                    android:background="@drawable/check_list_underline_indicator"
+                    android:visibility="invisible"/>
             </FrameLayout>
 
         </LinearLayout>

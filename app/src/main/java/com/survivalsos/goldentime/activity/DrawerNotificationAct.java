@@ -3,6 +3,7 @@ package com.survivalsos.goldentime.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.survivalsos.goldentime.R;
-import com.survivalsos.goldentime.common.view.NanumGothicTextView;
+import com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView;
 import com.survivalsos.goldentime.util.DebugUtil;
 import com.survivalsos.goldentime.util.MoveActUtil;
 
@@ -22,10 +23,10 @@ public class DrawerNotificationAct extends AppCompatActivity implements View.OnC
     LinearLayout linearLayoutDrawerCopyright;
     LinearLayout linearLayoutDrawerContact;
 
-    NanumGothicTextView link1;
-    NanumGothicTextView link2;
-    NanumGothicTextView link3;
-    NanumGothicTextView link4;
+    NanumBarunGothicTextView link1;
+    NanumBarunGothicTextView link2;
+    NanumBarunGothicTextView link3;
+    NanumBarunGothicTextView link4;
 
     int whichInfo;
 
@@ -33,6 +34,10 @@ public class DrawerNotificationAct extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_notification);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.c_ff315056));
+        }
 
         linearLayoutDrawerCloseX = (LinearLayout) findViewById(R.id.linearlayout_close_x_drawer_notification);
         linearLayoutDrawerCloseX.setOnClickListener(this);
@@ -42,10 +47,10 @@ public class DrawerNotificationAct extends AppCompatActivity implements View.OnC
         linearLayoutDrawerCopyright = (LinearLayout) findViewById(R.id.linear_drawer_copyright_header);
         linearLayoutDrawerContact = (LinearLayout) findViewById(R.id.linear_drawer_contact_header);
 
-        link1 = (NanumGothicTextView) findViewById(R.id.link1);
-        link2 = (NanumGothicTextView) findViewById(R.id.link2);
-        link3 = (NanumGothicTextView) findViewById(R.id.link3);
-        link4 = (NanumGothicTextView) findViewById(R.id.link4);
+        link1 = (NanumBarunGothicTextView) findViewById(R.id.link1);
+        link2 = (NanumBarunGothicTextView) findViewById(R.id.link2);
+        link3 = (NanumBarunGothicTextView) findViewById(R.id.link3);
+        link4 = (NanumBarunGothicTextView) findViewById(R.id.link4);
 
         link1.setOnClickListener(this);
         link2.setOnClickListener(this);

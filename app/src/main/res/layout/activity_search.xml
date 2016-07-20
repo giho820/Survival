@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:background="@color/c_ff1c1c1c">
+        android:background="@color/c_ff315056">
 
         <LinearLayout
             android:id="@+id/linearlayout_exit_search_act"
@@ -24,7 +24,7 @@
                 android:background="@drawable/abc_ic_clear_mtrl_alpha" />
         </LinearLayout>
 
-        <com.survivalsos.goldentime.common.view.NanumGothicTextView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -33,7 +33,7 @@
             android:textColor="@color/c_ffffffff"
             android:textSize="@dimen/dp_17">
 
-        </com.survivalsos.goldentime.common.view.NanumGothicTextView>
+        </com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView>
 
         <LinearLayout
             android:layout_width="@dimen/dp_47"
@@ -46,16 +46,18 @@
         android:layout_height="@dimen/dp_50"
         android:layout_margin="@dimen/dp_10"
         android:background="@drawable/act_search_et_bg"
-        android:gravity="center">
+        android:gravity="center_vertical">
 
-        <com.survivalsos.goldentime.common.view.NanumGothicEditView
+        <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicEditView
             android:id="@+id/edittext_input_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:hint="검색"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/dp_10"
             android:singleLine="true"
             android:textColor="@color/c_ffffffff"
+            android:textColorHint="@color/c_ffffffff"
             android:background="@null"/>
     </LinearLayout>
 
@@ -67,13 +69,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_search_test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/c_ffffffff"
-                android:visibility="gone"/>
 
             <com.survivalsos.goldentime.common.view.ExpandableHeightGridView
                 android:id="@+id/gridViewKeywordSearch"

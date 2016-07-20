@@ -1,7 +1,9 @@
 package com.survivalsos.goldentime.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -79,10 +81,43 @@ public class MainFirstFrag extends ParentFrag{
             @Override
             public void onAdapterItemClick(View view, int position) {
                 DebugUtil.showDebug("mainImage :: " + mainImages.get(position).toString() + " 클릭 됨...");
-                //Todo (완료)Article로 이동하는 부분
-                Intent intent = new Intent(mContext, ArticleListAct.class);
-                intent.putExtra("mainImagesPosition", mainImages.get(position).mainImageCode);
-                MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
+                if(mainImages.get(position).doesLocked > 0) {
+                    android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(mContext).create();
+                    alertDialog.setTitle("알림");
+                    alertDialog.setMessage("구매하셔야 보실 수 있는 항목입니다. \n한 번의 구매로 모든 컨텐츠를 다운로드 받을 수 있습니다. ");
+                    alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE, "취소",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "구매",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+
+                                    Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
+//                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
+                                    intentDownLoad.setData(Uri.parse("market://details?id=" + guideAddedMainAct.getPackageName()));
+                                    if (this == null) {
+                                        DebugUtil.showDebug("parentAct is null");
+                                    } else {
+                                        DebugUtil.showDebug("parentAct is not null ");
+                                        MoveActUtil.moveActivity(guideAddedMainAct, intentDownLoad, -1, -1, false, false);
+                                    }
+
+                                }
+                            });
+
+                    alertDialog.show();
+                } else {
+                    //Todo (완료)Article로 이동하는 부분
+                    Intent intent = new Intent(mContext, ArticleListAct.class);
+                    intent.putExtra("mainImagesPosition", mainImages.get(position).mainImageCode);
+                    MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
+                }
+
             }
         });
         mainImageListRecyclerView.setAdapter(mainImageRecyclerAdapter);

@@ -1,7 +1,9 @@
 package com.survivalsos.goldentime.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +16,6 @@ import android.widget.LinearLayout;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
 import com.survivalsos.goldentime.activity.ArticleListAct;
-import com.survivalsos.goldentime.activity.CheckListAct;
 import com.survivalsos.goldentime.activity.GuideAddedMainAct;
 import com.survivalsos.goldentime.adapter.MainImageRecyclerAdapter;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
@@ -57,9 +58,9 @@ public class MainSecondFrag extends Fragment{
 
         //헤더 섹션부분이랑 구분해서 데이터를 만드는 부분
         mainImages = new ArrayList<>();
-        mainImages.add(0, new MainImageItemInfo());
+//        mainImages.add(0, new MainImageItemInfo());
         mainImages.addAll(DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.SURVIVAL_PRINCIPLE));
-        mainImages.add(mainImages.size(), new MainImageItemInfo());
+//        mainImages.add(mainImages.size(), new MainImageItemInfo());
         mainImages.addAll(DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.READY_FOR_EMERGENCY));
         DebugUtil.showDebug("mainImages size :: " + mainImages.size());
     }
@@ -79,13 +80,39 @@ public class MainSecondFrag extends Fragment{
         mainImageRecyclerAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(View view, int position) {
-                //체크리스트 항목인 경우에
-                if(mainImages.get(position).mainImageCode == 43){
-                    Intent intent = new Intent(mContext, CheckListAct.class);
-                    MoveActUtil.moveActivity(guideAddedMainAct, intent, -1, -1, false, false);
-
-                } else {
                     DebugUtil.showDebug("mainImage :: " + mainImages.get(position).toString() + " 클릭 됨...");
+
+                if(mainImages.get(position).doesLocked > 0) {
+                    android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(mContext).create();
+                    alertDialog.setTitle("알림");
+                    alertDialog.setMessage("구매하셔야 보실 수 있는 항목입니다. \n한 번의 구매로 모든 컨텐츠를 다운로드 받을 수 있습니다. ");
+                    alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE, "취소",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "구매",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+
+                                    Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
+//                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
+                                    intentDownLoad.setData(Uri.parse("market://details?id=" + guideAddedMainAct.getPackageName()));
+                                    if (this == null) {
+                                        DebugUtil.showDebug("parentAct is null");
+                                    } else {
+                                        DebugUtil.showDebug("parentAct is not null ");
+                                        MoveActUtil.moveActivity(guideAddedMainAct, intentDownLoad, -1, -1, false, false);
+                                    }
+
+                                }
+                            });
+
+                    alertDialog.show();
+                } else {
                     //Todo (완료)Article로 이동하는 부분
                     Intent intent = new Intent(mContext, ArticleListAct.class);
                     intent.putExtra("mainImagesPosition", mainImages.get(position).mainImageCode);

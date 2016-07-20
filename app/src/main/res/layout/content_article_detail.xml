@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/c_ffffffff"
     android:orientation="vertical"
     tools:context="com.survivalsos.goldentime.activity.ArticleDetailAct">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:background="@color/c_ff1c1c1c">
+        android:background="@color/c_ff1C1C1C">
 
         <LinearLayout
             android:id="@+id/linearlayout_open_drawer_article_detail"
@@ -68,52 +69,65 @@
             <WebView
                 android:id="@+id/webView_article_detail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_20.5" />
 
             <LinearLayout
                 android:id="@+id/speaker"
                 android:layout_width="@dimen/dp_45.5"
                 android:layout_height="@dimen/dp_45.5"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp_20"
                 android:background="@drawable/speaker11"
-                android:visibility="gone"
-                ></LinearLayout>
+                android:orientation="vertical"
+                android:visibility="gone"></LinearLayout>
 
             <LinearLayout
                 android:id="@+id/img_having_checklist"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_43.5"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
+                android:orientation="vertical"
                 android:visibility="gone">
 
                 <LinearLayout
-                    android:layout_width="@dimen/dp_48"
-                    android:layout_height="@dimen/dp_33.5"
-                    android:layout_marginLeft="@dimen/dp_24"
-                    android:gravity="center">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/c_ffE4E4E4"></LinearLayout>
 
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_20.5"
-                        android:background="@drawable/sub_icon_checkbox" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43.5"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_48"
+                        android:layout_height="@dimen/dp_33.5"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_24"
+                            android:layout_height="@dimen/dp_20.5"
+                            android:background="@drawable/sub_icon_checkbox" />
+                    </LinearLayout>
+
+                    <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:text="체크리스트에 담기"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="@dimen/dp_16"
+                        android:textStyle="bold" />
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_24"
-                    android:text="체크리스트에 담기"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="@dimen/dp_16"
-                    android:textStyle="bold" />
             </LinearLayout>
 
 
             <ListView
                 android:id="@+id/article_detail_listview"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_87"
+                android:layout_height="match_parent"
                 android:divider="#ffffff"
                 android:dividerHeight="0dp"></ListView>
 

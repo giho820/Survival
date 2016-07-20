@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.survivalsos.goldentime.Definitions;
 import com.survivalsos.goldentime.R;
-import com.survivalsos.goldentime.common.view.LatoBlackTextView;
+import com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView;
 import com.survivalsos.goldentime.database.DatabaseCRUD;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.MainImageItemInfo;
@@ -36,11 +36,11 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
     //헤더 영역
     public static class MainHeaderViewHolder extends RecyclerView.ViewHolder {
 
-        public LatoBlackTextView tvHeader;
+        public NanumBarunGothicTextView tvHeader;
 
         public MainHeaderViewHolder(View v) {
             super(v);
-            tvHeader = (LatoBlackTextView) v.findViewById(R.id.tv_main_header);
+            tvHeader = (NanumBarunGothicTextView) v.findViewById(R.id.tv_main_header);
         }
     }
 
@@ -49,7 +49,7 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
 
         private ImageView mainImg;
         private ImageView imgLocker;
-        private LatoBlackTextView label;
+        private NanumBarunGothicTextView label;
 
         private AdapterItemClickListener itemClickListener;
 
@@ -59,7 +59,7 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
             mainImg = (ImageView) v.findViewById(R.id.item_iv_main);
             mainImg.setOnClickListener(this);
             imgLocker = (ImageView) v.findViewById(R.id.item_iv_locked_image);
-            label = (LatoBlackTextView) v.findViewById(R.id.item_tv_image_title);
+            label = (NanumBarunGothicTextView) v.findViewById(R.id.item_tv_image_title);
 
         }
 
@@ -129,9 +129,10 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
                 ((MainImgViewHolder) holder).mainImg.setImageBitmap(null);
                 if (item.mainImageCode != null){
 //                    ((MainImgViewHolder) holder).mainImg.setImageDrawable(ImageUtil.loadDrawableFromAssets(context, "image/" + item.mainImageCode + ".png"));
-                    Picasso.with(context).load( "file:///android_asset/image/"  + item.mainImageCode + ".png").into(((MainImgViewHolder) holder).mainImg);
+                    Picasso.with(context).load( "file:///android_asset/image/"  + item.mainImageCode + ".jpg").into(((MainImgViewHolder) holder).mainImg);
                 }
 
+                //Todo 인앱결재 들어가는 부분
                 if (item.doesLocked != null) {
                     if (item.doesLocked > 0) {
                         ((MainImgViewHolder) holder).imgLocker.setVisibility(View.VISIBLE);
@@ -151,18 +152,18 @@ public class MainImageRecyclerAdapter extends RecyclerView.Adapter {
             //Todo 여기만 다른데 fragment만 구분해서하나의 어댑터로 처리하는 방법으로 해야할 것 같은데..
             if(argPage == 0) {
                 if (position == 0)
-                    ((MainHeaderViewHolder) holder).tvHeader.setText("자연 재해");
+                    ((MainHeaderViewHolder) holder).tvHeader.setText("자연재해");
 
                 int secondHeaderPos = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.NATURE_DISASTER).size() + 1;
                 if (position == secondHeaderPos)
                     ((MainHeaderViewHolder) holder).tvHeader.setText("사고 ・ 화재");
             } else {
-                if (position == 0)
-                    ((MainHeaderViewHolder) holder).tvHeader.setText("생존 원칙과 방법");
-
-                int secondHeaderPos = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.SURVIVAL_PRINCIPLE).size() + 1;
-                if (position == secondHeaderPos)
-                    ((MainHeaderViewHolder) holder).tvHeader.setText("응급상황 대비");
+//                if (position == 0)
+//                    ((MainHeaderViewHolder) holder).tvHeader.setText("생존 원칙과 방법");
+//
+//                int secondHeaderPos = DatabaseCRUD.getMainImageItemInfoFromAssetFolder(Definitions.SECTION_TYPE.SURVIVAL_PRINCIPLE).size() + 1;
+//                if (position == secondHeaderPos)
+//                    ((MainHeaderViewHolder) holder).tvHeader.setText("응급상황 대비");
             }
         }
 

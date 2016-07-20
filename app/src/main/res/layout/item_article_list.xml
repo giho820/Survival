@@ -4,41 +4,68 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/img_representing_article"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+    
+    <LinearLayout
+        android:id="@+id/linearlayout_img_artile_list_under_iv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_15"
+        android:visibility="gone"
+        android:orientation="vertical">
+    </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/item_article_list_click_area"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_46"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-        <com.survivalsos.goldentime.common.view.LatoBlackTextView
-            android:id="@+id/textview_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_36.5"
-            android:text="항목의 이름입니다"
-            android:textColor="@color/c_ff272727"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_46"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
+                android:id="@+id/textview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_25"
+                android:text="항목의 이름입니다"
+                android:textSize="@dimen/dp_17"
+                android:textColor="@color/c_ff272727"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/item_article_list_rightside_arrow"
+                android:layout_width="@dimen/dp_8"
+                android:layout_height="@dimen/dp_14"
+                android:layout_marginRight="@dimen/dp_33.5"
+                android:background="@drawable/item_show_detail" />
+
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/item_article_list_rightside_arrow"
-            android:layout_width="@dimen/dp_8"
-            android:layout_height="@dimen/dp_14"
-            android:layout_marginRight="@dimen/dp_33.5"
-            android:background="@drawable/item_show_detail" />
-
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginRight="@dimen/dp_25"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/item_underline"/>
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="@dimen/dp_334"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/item_underline"/>
+
 
 </LinearLayout>

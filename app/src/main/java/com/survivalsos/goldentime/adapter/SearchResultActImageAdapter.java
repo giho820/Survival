@@ -12,7 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.survivalsos.goldentime.R;
-import com.survivalsos.goldentime.common.view.NanumGothicBoldTextView;
+import com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView;
 import com.survivalsos.goldentime.listener.AdapterItemClickListener;
 import com.survivalsos.goldentime.model.Article;
 import com.survivalsos.goldentime.util.DebugUtil;
@@ -77,12 +77,12 @@ public class SearchResultActImageAdapter extends BaseAdapter {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             holder = new ViewHolder();
 
-            DebugUtil.showDebug("FolderFrag, getView(), converView == null");
+            DebugUtil.showDebug("SearchResultActImageAdapter, getView(), converView == null");
             convertView = inflater.inflate(R.layout.item_list_search_result, null);
             holder.image = (ImageView) convertView.findViewById(R.id.imageView_article_thumbnail);
             holder.image.setBackgroundColor(context.getResources().getColor(R.color.c_ff222222));
 
-            holder.articleName = (NanumGothicBoldTextView) convertView.findViewById(R.id.item_list_article_name);
+            holder.articleName = (NanumBarunGothicTextView) convertView.findViewById(R.id.item_list_article_name);
 
             int w = ImageUtil.getDeviceWidth(context);
             int widthBetweenImages = context.getResources().getDimensionPixelSize(R.dimen.dp_2);
@@ -153,7 +153,7 @@ public class SearchResultActImageAdapter extends BaseAdapter {
 
     class ViewHolder {
         ImageView image;
-        NanumGothicBoldTextView articleName;
+        NanumBarunGothicTextView articleName;
     }
 }
 

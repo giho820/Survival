@@ -1,10 +1,12 @@
 package com.survivalsos.goldentime.activity;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -53,8 +55,7 @@ public class GuideAddedMainAct extends ParentAct
         setContentView(R.layout.activity_guide);
 
 
-
-        try{
+        try {
             //Table 복사
             if (!DatabaseCRUD.checkTable(ChangeableDatabaseHelper.changeableDatabaseHelper, DatabaseHelper.sqLiteDatabase, DatabaseConstantUtil.TABLE_CHECK_LIST)) {
                 DebugUtil.showDebug("CheckedList Table was not exist");
@@ -67,7 +68,7 @@ public class GuideAddedMainAct extends ParentAct
                 DebugUtil.showDebug("insertQuery :: " + insertQuery);
                 DatabaseCRUD.execRawQuery(insertQuery);
 
-                DatabaseCRUD.selectCheckedListDBQuery(DatabaseConstantUtil.TABLE_USER_CHECKED_LIST);
+//                DatabaseCRUD.selectCheckedListDBQuery(DatabaseConstantUtil.TABLE_USER_CHECKED_LIST);
                 DebugUtil.showDebug("에셋에서 정상적으로 테이블 복사됨 ");
             } else {
                 DebugUtil.showDebug("테이블 테스트 ::" + DatabaseCRUD.getArticleInfo(11));
@@ -93,7 +94,7 @@ public class GuideAddedMainAct extends ParentAct
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
         navigationView.setOnClickListener(this);
 
         linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer);
@@ -117,6 +118,15 @@ public class GuideAddedMainAct extends ParentAct
         linearLayoutDrawerBookmark.setOnClickListener(this);
         linearLayoutDrawerReview.setOnClickListener(this);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GuideAddedMainAct.this, CheckListAct.class);
+                MoveActUtil.moveActivity(GuideAddedMainAct.this, intent, -1, -1, false, false);
+            }
+        });
+
         //페이져 어댑터
         mainFragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
 
@@ -125,19 +135,18 @@ public class GuideAddedMainAct extends ParentAct
         viewPager.setAdapter(mainFragmentPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
 
-
         final PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabStrip.setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3));
-        tabStrip.setIndicatorColor(getResources().getColor(R.color.c_fff92e14));
-        tabStrip.setTabSelectTextColor(getResources().getColor(R.color.c_fff92e14));
+        tabStrip.setIndicatorColor(getResources().getColor(R.color.c_ffff3d17));
+        tabStrip.setTabSelectTextColor(getResources().getColor(R.color.c_ffff3d17));
         tabStrip.setTextColorResource(R.color.text_color);
         tabStrip.setShouldExpand(true);
         tabStrip.setDividerColor(getResources().getColor(android.R.color.transparent));
-        if(Definitions.NanumBarunGothic != null) tabStrip.setTypeface(Definitions.NanumBarunGothic, Typeface.NORMAL);
+        if (Definitions.NanumBarunGothic != null)
+            tabStrip.setTypeface(Definitions.NanumBarunGothic, Typeface.NORMAL);
         tabStrip.setViewPager(viewPager);
 
     }
-
 
 
     @Override
@@ -160,7 +169,7 @@ public class GuideAddedMainAct extends ParentAct
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.linearlayout_open_drawer:
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.openDrawer(GravityCompat.START);
@@ -190,15 +199,36 @@ public class GuideAddedMainAct extends ParentAct
                 break;
 
             case R.id.linearlayout_drawer_download:
-                Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
+                android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(this).create();
+                alertDialog.setTitle("알림");
+                alertDialog.setMessage("한번의 구매로 모든 컨텐츠를 다운로드 받을 수 있습니다.");
+                alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE, "취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "구매",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                                Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
 //                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
-                intentDownLoad.setData(Uri.parse("market://details?id=" + this.getPackageName()));
-                if (this == null) {
-                    DebugUtil.showDebug("parentAct is null");
-                } else {
-                    DebugUtil.showDebug("parentAct is not null ");
-                    MoveActUtil.moveActivity(this, intentDownLoad, -1, -1, false, false);
-                }
+                                intentDownLoad.setData(Uri.parse("market://details?id=" + GuideAddedMainAct.this.getPackageName()));
+                                if (this == null) {
+                                    DebugUtil.showDebug("parentAct is null");
+                                } else {
+                                    DebugUtil.showDebug("parentAct is not null ");
+                                    MoveActUtil.moveActivity(GuideAddedMainAct.this, intentDownLoad, -1, -1, false, false);
+                                }
+
+                            }
+                        });
+
+                alertDialog.show();
+
                 break;
 
             case R.id.linearlayout_drawer_bookmark:

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.ParentAct;
@@ -31,11 +32,14 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
     LinearLayout linearLayoutCheckListImport;
     LinearLayout linearLayoutCheckListAdd;
 
+    private ImageView ivCheckListAllActive;
+    private ImageView ivCheckListAll;
+
     private RecyclerView checkListRecyclerView;
     private CheckListAllRecyclerAdapter categoryAllRecyclerAdapter;
     private ArrayList<CheckList> checkLists;
 
-    private boolean isAll = true;
+    public static boolean isAll = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,8 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
         linearLayoutCheckListImport.setOnClickListener(this);
         linearLayoutCheckListAdd.setOnClickListener(this);
 
+        ivCheckListAllActive = (ImageView) findViewById(R.id.imageView_check_list_active);
+        ivCheckListAll = (ImageView) findViewById(R.id.imageView_check_list_all);
 
         checkListRecyclerView = (RecyclerView) findViewById(R.id.checklist_all_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -123,8 +129,26 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                     categoryAllRecyclerAdapter.notifyDataSetChanged();
                     DebugUtil.showDebug("categoryAllRecyclerAdapter.setAdapterArrayList() 진행 함 :: " + categoryAllRecyclerAdapter.getItemCount());
                 }
+
+                if ( (checkLists.size() == DatabaseCRUD.getUserCheckedAndImportListFromDb().size())) {
+                    if(DatabaseCRUD.getUserCheckedAndImportListFromDb().size() == 0) {
+                        ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_00);
+                        ivCheckListAll.setVisibility(View.INVISIBLE);
+                        isAll = false;
+                    } else {
+                        ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_01);
+                        ivCheckListAll.setVisibility(View.VISIBLE);
+                        isAll = true;
+                    }
+                } else {
+                    ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_00);
+                    ivCheckListAll.setVisibility(View.INVISIBLE);
+                    isAll = false;
+                }
+
             }
         });
+
 
         checkListRecyclerView.setAdapter(categoryAllRecyclerAdapter);
 
@@ -136,6 +160,26 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
             categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
             categoryAllRecyclerAdapter.notifyDataSetChanged();
             DebugUtil.showDebug("categoryAllRecyclerAdapter.setAdapterArrayList() 진행 함 :: " + categoryAllRecyclerAdapter.getItemCount());
+        }
+
+        //Todo 체크 리스트의 all 부분이 상태에 따라서 반영되도록 하는 부분
+        DebugUtil.showDebug("all :: checkLists.size() :: " + checkLists.size());
+        DebugUtil.showDebug("all :: DatabaseCRUD.getUserCheckedAndImportListFromDb().size() :: " + DatabaseCRUD.getUserCheckedAndImportListFromDb().size());
+
+        if ( (checkLists.size() == DatabaseCRUD.getUserCheckedAndImportListFromDb().size())) {
+            if(DatabaseCRUD.getUserCheckedAndImportListFromDb().size() == 0) {
+                ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_00);
+                ivCheckListAll.setVisibility(View.INVISIBLE);
+                isAll = false;
+            } else {
+                ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_01);
+                ivCheckListAll.setVisibility(View.VISIBLE);
+                isAll = true;
+            }
+        } else {
+            ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_00);
+            ivCheckListAll.setVisibility(View.INVISIBLE);
+            isAll = false;
         }
     }
 
@@ -177,21 +221,30 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                 if (DatabaseCRUD.getUserCheckedListFromDb().size() == DatabaseCRUD.getUserCheckedAndImportListFromDb().size() &&
                         DatabaseCRUD.getUserCheckedAndImportListFromDb().size() != 0) {
                     isAll = true;//import된 모든 항목에 대해서 체크는 안되도록 하고, import 되도록 조치한다
-                } else if (DatabaseCRUD.getUserCheckedListFromDb().size() > DatabaseCRUD.getUserCheckedAndImportListFromDb().size() ||
-                        DatabaseCRUD.getUserCheckedAndImportListFromDb().size() == 0) {//0이거나 import된 것이 체크된 컬럼의 개수보다 많으면
+                } else if (DatabaseCRUD.getUserCheckedListFromDb().size() > DatabaseCRUD.getUserCheckedAndImportListFromDb().size()
+//                        || DatabaseCRUD.getUserCheckedAndImportListFromDb().size() == 0
+                        ) {//0이거나 import된 것이 체크된 컬럼의 개수보다 많으면
                     isAll = false;
                 } else {
                     isAll = !isAll;
                 }
 
+
+
                 DebugUtil.showDebug("isAll ::" + isAll);
                 if (isAll) {
+                    ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_00);
+                    ivCheckListAll.setVisibility(View.INVISIBLE);
+
                     String updateQuery = "update " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST + " set " +
                             DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.UNCHECKED
                             + " where " + DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " = " + Definitions.CHECK_BOX_IMPORTED.IMPORTED;
                     DebugUtil.showDebug("updateQuery :: " + updateQuery);
                     DatabaseCRUD.execRawQuery(updateQuery);
                 } else {
+                    ivCheckListAllActive.setImageResource(R.drawable.check_list_t_all_01);
+                    ivCheckListAll.setVisibility(View.VISIBLE);
+
                     String updateQuery = "update " + DatabaseConstantUtil.TABLE_USER_CHECKED_LIST + " set " +
                             DatabaseConstantUtil.COLUMN_IS_CHECKED + " = " + Definitions.CHECK_BOX_CHECKED.CHECKED
                             + " where " + DatabaseConstantUtil.COLUMN_IS_IN_MY_LIST_CHECKED_LIST + " = " + Definitions.CHECK_BOX_IMPORTED.IMPORTED;
@@ -216,8 +269,6 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                 Intent moveToAddCheckListActIntent = new Intent(this, AddCheckListAct.class);
                 startActivityForResult(moveToAddCheckListActIntent, ADD_ACT);
 //                MoveActUtil.moveActivity(this, moveToAddCheckListActIntent, -1, -1, false, false);
-
-
                 break;
 
         }
@@ -244,13 +295,24 @@ public class CheckListAct extends ParentAct implements View.OnClickListener {
                 String input = data.getExtras().getString("userInputString");
 
                 if (!TextUtil.isNull(input)) {
-                    String insertQuery = DatabaseCRUD.getInsertNewCheckListToUserCheckListTable(input);
-                    DebugUtil.showDebug("insertQuery  ::" + insertQuery);
-                    DatabaseCRUD.execRawQuery(insertQuery);
 
-                    checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
-                    categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
-                    categoryAllRecyclerAdapter.notifyDataSetChanged();
+                    //Todo User checklist에서 이미 있는 경우
+                    if(DatabaseCRUD.doesDuplicatedInCheckListTable(input)) {
+                        DebugUtil.showToast(this, input + " : 중복된 아이템입니다");
+
+                    } else{
+                        DebugUtil.showDebug( input + " 중복되지 않았습니다");
+                        String insertQuery = DatabaseCRUD.getInsertNewCheckListToUserCheckListTable(input);
+                        DebugUtil.showDebug("insertQuery  ::" + insertQuery);
+                        DatabaseCRUD.execRawQuery(insertQuery);
+
+                        checkLists = DatabaseCRUD.getUserCheckedListFromDb(); //Todo 디비 refresh하는 부분
+                        categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
+                        categoryAllRecyclerAdapter.notifyDataSetChanged();
+
+                    }
+
+
                 }
             }
         }

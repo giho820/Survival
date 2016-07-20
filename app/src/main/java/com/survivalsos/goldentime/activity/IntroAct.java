@@ -28,6 +28,7 @@ public class IntroAct extends ParentAct {
 
         //여기서 디비를 asset에서 가져오도록 한다
         changeableDatabaseHelper = ChangeableDatabaseHelper.getInstacnce(this);
+        //Todo onUpgrade에서 진행한다
         copyDatabase(ChangeableDatabaseHelper.changeableSqLiteDatabase);
 
         databaseHelper = DatabaseHelper.getInstacnce(this);
@@ -54,6 +55,11 @@ public class IntroAct extends ParentAct {
             }
         } else {
             DebugUtil.showDebug("CHECK_LIST table is existed");
+            try {
+                DatabaseUtil.copyDataBase(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

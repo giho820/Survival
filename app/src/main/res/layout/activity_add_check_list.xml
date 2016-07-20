@@ -31,7 +31,7 @@
                     android:background="@drawable/drawer_close_x" />
             </LinearLayout>
 
-            <com.survivalsos.goldentime.common.view.NanumGothicBoldTextView
+            <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicTextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -72,12 +72,13 @@
             android:layout_height="@dimen/dp_50"
             android:layout_margin="@dimen/dp_20"
             android:background="@drawable/act_add_checklist_et_bg"
-            android:gravity="center">
+            android:gravity="center_vertical">
 
-            <com.survivalsos.goldentime.common.view.NanumGothicEditView
+            <com.survivalsos.goldentime.common.view.textview.NanumBarunGothicEditView
                 android:id="@+id/edittext_input_search"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_10"
                 android:hint=""
                 android:imeOptions="actionDone"
                 android:maxLines="1"

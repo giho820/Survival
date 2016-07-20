@@ -1,6 +1,7 @@
 package com.survivalsos.goldentime.activity;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
@@ -8,6 +9,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -150,7 +152,9 @@ public class ArticleDetailAct extends ParentAct
         }
         additionalArticleListAdapter.setAdapterArrayList(additionalArticles);
         listViewContainingAdditionalArticle.setAdapter(additionalArticleListAdapter);
-        setListViewHeightBasedOnChildren(listViewContainingAdditionalArticle);
+
+        ParentAct.setListViewHeightBasedOnChildren(listViewContainingAdditionalArticle);
+
 
         linearLayoutBookmarkInArticleDetailAct.setOnClickListener(this);
         linearLayoutSearchInArticleDetailAct.setOnClickListener(this);
@@ -189,6 +193,15 @@ public class ArticleDetailAct extends ParentAct
         linearLayoutDrawerBookmark.setOnClickListener(this);
         linearLayoutDrawerReview.setOnClickListener(this);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ArticleDetailAct.this, CheckListAct.class);
+                MoveActUtil.moveActivity(ArticleDetailAct.this, intent, -1, -1, false, false);
+            }
+        });
+
         //custom toolbar 영역
         linearLayoutOpenDrawer = (LinearLayout) findViewById(R.id.linearlayout_open_drawer_article_detail);
         linearLayoutOpenDrawer.setOnClickListener(this);
@@ -200,6 +213,7 @@ public class ArticleDetailAct extends ParentAct
         scrollViewArticleDetail = (ScrollView) findViewById(R.id.scrollViewArticleDetail);
         wv = (WebView) findViewById(R.id.webView_article_detail);
         listViewContainingAdditionalArticle = (ListView) findViewById(R.id.article_detail_listview);
+
         linearLayoutIconHome = (LinearLayout) findViewById(R.id.linearlayout_icon_home);
         linearLayoutIconBack = (LinearLayout) findViewById(R.id.linearlayout_icon_back);
         linearLayoutIconGuide = (LinearLayout) findViewById(R.id.linearlayout_icon_list);
@@ -231,9 +245,56 @@ public class ArticleDetailAct extends ParentAct
         additionalArticle = additionalArticleListAdapter.getItem(position);
         switch (view.getId()) {
             case R.id.item_additional_click_section:
-                Intent moveToArticleDetailAct = new Intent(this, ArticleDetailAct.class);
-                moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", additionalArticle);
-                MoveActUtil.moveActivity(this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
+
+                if (DatabaseCRUD.checkRelatedArticleAvailable(Integer.parseInt(additionalArticle.articleId.toString().substring(0, 2))) == 1) {
+
+                    /*
+                    if( 인앱 결제가 통과 되었으면) {
+                            Intent moveToArticleDetailAct = new Intent(this, ArticleDetailAct.class);
+                           moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", additionalArticle);
+                           MoveActUtil.moveActivity(this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
+                    } else {
+
+                    다이얼로그 부분 여기로 옮길 것
+                    }
+                    */
+
+                    //Todo 인앱 결제 인증 들어갈 부분!!! 잠금항목이 아닌 경우에만 통과되도록 한다 . 만일 구매를 안했다면
+                    android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(this).create();
+                    alertDialog.setTitle("알림");
+                    alertDialog.setMessage("구매하셔야 보실 수 있는 항목입니다. \n한 번의 구매로 모든 컨텐츠를 다운로드 받을 수 있습니다. ");
+                    alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE, "취소",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "구매",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+
+                                    Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
+                                    intentDownLoad.setData(Uri.parse("market://details?id=" + getPackageName()));
+                                    if (this == null) {
+                                        DebugUtil.showDebug("parentAct is null");
+                                    } else {
+                                        DebugUtil.showDebug("parentAct is not null ");
+                                        MoveActUtil.moveActivity(ArticleDetailAct.this, intentDownLoad, -1, -1, false, false);
+                                    }
+                                }
+                            });
+
+                    alertDialog.show();
+
+                } else {
+                    Intent moveToArticleDetailAct = new Intent(this, ArticleDetailAct.class);
+                    moveToArticleDetailAct.putExtra("articleId ArticleListAct To DetailAct", additionalArticle);
+                    MoveActUtil.moveActivity(this, moveToArticleDetailAct, R.anim.right_in, R.anim.right_out, false, true);
+                }
+
+
                 break;
 
         }
@@ -272,15 +333,36 @@ public class ArticleDetailAct extends ParentAct
                 break;
 
             case R.id.linearlayout_drawer_download:
-                Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
-                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
-//                intentDownLoad.setData(Uri.parse("market://details?id=" + this.getPackageName()));
-                if (this == null) {
-                    DebugUtil.showDebug("parentAct is null");
-                } else {
-                    DebugUtil.showDebug("parentAct is not null ");
-                    MoveActUtil.moveActivity(this, intentDownLoad, -1, -1, false, false);
-                }
+                android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(this).create();
+                alertDialog.setTitle("알림");
+                alertDialog.setMessage("한번의 구매로 모든 컨텐츠를 다운로드 받을 수 있습니다.");
+                alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE, "취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "구매",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                                Intent intentDownLoad = new Intent(Intent.ACTION_VIEW);
+//                intentDownLoad.setData(Uri.parse("market://details?id=" + "com.google.android.tts"));
+                                intentDownLoad.setData(Uri.parse("market://details?id=" + ArticleDetailAct.this.getPackageName()));
+                                if (this == null) {
+                                    DebugUtil.showDebug("parentAct is null");
+                                } else {
+                                    DebugUtil.showDebug("parentAct is not null ");
+                                    MoveActUtil.moveActivity(ArticleDetailAct.this, intentDownLoad, -1, -1, false, false);
+                                }
+
+                            }
+                        });
+
+                alertDialog.show();
+
                 break;
 
             case R.id.linearlayout_drawer_bookmark:
@@ -289,8 +371,8 @@ public class ArticleDetailAct extends ParentAct
                 break;
 
             case R.id.linearlayout_drawer_review:
-                Uri uri = Uri.parse("market://details?id=" + "com.google.android.tts");
-//                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+//                Uri uri = Uri.parse("market://details?id=" + "com.google.android.tts");
+                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Play market backstack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.
@@ -359,14 +441,13 @@ public class ArticleDetailAct extends ParentAct
                 //Todo ArticleDetailAct -> 스피커 재생시 반복해서 눌렀을 때 눌리지 않도록 재생이 완료될 때에 눌릴 수 있도록 할 것
 
 
-
-                if(canPlay){
+                if (canPlay) {
                     canPlay = false;
 
                     mPlayer = new MediaPlayer();
 
                     mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    linearLayoutSpeaker.setBackground(getResources().getDrawable(R.drawable.speaker12));
+                    linearLayoutSpeaker.setBackgroundResource(R.drawable.speaker12);
 
                     try {
                         AssetFileDescriptor afd = this.getAssets().openFd("SOS_morse_code.mp3");
@@ -378,7 +459,7 @@ public class ArticleDetailAct extends ParentAct
                                 new Handler().post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        linearLayoutSpeaker.setBackground(getResources().getDrawable(R.drawable.speaker11));
+                                        linearLayoutSpeaker.setBackgroundResource(R.drawable.speaker11);
                                         canPlay = true;
                                     }
                                 });
@@ -401,6 +482,7 @@ public class ArticleDetailAct extends ParentAct
 
             case R.id.img_having_checklist:
                 DebugUtil.showDebug("ArticleDetailAct -> 체크리스트 import 화면 ");
+                DebugUtil.showDebug("currentArticle.size :: " + currentArticle.articleId);
                 Intent moveToArticleDetailCheckListImportAct = new Intent(this, ArticleDetailCheckListImportAct.class);
                 moveToArticleDetailCheckListImportAct.putExtra("article Infos", currentArticle);
                 MoveActUtil.moveActivity(this, moveToArticleDetailCheckListImportAct, -1, -1, false, false);

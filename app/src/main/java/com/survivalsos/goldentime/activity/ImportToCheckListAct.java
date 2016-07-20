@@ -97,14 +97,14 @@ public class ImportToCheckListAct extends ParentAct implements View.OnClickListe
 
                         break;
                 }
-                checkLists = DatabaseCRUD.getImportCheckedListFromDb(); //Todo 디비 refresh하는 부분
+                checkLists = DatabaseCRUD.getImportCheckedListFromDbIncludingUserAdded(); //Todo 디비 refresh하는 부분
                 categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
                 categoryAllRecyclerAdapter.notifyDataSetChanged();
             }
         });
 
         checkListRecyclerView.setAdapter(categoryAllRecyclerAdapter);
-        checkLists = DatabaseCRUD.getImportCheckedListFromDb(); //Todo 디비 refresh하는 부분
+        checkLists = DatabaseCRUD.getImportCheckedListFromDbIncludingUserAdded(); //Todo 디비 refresh하는 부분
 
         if (checkLists != null) {
             categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
@@ -117,9 +117,6 @@ public class ImportToCheckListAct extends ParentAct implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.linearlayout_check_list_import_back:
-                Intent intent = new Intent(this, CheckList.class);
-                intent.putExtra("sizeOfCheckList", checkLists.size());
-                this.setResult(RESULT_OK, intent);
                 onBackPressed();
                 break;
 
@@ -146,11 +143,19 @@ public class ImportToCheckListAct extends ParentAct implements View.OnClickListe
                     DebugUtil.showDebug("updateQuery :: " + updateQuery);
                     DatabaseCRUD.execRawQuery(updateQuery);
                 }
-                checkLists = DatabaseCRUD.getImportCheckedListFromDb(); //Todo 디비 refresh하는 부분
+                checkLists = DatabaseCRUD.getImportCheckedListFromDbIncludingUserAdded(); //Todo 디비 refresh하는 부분
                 categoryAllRecyclerAdapter.setAdapterArrayList(checkLists);
                 categoryAllRecyclerAdapter.notifyDataSetChanged();
 
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, CheckList.class);
+        intent.putExtra("sizeOfCheckList", checkLists.size());
+        this.setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 }
